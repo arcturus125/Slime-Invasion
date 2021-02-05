@@ -12,8 +12,9 @@ namespace HordeSurvivalGame
         public List<Tile> OpenTiles = new List<Tile>();
         public List<Tile> closedTiles = new List<Tile>();
 
-        public static int count = 0;
+        int count = 0;
 
+        // starts the recursive function
         public void RunPathfinding(Transform thisObject, Transform targetObject)
         {
             Tile startTile =  Tile.Vector3ToTile(thisObject.position);
@@ -31,7 +32,7 @@ namespace HordeSurvivalGame
 
             if (CurrentTile == destinationTile)
             {
-                // win
+                // path found
                 DrawPath(CurrentTile, startTile);
             }
             else
@@ -40,21 +41,22 @@ namespace HordeSurvivalGame
 
 
                 // ###
-                // for each neighbour
+                // for each neighbour of the current tile
                 // ###
                 for (int xOffset = -1; xOffset <= 1; xOffset++){
                 for (int yOffset = -1; yOffset <= 1; yOffset++)
                 {
-                    if (!(xOffset == 0 && yOffset == 0)) // dont check the tile you are already on
+                    if (!(xOffset == 0 && yOffset == 0)) // dont pathfind the tile you are already on
                     {
                         Tile neighbour = Tile.tileMap[CurrentTile.x + xOffset, CurrentTile.y + yOffset];
-                        if (!closedTiles.Contains(neighbour))// dont check a closed tile
+                        if (!closedTiles.Contains(neighbour))// dont pathfind a closed tile
                         {
+                            // if ther are errors here. move this if statement to encapsulate the definition of "neighnour"
                             if (Tile.IsOnMap(CurrentTile.x + xOffset, CurrentTile.y + yOffset)) // check if tile is on the map (within bounds of array)
                             {
-                                if (neighbour.isWalkable)//  dont check tiles that aren't walkable
+                                if (neighbour.isWalkable)//  dont pathfind over tiles that aren't walkable
                                 {
-                                    // only update the f cost if it is less than  it was before
+                                    // only update the f cost if it is less than it was before
                                     if ((neighbour.CheckFCost(startTile, destinationTile) < neighbour.fCost) || !OpenTiles.Contains(neighbour))
                                     {
                                         neighbour.UpdateValues(startTile, destinationTile, Tile.tileMap[CurrentTile.x, CurrentTile.y]);
@@ -65,15 +67,14 @@ namespace HordeSurvivalGame
                         }
                     }
                 }
-            }
+                }
 
-                // search through all open tiles and find the best one
+                // search through all open tiles for the one with the lowest fCost
 
                 Tile bestTile = new Tile();
                 float bestFCost = 99999.0f;
                 foreach (Tile t in OpenTiles)
                 {
-                    //Debug.Log("searching: "+t.fCost);
                     if (t.fCost < bestFCost)
                     {
                         bestTile = t;
@@ -81,10 +82,12 @@ namespace HordeSurvivalGame
                     }
                 }
 
-                // run this function on the best open tile
+
+                // this if statement is to stop infinite loops. this recursive funtion will call itself 10000 times before it fails
                 if (count < 10000)
                 {
                     count++;
+                    // run this function on the open tile with the lowest fCost
                     SearchAdjacentTiles(startTile, destinationTile, bestTile);
                 }
                 else
@@ -93,6 +96,8 @@ namespace HordeSurvivalGame
                 }
             }
         }
+
+        // using the linked list of Tiles (parent tiles) trace back the path to the start
         private void DrawPath(Tile current, Tile end)
         {
             if (current != end)
@@ -103,6 +108,7 @@ namespace HordeSurvivalGame
                 DrawPath(current.parentTile, end);
             }
         }
+
         private void CloseTile(Tile t)
         {
             Material mat = new Material(Shader.Find("Specular"));
