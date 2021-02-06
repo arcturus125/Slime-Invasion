@@ -4,18 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Pathfinder.tiles;
 
-namespace HordeSurvivalGame
+namespace Pathfinder
 {
     class Pathfinding
     {
-        public List<Tile> OpenTiles = new List<Tile>();
-        public List<Tile> closedTiles = new List<Tile>();
+        // TODO: find different modifier to make only accessible in the same namespace
+        internal List<Tile> OpenTiles = new List<Tile>(); // tiles you have yet to check 
+        internal List<Tile> closedTiles = new List<Tile>(); // tiles that haev already been checked
 
-        int count = 0;
+        private List<Vector3> path = new List<Vector3>();
 
-        // starts the recursive function
-        public void RunPathfinding(Transform thisObject, Transform targetObject)
+        private int count = 0;
+
+        /// <summary>
+        /// this function will use A* pathfinding to find an optimal path
+        /// it will return a list of Vector3 to be used as waypoints
+        /// </summary>
+        /// <param name="thisObject"> the transform you want to pathfind from</param>
+        /// <param name="targetObject"> the transform you want to pathfind to</param>
+        public List<Vector3> FindPath(Transform thisObject, Transform targetObject)
         {
             Tile startTile =  Tile.Vector3ToTile(thisObject.position);
             Tile destinationTile = Tile.Vector3ToTile(targetObject.position);
@@ -23,16 +32,18 @@ namespace HordeSurvivalGame
 
             SearchAdjacentTiles(startTile, destinationTile, startTile);
 
+            path.Reverse();
+            return path;
         }
 
 
         private void SearchAdjacentTiles(Tile startTile, Tile destinationTile, Tile CurrentTile)
         {
-            Debug.Log("Calculating best adjacent tile from :" + CurrentTile.x + "," + CurrentTile.y);
+            //Debug.Log("Calculating best adjacent tile from :" + CurrentTile.x + "," + CurrentTile.y);
 
+            // if a path is found
             if (CurrentTile == destinationTile)
             {
-                // path found
                 DrawPath(CurrentTile, startTile);
             }
             else
@@ -40,9 +51,8 @@ namespace HordeSurvivalGame
                 CloseTile(CurrentTile);
 
 
-                // ###
+                
                 // for each neighbour of the current tile
-                // ###
                 for (int xOffset = -1; xOffset <= 1; xOffset++){
                 for (int yOffset = -1; yOffset <= 1; yOffset++)
                 {
@@ -73,18 +83,26 @@ namespace HordeSurvivalGame
 
                 Tile bestTile = new Tile();
                 float bestFCost = 99999.0f;
-                foreach (Tile t in OpenTiles)
+                if(OpenTiles.Count > 0)
                 {
-                    if (t.fCost < bestFCost)
+                    foreach (Tile t in OpenTiles)
                     {
-                        bestTile = t;
-                        bestFCost = t.fCost;
+                        if (t.fCost < bestFCost)
+                        {
+                            bestTile = t;
+                            bestFCost = t.fCost;
+                        }
                     }
                 }
+                // if there are no open tiles left, the pathfinding cannot find a path
+                else
+                {
+                    Debug.LogError("Pathfinder: no path is possible");
+                    return;
+                }
 
-
-                // this if statement is to stop infinite loops. this recursive funtion will call itself 10000 times before it fails
-                if (count < 10000)
+                // this if statement is to stop infinite loops. this recursive funtion will call itself 1000 times before it fails; this stops unity crashing
+                if (count < 500)
                 {
                     count++;
                     // run this function on the open tile with the lowest fCost
@@ -92,7 +110,7 @@ namespace HordeSurvivalGame
                 }
                 else
                 {
-                    Debug.LogError("Pathfinding failed");
+                    Debug.LogError("Pathfinder: failed");
                 }
             }
         }
@@ -102,8 +120,11 @@ namespace HordeSurvivalGame
         {
             if (current != end)
             {
-                Material mat = new Material(Shader.Find("Specular"));
-                mat.color = Color.cyan;
+                path.Add( Tile.TileToVector3(current));
+                Material mat = new Material(Shader.Find("Specular"))
+                {
+                    color = Color.cyan
+                };
                 current.tileObject.GetComponent<MeshRenderer>().material = mat;
                 DrawPath(current.parentTile, end);
             }
@@ -111,8 +132,10 @@ namespace HordeSurvivalGame
 
         private void CloseTile(Tile t)
         {
-            Material mat = new Material(Shader.Find("Specular"));
-            mat.color = Color.red;
+            Material mat = new Material(Shader.Find("Specular"))
+            {
+                color = Color.red
+            };
 
             OpenTiles.Remove(t);
             closedTiles.Add(t);
@@ -121,8 +144,10 @@ namespace HordeSurvivalGame
         }
         private void OpenTile(Tile t)
         {
-            Material mat = new Material(Shader.Find("Specular"));
-            mat.color = Color.green;
+            Material mat = new Material(Shader.Find("Specular"))
+            {
+                color = Color.green
+            };
             OpenTiles.Add(t);
             t.tileObject.GetComponent<MeshRenderer>().material = mat;
         }

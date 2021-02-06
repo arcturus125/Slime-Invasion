@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace HordeSurvivalGame
+namespace Pathfinder.tiles
 {
     class Tile
     {
         // static settings
-        public static Tile[,] tileMap = new Tile[50,50];
-        const float WidthOfTile = 1.0f;
+        public static int MapSize = 50;
+        public static Tile[,] tileMap = new Tile[MapSize, MapSize];
 
 
         //     ###############  each tile has a G H and F Cost
@@ -76,8 +76,10 @@ namespace HordeSurvivalGame
         // used to make tiles that can not be used for pathfinding
         public void MakeNonNavicable()
         {
-            Material mat = new Material(Shader.Find("Specular"));
-            mat.color = Color.black;
+            Material mat = new Material(Shader.Find("Specular"))
+            {
+                color = Color.black
+            };
             tileObject.GetComponent<MeshRenderer>().material = mat;
             isWalkable = false;
         }
@@ -86,6 +88,10 @@ namespace HordeSurvivalGame
         public static Tile Vector3ToTile(Vector3 vector)
         {
             return tileMap[(int)vector.x, (int)vector.z];
+        }
+        public static Vector3 TileToVector3(Tile t)
+        {
+            return new Vector3(t.x + 0.0f, 0, t.y+ 0.0f);
         }
         // checks any indexers before they create out of bounds errors
         public static bool IsOnMap(int x, int y)
