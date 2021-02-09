@@ -8,7 +8,7 @@ namespace HordeSurvivalGame
     {
         public static Transform playerTransform;
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             playerTransform = this.transform;
         }

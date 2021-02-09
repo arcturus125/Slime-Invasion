@@ -16,12 +16,12 @@ namespace HordeSurvivalGame
         Pathfinding p;
         public List<Vector3> path;
         int i = 0;
-        bool stopPathfinding = false;
+        bool FindPathToPlayer = false;
 
         // Start is called before the first frame update
         void Start()
         {
-            AStarPathfind();
+            
 
         }
 
@@ -34,7 +34,7 @@ namespace HordeSurvivalGame
         // Update is called once per frame
         void Update()
         {
-            if (!stopPathfinding)
+            if (FindPathToPlayer)
             {
                 //transform.localPosition += Vector3.forward * Time.deltaTime * speedMultiplier;
                 transform.position = Vector3.MoveTowards(transform.position,path[i], speedMultiplier);
@@ -50,9 +50,15 @@ namespace HordeSurvivalGame
                     else
                     {
                         i = 0;
-                        AStarPathfind();
+                        //AStarPathfind();
                     }
                 }
+            }
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                AStarPathfind();
+                FindPathToPlayer = true;
+
             }
         }
     } 
