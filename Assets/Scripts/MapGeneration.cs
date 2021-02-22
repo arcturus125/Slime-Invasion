@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinder.tiles;
 
 namespace HordeSurvivalGame
 {
@@ -10,17 +11,15 @@ namespace HordeSurvivalGame
         public GameObject map;
         public GameObject Enemy;
         public GameObject Player;
-        private int length = 49;
-        private int height = 49;
 
 
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
-            for (int x = 1; x <= length; x++)
+            for (int x = 1; x < Tile.MapSize; x++)
             {
-                for (int y = 1; y <= height; y++)
+                for (int y = 1; y < Tile.MapSize; y++)
                 {
                     GameObject tileObject = Instantiate(prefab, new Vector3(x, 0,y), Quaternion.identity, map.transform);
                     Tile.tileMap[x, y] = new Tile(x,y, tileObject);
@@ -28,19 +27,5 @@ namespace HordeSurvivalGame
             }
 
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Pathfinding p = new Pathfinding();
-                p.RunPathfinding(Enemy.transform, Player.transform);
-            }
-        }
     }
-}
-class tile
-{
-
 }
