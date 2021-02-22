@@ -11,6 +11,9 @@ namespace HordeSurvivalGame
         [SerializeField]
         private GameObject templateBuilding;
         [SerializeField]
+        private GameObject templateTower;
+
+        [SerializeField]
         private Transform map;
 
 
@@ -35,6 +38,21 @@ namespace HordeSurvivalGame
 
                     Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.5f, Mathf.RoundToInt(clickInWorldspace.z));
                     Instantiate(templateBuilding, clickInTilespace, Quaternion.identity, map);
+
+                    Tile.Vector3ToTile(clickInTilespace).MakeNonNavicable();
+                }
+
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
+
+
+                    Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.5f, Mathf.RoundToInt(clickInWorldspace.z));
+                    Instantiate(templateTower, clickInTilespace, Quaternion.identity, map);
 
                     Tile.Vector3ToTile(clickInTilespace).MakeNonNavicable();
                 }

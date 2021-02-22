@@ -29,6 +29,12 @@ namespace Pathfinder
             Tile startTile =  Tile.Vector3ToTile(thisObject.position);
             Tile destinationTile = Tile.Vector3ToTile(targetObject.position);
 
+            // if the enemy is already at their destination, return an empty list (otherwise out of bounds indexing error)
+            if (startTile == destinationTile)
+            {
+                return null;
+            }
+
 
             SearchAdjacentTiles(startTile, destinationTile, startTile);
 
