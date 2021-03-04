@@ -7,25 +7,62 @@ namespace HordeSurvivalGame
 {
     public class MapGeneration : MonoBehaviour
     {
-        public GameObject prefab;
-        public GameObject map;
-        public GameObject Enemy;
-        public GameObject Player;
+        public Sprite map;
+
+        public Color[] colours;
+        public GameObject[] prefabs;
+
+        int height = 10;
+        int width = 10;
 
 
 
-        // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
-            for (int x = 1; x < Tile.MapSize; x++)
+            Debug.Log("### map generation started");
+            height = map.texture.height;
+            width = map.texture.width;
+
+            for(int i = 0; i < colours.Length; i++)
             {
-                for (int y = 1; y < Tile.MapSize; y++)
-                {
-                    GameObject tileObject = Instantiate(prefab, new Vector3(x, 0,y), Quaternion.identity, map.transform);
-                    Tile.tileMap[x, y] = new Tile(x,y, tileObject);
+                Color c = colours[i];
+                for(int y = 0; y < height; y++)
+                { 
+                    for(int x = 0; x<width;x++)
+                    {
+                        //Debug.Log("rendering tile " + x + "," + y);
+                        if (CompareColours(map.texture.GetPixel(x,y),c))
+                        {
+                            createTile(x, y, prefabs[i]);
+                        }
+                    }
                 }
             }
+            Debug.Log("### Map Generation Finished");
+        }
 
+        bool CompareColours(Color a, Color b)
+        {
+            //Debug.Log(a.r + "," + a.g + "," + a.b + " and " + b.r + "," + b.g + "," + b.b);
+            if (Mathf.RoundToInt(a.r*255) == Mathf.RoundToInt(b.r * 255))
+            {
+                //Debug.Log(" red match");
+                if (Mathf.RoundToInt(a.g * 255) == Mathf.RoundToInt(b.g * 255))
+                {
+                    //Debug.Log(" green match");
+                    if (Mathf.RoundToInt(a.b * 255) == Mathf.RoundToInt(b.b * 255))
+                    {
+                        //Debug.Log(" blue match");
+                        return true;
+                    }
+                }    
+            }
+            return false;
+        }
+        void createTile(int x, int y, GameObject prefab)
+        {
+            GameObject tileObject = Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
+            Tile.tileMap[x, y] = new Tile(x,y, tileObject);
         }
     }
 }

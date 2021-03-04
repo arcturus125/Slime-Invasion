@@ -10,7 +10,7 @@ namespace Pathfinder.tiles
     class Tile
     {
         // static settings
-        public static int MapSize = 50;
+        public static int MapSize = 250;
         public static Tile[,] tileMap = new Tile[MapSize, MapSize];
 
 
