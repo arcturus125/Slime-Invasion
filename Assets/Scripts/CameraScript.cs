@@ -9,8 +9,6 @@ namespace HordeSurvivalGame
     {
         [SerializeField]
         private Transform cameraTarget;
-        [SerializeField]
-        private float LerpTime = 1.0f;
 
         // Update is called once per frame
         void Update()
@@ -19,7 +17,7 @@ namespace HordeSurvivalGame
             // if no target, camera will stay put
             if (cameraTarget)
             {
-                transform.position = Vector3.Lerp(transform.position, cameraTarget.position, LerpTime);
+                transform.position = cameraTarget.position; //Vector3.Lerp(transform.position, cameraTarget.position, LerpTime);
             }
 
         }
