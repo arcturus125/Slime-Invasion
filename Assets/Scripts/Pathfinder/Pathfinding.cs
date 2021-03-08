@@ -108,7 +108,7 @@ namespace Pathfinder
                 }
 
                 // this if statement is to stop infinite loops. this recursive funtion will call itself 1000 times before it fails; this stops unity crashing
-                if (count < 500)
+                if (count < 5000)
                 {
                     count++;
                     // run this function on the open tile with the lowest fCost

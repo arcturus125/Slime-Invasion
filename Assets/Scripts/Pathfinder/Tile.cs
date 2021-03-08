@@ -98,7 +98,7 @@ namespace Pathfinder.tiles
         {
             if(x < 1 || y < 1)
                 return false;
-            if (x > 50 || y > 50)
+            if (x > MapSize || y > MapSize)
                 return false;
 
             return true;
