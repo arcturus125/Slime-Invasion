@@ -33,7 +33,10 @@ namespace HordeSurvivalGame
                 {
 
                     Debug.Log("shooting");
-                    head.transform.LookAt(targetEnemy.gameObject.transform);
+                    head.transform.LookAt( new Vector3( 
+                        targetEnemy.gameObject.transform.position.x,
+                        head.transform.position.y,
+                        targetEnemy.gameObject.transform.position.z));
                 }
             }
         }
@@ -55,7 +58,9 @@ namespace HordeSurvivalGame
                         }
                     }
                 }
+                else Debug.Log(" no head");
             }
+            else Debug.Log(" not set to look at enemy");
         }
     }
 }

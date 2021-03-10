@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinder.tiles;
+using UnityEditor;
 
 namespace HordeSurvivalGame
 {
     public class MapGeneration : MonoBehaviour
     {
-        public Sprite map;
+        [SerializeField]
+        private Sprite map;
 
-        public Color[] colours;
-        public GameObject[] prefabs;
+        [SerializeField]
+        private Color[] colours;
+        [SerializeField]
+        private GameObject[] prefabs;
 
         int height = 10;
         int width = 10;
-
-
 
         private void Awake()
         {
@@ -61,7 +63,7 @@ namespace HordeSurvivalGame
         }
         void createTile(int x, int y, GameObject prefab)
         {
-            GameObject tileObject = Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
+            GameObject tileObject = Instantiate(prefab, new Vector3(-x, 0, -y), Quaternion.identity);
             Tile.tileMap[x, y] = new Tile(x,y, tileObject);
         }
     }
