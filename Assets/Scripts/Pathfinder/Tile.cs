@@ -76,22 +76,17 @@ namespace Pathfinder.tiles
         // used to make tiles that can not be used for pathfinding
         public void MakeNonNavicable()
         {
-            Material mat = new Material(Shader.Find("Specular"))
-            {
-                color = Color.black
-            };
-            tileObject.GetComponent<MeshRenderer>().material = mat;
             isWalkable = false;
         }
 
         // convert worldspace into a reference to a tile class
         public static Tile Vector3ToTile(Vector3 vector)
         {
-            return tileMap[(int)vector.x, (int)vector.z];
+            return tileMap[(int)-vector.x, (int)-vector.z];
         }
         public static Vector3 TileToVector3(Tile t)
         {
-            return new Vector3(t.x + 0.0f, 0, t.y+ 0.0f);
+            return new Vector3(-t.x + 0.0f, 0, -t.y+ 0.0f);
         }
         // checks any indexers before they create out of bounds errors
         public static bool IsOnMap(int x, int y)

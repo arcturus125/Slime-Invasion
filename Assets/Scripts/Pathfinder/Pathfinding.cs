@@ -138,24 +138,12 @@ namespace Pathfinder
 
         private void CloseTile(Tile t)
         {
-            Material mat = new Material(Shader.Find("Specular"))
-            {
-                color = Color.red
-            };
-
             OpenTiles.Remove(t);
             closedTiles.Add(t);
-
-            t.tileObject.GetComponent<MeshRenderer>().material = mat;
         }
         private void OpenTile(Tile t)
         {
-            Material mat = new Material(Shader.Find("Specular"))
-            {
-                color = Color.green
-            };
             OpenTiles.Add(t);
-            t.tileObject.GetComponent<MeshRenderer>().material = mat;
         }
     }
 }

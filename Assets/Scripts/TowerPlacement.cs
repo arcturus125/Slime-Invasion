@@ -51,7 +51,7 @@ namespace HordeSurvivalGame
                     Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
 
 
-                    Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.5f, Mathf.RoundToInt(clickInWorldspace.z));
+                    Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.25f, Mathf.RoundToInt(clickInWorldspace.z));
                     Instantiate(templateTower, clickInTilespace, Quaternion.identity, map);
 
                     Tile.Vector3ToTile(clickInTilespace).MakeNonNavicable();
