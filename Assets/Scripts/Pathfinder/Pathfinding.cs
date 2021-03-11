@@ -127,11 +127,6 @@ namespace Pathfinder
             if (current != end)
             {
                 path.Add( Tile.TileToVector3(current));
-                Material mat = new Material(Shader.Find("Specular"))
-                {
-                    color = Color.cyan
-                };
-                current.tileObject.GetComponent<MeshRenderer>().material = mat;
                 DrawPath(current.parentTile, end);
             }
         }

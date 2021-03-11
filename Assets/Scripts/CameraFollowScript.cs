@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HordeSurvivalGame
 {
-    public class CameraScript : MonoBehaviour
+    public class CameraFollowScript : MonoBehaviour
     {
         [SerializeField]
         private Transform cameraTarget;

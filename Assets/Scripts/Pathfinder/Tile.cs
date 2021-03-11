@@ -62,7 +62,6 @@ namespace Pathfinder.tiles
 
             fCost = gCost + hCost;
             parentTile = sourceTile;
-            tileObject.GetComponentInChildren<TextMesh>().text = "" + Math.Round(fCost,2);
         }
         // used to check the Fcost without changing it
         public float CheckFCost(Tile startingTile, Tile destinationTile)
