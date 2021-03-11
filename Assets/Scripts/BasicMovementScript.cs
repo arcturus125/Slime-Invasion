@@ -8,6 +8,7 @@ namespace HordeSurvivalGame
     public class BasicMovementScript : MonoBehaviour
     {
         private Rigidbody _rigidbody; // the rigidbody of the player
+        public Animator animator;
 
         // the keys used to move the player
         const KeyCode MOVE_FORWARD = KeyCode.W;
@@ -33,23 +34,34 @@ namespace HordeSurvivalGame
         // moves player with WASD keys
         private void Movement()
         {
+            float movementX = 0.0f;
+            float movementZ = 0.0f;
+
             Vector3 movement = Vector3.zero;
             if (Input.GetKey(MOVE_FORWARD))
             {
-                movement += Vector3.forward;     //
+                movement += Vector3.forward;
+                movementZ = 1.0f;
             }                                    // forces are additive so is multiple buttons are pressed, one will not cancel out the other
             if (Input.GetKey(MOVE_LEFT))         // unless they are opposites (eg. W and S pressed at the same time will cancel out)
             {                                    //
                 movement += Vector3.left;
+                movementX = -1.0f;
             }
             if (Input.GetKey(MOVE_BACK))
             {
                 movement += Vector3.back;
+                movementZ = -1.0f;
             }
             if (Input.GetKey(MOVE_RIGHT))
             {
                 movement += Vector3.right;
+                movementX = 1.0f;
             }
+
+
+            animator.SetFloat("WalkingX", movementX);
+            animator.SetFloat("WalkingZ", movementZ);
             _rigidbody.AddForce(transform.TransformDirection(movement * MOVEMENT_SPEED * Time.deltaTime), ForceMode.Force); // deltaTime is used to make the player move the same speed regardless of the speed of the PC
 
         }
