@@ -23,6 +23,10 @@ public class CameraArm : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+        if(Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+        }
         //Gets cursor position in pixel coordinates.
         float mouseX = Input.mousePosition.x; 
         float mouseY = Input.mousePosition.y;
