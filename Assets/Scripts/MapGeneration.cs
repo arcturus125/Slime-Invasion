@@ -8,6 +8,21 @@ namespace HordeSurvivalGame
 {
     public class MapGeneration : MonoBehaviour
     {
+        enum ShadowMap
+        {
+            None = 0,
+            edgeBottom = 1,
+            edgeCliffTop = 2,
+            edgeRight = 3,
+            edgeLeft = 4,
+            edgeTop = 5,
+            edgeTopLeft = 6,
+            edgeTopRight = 7,
+            edgeBottomLeft_noShadow = 8,
+            edgeBottomLeft_shadow = 9,
+            edgeBottomRight_noShadow = 10,
+            edgeBottomRight_shadow = 11
+        };
         [SerializeField]
         private Sprite map;
         [SerializeField]
@@ -21,6 +36,13 @@ namespace HordeSurvivalGame
         private Color[] colours;
         [SerializeField]
         private Texture[] textures;
+        [SerializeField]
+        private ShadowMap[] shadows;
+        [SerializeField]
+        private GameObject[] shadowPrefabs;
+        [SerializeField]
+        private GameObject shadowPrefab;
+
 
         [Header("Underlay textures")]
         [SerializeField]
@@ -45,7 +67,7 @@ namespace HordeSurvivalGame
                         // if colours match, place tile corresponding that colour
                         if (CompareColours(map.texture.GetPixel(x,y),c))
                         {
-                            createTile(x, y, textures[i]);
+                            createTile(x, y, textures[i],shadows[i]);
                         }
                     }
                 }
@@ -74,7 +96,7 @@ namespace HordeSurvivalGame
         }
 
 
-        void createTile(int x, int y, Texture texture)
+        void createTile(int x, int y, Texture texture,ShadowMap shadow)
         {
             // creates the tile gameobject based from the prefab and positions it
             GameObject tileObject = Instantiate(tilePrefab, new Vector3(-x, 0, -y), Quaternion.identity);
@@ -97,6 +119,11 @@ namespace HordeSurvivalGame
 
                     }
                 }
+            }
+
+            if(shadow != ShadowMap.None)
+            {
+                Instantiate(shadowPrefabs[(int)shadow], new Vector3(-x, 0, -y), Quaternion.identity, tileObject.transform);
             }
 
 
