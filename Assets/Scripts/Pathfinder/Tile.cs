@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Pathfinder.tiles
 {
-    class Tile
+    public class Tile
     {
         // static settings
         public static int MapSize = 250;
