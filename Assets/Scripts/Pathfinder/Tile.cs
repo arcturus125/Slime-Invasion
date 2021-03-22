@@ -51,6 +51,12 @@ namespace Pathfinder.tiles
             y = yCoOrd;
             tileObject = tileGameObject;
         }
+        public Tile(Tile t)
+        {
+            x = t.x;
+            y = t.x;
+            tileObject = t.tileObject;
+        }
 
         // updates the G and H values to calculate a new F value
         public void UpdateValues( Tile startingTile, Tile destinationTile, Tile sourceTile)
