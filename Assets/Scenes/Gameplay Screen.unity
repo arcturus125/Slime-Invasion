@@ -952,6 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0492720d157f75489c43a9cba5ab47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemToSpawn: {fileID: 11400000, guid: 6e566b4d0dc2e784c922468d6df963a5, type: 2}
   originX: -85
   originZ: -50
   distance: 5
@@ -1456,7 +1457,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966678807}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84ad097024076e44cabca6adefd023a9, type: 3}
   m_Name: 
