@@ -108,7 +108,6 @@ namespace HordeSurvivalGame
             //if necessary, sets the underlay texture of a tile
             if(!CompareColours( mapUnderlay.texture.GetPixel(x,y), blankUnderlayColour))
             {
-                Debug.Log("generating tile underlay: "+x+","+y);
                 for(int i = 0; i < colours.Length;i++)
                 {
                     Color c = colours[i];

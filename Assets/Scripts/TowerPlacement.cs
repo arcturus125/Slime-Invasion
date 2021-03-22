@@ -9,12 +9,13 @@ namespace HordeSurvivalGame
     public class TowerPlacement : MonoBehaviour
     {
         [SerializeField]
-        private GameObject templateBuilding;
+        private Mine mine;
         [SerializeField]
         private GameObject templateTower;
 
         [SerializeField]
         private Transform map;
+        public Item test;
 
 
         // Update is called once per frame
@@ -34,12 +35,12 @@ namespace HordeSurvivalGame
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
-
-
                     Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.5f, Mathf.RoundToInt(clickInWorldspace.z));
-                    Instantiate(templateBuilding, clickInTilespace, Quaternion.identity, map);
 
-                    Tile.Vector3ToTile(clickInTilespace).MakeNonNavicable();
+                    OreTile ore = new OreTile(Tile.Vector3ToTile(clickInTilespace), test);
+                    Mine mine2 = Instantiate(mine, clickInTilespace, Quaternion.identity, map);
+                    mine2.Setup(ore);
+                    
                 }
 
             }
