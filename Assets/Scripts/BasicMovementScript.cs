@@ -75,17 +75,18 @@ namespace HordeSurvivalGame
         {
             if (Input.GetMouseButtonDown(1)) //Right click dash.
             {
-                dashTimer = timeToDash;
+                dashTimer = 0;
             }
 
-            if (dashTimer > 0)
+            if (dashTimer < timeToDash)
             {
-                Vector3 dash = new Vector3(movementX, 0.0f, movementZ);
-                float xDash = Mathf.Pow(((Time.deltaTime + 1) / 2 - 0.5f) * 2, 2) + 1; //Dampens the dash speed using a curve.
-                float zDash = Mathf.Pow(((Time.deltaTime + 1) / 2 - 0.5f) * 2, 2) + 1;
+                float percent = dashTimer / timeToDash;
+                Vector3 dash = new Vector3(-movementX, 0.0f, -movementZ);
+                float xDash = -Mathf.Pow((percent - 0.5f) * 2, 2) + 1; //Dampens the dash speed using a curve.
+                float zDash = -Mathf.Pow((percent - 0.5f) * 2, 2) + 1;
 
-                _rigidbody.MovePosition(this.transform.position + new Vector3(dash.x * -xDash * dashDistance, 0.0f, dash.z * -zDash * dashDistance));
-                dashTimer -= Time.deltaTime;
+                _rigidbody.MovePosition(this.transform.position + new Vector3(dash.x * xDash * dashDistance, 0.0f, dash.z * zDash * dashDistance));
+                dashTimer += Time.deltaTime;
             }
         }
     }
