@@ -21,7 +21,7 @@ namespace HordeSurvivalGame
         // Update is called once per frame
         void Update()
         {
-            //RaycastCursor(); //Temporarily stopped in order to give alternate fuinctionality to the mouse inputs. Tower placement will be done within a specific build menu.
+            RaycastCursor(); //Temporarily stopped in order to give alternate fuinctionality to the mouse inputs. Tower placement will be done within a specific build menu.
         }
 
         //when the player clicks, raycast from the location of their cursor and place a building on the tile they clicked
