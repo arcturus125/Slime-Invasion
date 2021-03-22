@@ -12,16 +12,19 @@ public class CameraArm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Confined; //Confines the cursor to the playable space when the game starts.
     }
 
     // Update is called once per frame
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) //Can move out of the confined mode with a button press.
         {
             Cursor.lockState = CursorLockMode.None;
+        }
+        if(Input.GetMouseButtonDown(0) && Cursor.lockState != CursorLockMode.Confined) //When clicking back on the game, the cursor will be confined again.
+        {
+            Cursor.lockState = CursorLockMode.Confined;
         }
         //Gets cursor position in pixel coordinates.
         float mouseX = Input.mousePosition.x; 
@@ -31,7 +34,7 @@ public class CameraArm : MonoBehaviour
         float screenWidth = Screen.width; 
         float screenHeight = Screen.height;
 
-        //Translates mouse X and Y to values between -1 and 1 where (0,0) is the center of the screen
+        //Translates mouse X and Y to values between -1 and 1 where (0,0) is the center of the screen.
         float offsetX = ((mouseX / screenWidth) * 2) - 1.0f;
         float offsetY = ((mouseY / screenHeight) * 2) - 1.0f;
 
