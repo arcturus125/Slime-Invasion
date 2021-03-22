@@ -8,14 +8,16 @@ namespace HordeSurvivalGame
 {
     public class Tower : MonoBehaviour
     {
-        public int x;
-        public int y;
+        public int x; // delete if unused
+        public int y; //
 
         public bool canRecieveItems = false;
+        public Inventory inv;
 
 
-        public Tower(Tile t)
+        public void TowerSetup(Tile t)
         {
+            inv = new Inventory();
             x = t.x;
             y = t.y;
 
