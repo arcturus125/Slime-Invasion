@@ -27,6 +27,8 @@ namespace HordeSurvivalGame
         private Sprite map;
         [SerializeField]
         private Sprite mapUnderlay;
+        [SerializeField]
+        private Sprite mapWalkable;
 
         [SerializeField]
         private GameObject tilePrefab;
@@ -130,6 +132,15 @@ namespace HordeSurvivalGame
 
             // hooks the gameobject tile up to the tile system utilised by the pathfinding algorithm
             Tile.tileMap[x, y] = new Tile(x,y, tileObject);
+
+
+
+
+            // is the tile walkable?
+            if (CompareColours(mapWalkable.texture.GetPixel(x, y), Color.black))
+            {
+                Tile.tileMap[x, y].isWalkable = false;
+            }
         }
     }
 }
