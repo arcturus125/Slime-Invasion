@@ -61,7 +61,7 @@ public class OreSpawning : MonoBehaviour
                 currentOrePos.x += 1;
             }
             Tile.Vector3ToTile(currentOrePos);
-            Debug.Log("Ore spawned at " + currentOrePos);
+            //Debug.Log("Ore spawned at " + currentOrePos);
         }
     }
 }
