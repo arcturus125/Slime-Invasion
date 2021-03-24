@@ -28,7 +28,7 @@ namespace HordeSurvivalGame
                     pointClicked = hit.transform.position;
                 }
                 Vector3 velocity = pointClicked - playerPosition.position;
-                Vector3 finalVelocity = new Vector3(velocity.x, 0.0f, velocity.z);
+                Vector3 finalVelocity = new Vector3(velocity.x, 0.0f, velocity.z);// removes y component so projectiles shoot perfectly flat - eliminates z fighting on peojectiles
 
 
 
