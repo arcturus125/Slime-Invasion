@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace HordeSurvivalGame
 {
@@ -15,6 +16,9 @@ namespace HordeSurvivalGame
         {
             if (Input.GetMouseButtonDown(0)) //Semi auto with no cooldown as of the moment.
             {
+                //if the user clicks the UI, do not shoot
+                if (EventSystem.current.IsPointerOverGameObject()) return;
+
                 // raycast
                 Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit hit;
