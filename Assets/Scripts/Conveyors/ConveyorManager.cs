@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 using Pathfinder.tiles;
 using HordeSurvivalGame;
-using System;
+using ItemSystem;
 
 namespace Conveyors
 {
@@ -21,13 +22,18 @@ namespace Conveyors
         public Vector2[] cardinalDirections;
         public IOController[] armTypes;
 
+        public List<Item>[] itemFilters = new List<Item>[4];
+
         public int visibleArms = 0;
         public int noOfInputs  = 0;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            for(int i = 0; i < itemFilters.Length;i++)
+            {
+                itemFilters[i] = new List<Item>();
+            }
         }
 
         // Update is called once per frame
@@ -60,6 +66,27 @@ namespace Conveyors
                 StraightConveyor();
             else if (noOfInputs == visibleArms - 1 && noOfInputs != 0)
                 YConveyor();
+            else if (noOfInputs < visibleArms - 1 && noOfInputs != 0)
+                XConveyor();
+        }
+
+        private void XConveyor()
+        {
+            for (int i = 0; i < conveyorArms.Length; i++)
+            {
+
+                // if a conveyor arm is visible and NOT and input, make it an output
+                if (armTypes[i] != IOController.Input)
+                {
+                    //Debug.Log("y conveyor");
+                    if (conveyorArms[i].activeInHierarchy == true)
+                    {
+
+                        //Debug.Log("y conveyor active");
+                        armTypes[i] = IOController.Output;
+                    }
+                }
+            }
         }
 
         private void YConveyor()
@@ -70,11 +97,11 @@ namespace Conveyors
                 // if a conveyor arm is visible and NOT and input, make it an output
                 if (armTypes[i] != IOController.Input)
                 {
-                    Debug.Log("y conveyor");
+                    //Debug.Log("y conveyor");
                     if (conveyorArms[i].activeInHierarchy == true)
                     {
 
-                        Debug.Log("y conveyor active");
+                        //Debug.Log("y conveyor active");
                         armTypes[i] = IOController.Output;
                     }
                 }
@@ -89,11 +116,11 @@ namespace Conveyors
                 // if a conveyor arm is visible and NOT and input, make it an output
                 if (armTypes[i] != IOController.Input)
                 {
-                    Debug.Log("straight conveyor");
+                    //Debug.Log("straight conveyor");
                     if (conveyorArms[i].activeInHierarchy == true)
                     {
 
-                        Debug.Log("straight conveyor active");
+                        //Debug.Log("straight conveyor active");
                         armTypes[i] = IOController.Output;
                     }
                 }
@@ -164,7 +191,7 @@ namespace Conveyors
                 if(conv.armTypes[theirIndex] == IOController.Output)
                 {
                     armTypes[myIndex] = IOController.Input;
-                    Debug.Log(t.x +","+t.y+"   Conveyor chaining");
+                    //Debug.Log(t.x +","+t.y+"   Conveyor chaining");
                 }
 
 

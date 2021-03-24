@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Conveyors;
 
 namespace HordeSurvivalGame
 {
@@ -26,6 +27,17 @@ namespace HordeSurvivalGame
                 if (Physics.Raycast(cursorPosition, Camera.main.transform.forward, out hit))
                 {
                     pointClicked = hit.transform.position;
+
+                    ConveyorManager conv;
+                    if (hit.collider.gameObject.TryGetComponent<ConveyorManager>(out conv))
+                    {
+                        ConveyorManagerUI.DestroyWindow();
+                        ConveyorManagerUI.selectedConveyor = conv;
+                    }
+                    else
+                    {
+                        ConveyorManagerUI.selectedConveyor = null;
+                    }
                 }
                 Vector3 velocity = pointClicked - playerPosition.position;
                 Vector3 finalVelocity = new Vector3(velocity.x, 0.0f, velocity.z);// removes y component so projectiles shoot perfectly flat - eliminates z fighting on peojectiles

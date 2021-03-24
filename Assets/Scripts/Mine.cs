@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 using Pathfinder.tiles;
-using System;
+using ItemSystem;
 
 namespace HordeSurvivalGame
 {
@@ -49,6 +50,7 @@ namespace HordeSurvivalGame
                     Drop();
                 }
             }
+            else Debug.Log("WARNING: mine not placed on an ore. this building will not drop any items");
         }
 
         private void Drop()

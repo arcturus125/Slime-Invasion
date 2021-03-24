@@ -4,7 +4,7 @@ using UnityEngine;
 using Pathfinder.tiles;
 using UnityEditor;
 
-namespace HordeSurvivalGame
+namespace MapGeneration
 {
     public class MapGeneration : MonoBehaviour
     {
