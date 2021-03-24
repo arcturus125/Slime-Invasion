@@ -11,7 +11,7 @@ namespace HordeSurvivalGame
     {
         float miningSpeed = 1;
         int dropSize = 1;
-        Item resource;
+        Item resource = null;
 
         private float timeSinceLastDrop = 0;
         //public Mine(Tile t, float minerSpeed) : base(t)
@@ -40,11 +40,14 @@ namespace HordeSurvivalGame
         // Update is called once per frame
         void Update()
         {
-            timeSinceLastDrop += Time.deltaTime;
-            if(timeSinceLastDrop >= miningSpeed)
+            if (resource) // only drop if the mine is places ontop of a resource
             {
-                timeSinceLastDrop -= miningSpeed;
-                Drop();
+                timeSinceLastDrop += Time.deltaTime;
+                if (timeSinceLastDrop >= miningSpeed)
+                {
+                    timeSinceLastDrop -= miningSpeed;
+                    Drop();
+                }
             }
         }
 

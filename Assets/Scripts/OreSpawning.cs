@@ -38,7 +38,7 @@ public class OreSpawning : MonoBehaviour
 
         Vector3 pos = new Vector3(x, 0, y) + origin;
         Tile.Vector3ToTile(pos);
-        Debug.Log("Ore spawned at " + pos);
+        //Debug.Log("Ore spawned at " + pos);
 
         Vector3 currentOrePos = pos;
         for (int i = 0; i < veinSize; i++)

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Orbit : MonoBehaviour
+namespace SpriteAnimator
 {
-    public float orbitSpeed = 0.1f;
-
-    // Update is called once per frame
-    void Update()
+    public class Orbit : MonoBehaviour
     {
-        transform.Rotate(Vector3.up*orbitSpeed); //Every frame, rotates moon around local Y axis of the planet.
+        public float orbitSpeed = 0.1f;
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.Rotate(Vector3.up * orbitSpeed); //Every frame, rotates moon around local Y axis of the planet.
+        }
     }
 }

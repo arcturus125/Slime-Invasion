@@ -24,11 +24,12 @@ namespace HordeSurvivalGame
                     pointClicked = hit.transform.position;
                 }
                 Vector3 velocity = pointClicked - playerPosition.position;
+                Vector3 finalVelocity = new Vector3(velocity.x, 0.0f, velocity.z);
 
 
 
                 Projectile test = Instantiate(proj, playerPosition.position, Quaternion.identity);
-                test.INIT(velocity.normalized, projectileSpeed);
+                test.INIT(finalVelocity.normalized, projectileSpeed);
 
             }
         }

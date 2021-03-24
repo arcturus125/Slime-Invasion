@@ -10,7 +10,7 @@ namespace HordeSurvivalGame
     {
         public Item resource;
 
-        public OreTile(Tile t, Item drops) : base()
+        public OreTile(Tile t, Item drops) : base(t)
         {
             resource = drops;
             Tile.tileMap[t.x, t.y] = this;
