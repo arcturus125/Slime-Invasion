@@ -150,7 +150,6 @@ namespace Conveyors
                 if (!selectedConveyor.conveyorArms[i].activeInHierarchy)
                 {
                     UIArms[i].interactable = false;
-                    Debug.Log(i + " " + UIArms[i].interactable);
                     UIArms[i].GetComponentsInChildren<Image>()[1].enabled = false;
                 }
                 else

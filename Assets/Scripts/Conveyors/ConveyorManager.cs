@@ -271,7 +271,6 @@ namespace Conveyors
             {
                 int index = System.Array.IndexOf(cardinalDirections, cardinalDirection);
                 armTypes[armIndex] = IOController.Input;
-                Debug.Log("test");
                 visibleArms++;
                 return true;
             }
