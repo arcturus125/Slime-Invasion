@@ -27,8 +27,7 @@ namespace Conveyors
         {
             None,
             Input,
-            Output,
-            AbsoluteInput // input and always will be input - no overriding
+            Output
         }
 
         [SerializeField]
@@ -61,8 +60,14 @@ namespace Conveyors
             }
         }
 
-        // NOTE: the order in which each function is called is ### Super Important ### do not play with this function unless you know what you are doing
+        
         void Update()
+        {
+            UpdateConveyorModel();
+        }
+
+        // NOTE: the order in which each function is called is ### Super Important ### do not play with this function unless you know what you are doing
+        private void UpdateConveyorModel()
         {
             // reset count varables ready for next frame
             visibleArms = 0;
@@ -82,16 +87,11 @@ namespace Conveyors
             // now that the auto-generated outputs have been determined, we need to recalculate the true arm types, taking the new outputs into account
             CalculateTrueArmTypes();
 
-
-
-
-
             // update arrows on conveyors
             for (int i = 0; i < armTypes.Length; i++)
             {
                 UpdateConveyorArrows(i);
             }
-
         }
 
         private void CalculateTrueArmTypes()

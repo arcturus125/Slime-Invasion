@@ -81,6 +81,7 @@ public class TowerPlacement : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                 Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.0f, Mathf.RoundToInt(clickInWorldspace.z)); // this line is effectively the same as the one above, but when you remove it, conveyors break about 15% of the time.
                 Tile.Vector3ToTile(clickInTilespace).SetTower(Tower);
             }
+            Tower = null;
         }
     }
 
