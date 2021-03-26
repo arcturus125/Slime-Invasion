@@ -84,6 +84,11 @@ namespace Conveyors
 
                     nextFrameLoadExistingData = false;
                 }
+
+                if (IOEditorPanel.activeInHierarchy)
+                {
+                    UpdateEditPanel();
+                }
             }
         }
 
@@ -112,34 +117,59 @@ namespace Conveyors
         public void EditButtonClicked()
         {
             IOEditorPanel.SetActive(!IOEditorPanel.activeSelf);
+        }
 
-            for(int i = 0; i < selectedConveyor.conveyorArms.Length;i++)
+
+        public void OverrideButtonClicked(int buttonIndex)
+        {
+            if(selectedConveyor.CustomArmTypes[buttonIndex] == ConveyorManager.IOController.None)
             {
-                if (!selectedConveyor.conveyorArms[i].activeSelf)
+                selectedConveyor.CustomArmTypes[buttonIndex] = ConveyorManager.IOController.Input;
+            }
+            else if (selectedConveyor.CustomArmTypes[buttonIndex] == ConveyorManager.IOController.Input)
+            {
+                selectedConveyor.CustomArmTypes[buttonIndex] = ConveyorManager.IOController.Output;
+            }
+            else if (selectedConveyor.CustomArmTypes[buttonIndex] == ConveyorManager.IOController.Output)
+            {
+                selectedConveyor.CustomArmTypes[buttonIndex] = ConveyorManager.IOController.None;
+            }
+        }
+
+        public void UpdateEditPanel()
+        {
+            for (int i = 0; i < selectedConveyor.conveyorArms.Length; i++)
+            {
+                if (!selectedConveyor.conveyorArms[i].activeInHierarchy)
                 {
                     UIArms[i].interactable = false;
+                    Debug.Log(i + " " + UIArms[i].interactable);
                     UIArms[i].GetComponentsInChildren<Image>()[1].enabled = false;
                 }
                 else
                 {
                     UIArms[i].interactable = true;
                     UIArms[i].GetComponentsInChildren<Image>()[1].enabled = true;
-                    if(selectedConveyor.armTypes[i] == ConveyorManager.IOController.Output)
+                    if (selectedConveyor.TrueArmTypes[i] == ConveyorManager.IOController.Output)
                     {
                         UIArms[i].GetComponentsInChildren<Image>()[1].enabled = true;
-                        UIArms[i].GetComponentsInChildren<RectTransform>()[1].localRotation = Quaternion.Euler(0,0,0);
+                        UIArms[i].GetComponentsInChildren<RectTransform>()[1].localRotation = Quaternion.Euler(0, 0, 0);
                     }
-                    else if (selectedConveyor.armTypes[i] == ConveyorManager.IOController.Input)
+                    else if (selectedConveyor.TrueArmTypes[i] == ConveyorManager.IOController.Input)
                     {
                         UIArms[i].GetComponentsInChildren<Image>()[1].enabled = true;
                         UIArms[i].GetComponentsInChildren<RectTransform>()[1].localRotation = Quaternion.Euler(0, 0, 180);
                     }
                     else UIArms[i].GetComponentsInChildren<Image>()[1].enabled = false;
+
+
                 }
+
+                if (selectedConveyor.CustomArmTypes[i] != ConveyorManager.IOController.None)
+                    UIArms[i].GetComponentsInChildren<Image>()[1].color = Color.red;
+                else
+                    UIArms[i].GetComponentsInChildren<Image>()[1].color = Color.white;
             }
-
-
-
         }
     }
 }

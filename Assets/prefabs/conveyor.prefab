@@ -739,6 +739,10 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: 1, y: 0}
   armTypes: 00000000000000000000000000000000
+  CustomArmTypes: 00000000000000000000000000000000
+  TrueArmTypes: 00000000000000000000000000000000
+  visibleArms: 0
+  noOfInputs: 0
 --- !u!1 &8053477252499266961
 GameObject:
   m_ObjectHideFlags: 0

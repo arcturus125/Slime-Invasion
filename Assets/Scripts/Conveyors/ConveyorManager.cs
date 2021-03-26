@@ -18,10 +18,15 @@ namespace Conveyors
             Output
         }
 
+        [SerializeField]
+        private string UnityInspectorDebugging = ""; // this exists only for debugging things in unity.
+
         public GameObject[] conveyorArms; // up, down, left, right
         public Vector2[] cardinalDirections;
         public IOController[] armTypes;
         public IOController[] CustomArmTypes;
+        public IOController[] TrueArmTypes; // a combination of the above two, where CustomArmTypes Overrides armTypes if the value is not None
+
 
         public List<Item>[] itemFilters = new List<Item>[4];
 
@@ -36,11 +41,16 @@ namespace Conveyors
             {
                 itemFilters[i] = new List<Item>();
             }
+            for(int i =0; i < CustomArmTypes.Length;i++)
+            {
+                CustomArmTypes[i] = IOController.None;
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
+            CalculateTrueArmTypes();
             // reset count varables ready for next frame
             visibleArms = 0;
             // if a compatible tower is ajdacent, toggle visibility of the connecting arm
@@ -62,6 +72,21 @@ namespace Conveyors
 
         }
 
+        private void CalculateTrueArmTypes()
+        {
+            for(int i = 0; i < armTypes.Length;i++)
+            {
+                if(CustomArmTypes[i] != IOController.None)
+                {
+                    TrueArmTypes[i] = CustomArmTypes[i];
+                }
+                else
+                {
+                    TrueArmTypes[i] = armTypes[i];
+                }
+            }
+        }
+
         private void OutputManagement()
         {
             if (noOfInputs == 1 && visibleArms == 2)
@@ -74,11 +99,12 @@ namespace Conveyors
 
         private void XConveyor()
         {
+            UnityInspectorDebugging = "XConveyor";
             for (int i = 0; i < conveyorArms.Length; i++)
             {
 
                 // if a conveyor arm is visible and NOT and input, make it an output
-                if (armTypes[i] != IOController.Input)
+                if (TrueArmTypes[i] != IOController.Input)
                 {
                     //Debug.Log("y conveyor");
                     if (conveyorArms[i].activeInHierarchy == true)
@@ -93,11 +119,12 @@ namespace Conveyors
 
         private void YConveyor()
         {
+            UnityInspectorDebugging = "YConveyor";
             for (int i = 0; i < conveyorArms.Length; i++)
             {
 
                 // if a conveyor arm is visible and NOT and input, make it an output
-                if (armTypes[i] != IOController.Input)
+                if (TrueArmTypes[i] != IOController.Input)
                 {
                     //Debug.Log("y conveyor");
                     if (conveyorArms[i].activeInHierarchy == true)
@@ -112,11 +139,12 @@ namespace Conveyors
 
         private void StraightConveyor()
         {
-            for(int i = 0; i < conveyorArms.Length;i++)
+            UnityInspectorDebugging = "SConveyor";
+            for (int i = 0; i < conveyorArms.Length;i++)
             {
 
                 // if a conveyor arm is visible and NOT and input, make it an output
-                if (armTypes[i] != IOController.Input)
+                if (TrueArmTypes[i] != IOController.Input)
                 {
                     //Debug.Log("straight conveyor");
                     if (conveyorArms[i].activeInHierarchy == true)
@@ -140,7 +168,7 @@ namespace Conveyors
         private void UpdateConveyorArrows(int i)
         {
             // if conveyor arm type set to none, hide the arrow
-            if (armTypes[i] == IOController.None)
+            if (TrueArmTypes[i] == IOController.None)
             {
                 conveyorArms[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
             }
@@ -150,13 +178,13 @@ namespace Conveyors
                 conveyorArms[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
 
                 // if controller arm type is "Output", the arrow will point away from the centre of the conveyor
-                if (armTypes[i] == IOController.Output)
+                if (TrueArmTypes[i] == IOController.Output)
                 {
                     conveyorArms[i].GetComponentInChildren<SpriteRenderer>().gameObject.transform.localRotation = Quaternion.Euler(90, 90, 0);
                 }
 
                 // if controller arm type is "Input", the arrow will point towards the centre of the conveyor
-                if (armTypes[i] == IOController.Input)
+                if (TrueArmTypes[i] == IOController.Input)
                 {
                     conveyorArms[i].GetComponentInChildren<SpriteRenderer>().gameObject.transform.localRotation = Quaternion.Euler(90, 270, 0);
                 }
@@ -190,7 +218,7 @@ namespace Conveyors
                 Vector2 oppositeDirection = new Vector2(-cardinalDirection.x, -cardinalDirection.y);
                 int theirIndex = System.Array.IndexOf(conv.cardinalDirections, oppositeDirection);
                 int myIndex = System.Array.IndexOf(cardinalDirections, cardinalDirection);
-                if(conv.armTypes[theirIndex] == IOController.Output)
+                if(conv.TrueArmTypes[theirIndex] == IOController.Output)
                 {
                     armTypes[myIndex] = IOController.Input;
                     //Debug.Log(t.x +","+t.y+"   Conveyor chaining");
