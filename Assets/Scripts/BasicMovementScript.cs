@@ -18,12 +18,17 @@ namespace HordeSurvivalGame
 
         const float MOVEMENT_SPEED = 1200.0f; // the speed of the player
 
-        private float dashTimer = 0.0f;
-        public float timeToDash = 1.0f;
-        public float dashDistance = 1.0f;
+        //private float dashTimer = 0.0f;
+        //public float timeToDash = 1.0f;
+        //public float dashDistance = 1.0f;
+        //private float dashingX = 0.0f;
+        //private float dashingZ = 0.0f;
 
         private float movementX = 0.0f;
         private float movementZ = 0.0f;
+
+
+        public float dashingPower = 1.0f;
 
         private void Start()
         {
@@ -73,21 +78,29 @@ namespace HordeSurvivalGame
 
         private void Dash()
         {
-            if (Input.GetMouseButtonDown(1)) //Right click dash.
+            //if (Input.GetMouseButtonDown(1)) //Right click dash.
+            //{
+            //    dashTimer = 0;
+            //    dashingX = movementX;
+            //    dashingZ = movementZ;
+            //}
+
+            //if (dashTimer < timeToDash)
+            //{
+            //    float percent = dashTimer / timeToDash;
+            //    Vector3 dash = new Vector3(-dashingX, 0.0f, -dashingZ);
+            //    float xDash = -Mathf.Pow((percent - 0.5f) * 2, 2) + 1; //Dampens the dash speed using a curve.
+            //    float zDash = -Mathf.Pow((percent - 0.5f) * 2, 2) + 1;
+
+            //    _rigidbody.MovePosition(this.transform.position + new Vector3(dash.x * xDash * dashDistance, 0.0f, dash.z * zDash * dashDistance));
+            //    dashTimer += Time.deltaTime;
+            //}
+
+            if (Input.GetMouseButtonDown(1))
             {
-                dashTimer = 0;
+                _rigidbody.AddForce(new Vector3(-movementX, 0.0f, -movementZ) * dashingPower, ForceMode.Impulse);
             }
 
-            if (dashTimer < timeToDash)
-            {
-                float percent = dashTimer / timeToDash;
-                Vector3 dash = new Vector3(-movementX, 0.0f, -movementZ);
-                float xDash = -Mathf.Pow((percent - 0.5f) * 2, 2) + 1; //Dampens the dash speed using a curve.
-                float zDash = -Mathf.Pow((percent - 0.5f) * 2, 2) + 1;
-
-                _rigidbody.MovePosition(this.transform.position + new Vector3(dash.x * xDash * dashDistance, 0.0f, dash.z * zDash * dashDistance));
-                dashTimer += Time.deltaTime;
-            }
         }
     }
 }
