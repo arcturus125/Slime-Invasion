@@ -44,7 +44,11 @@ public class CameraArm : MonoBehaviour
         if (offsetY < 0) offsetY = Mathf.Pow(offsetY, 2);
         else offsetY = -Mathf.Pow(offsetY, 2);
 
-        //Actually moves the camera's offset to player.
-        this.transform.localPosition = new Vector3( offsetX * maxCameraOffset, 0.0f, offsetY * maxCameraOffset);
+        //Makes sure that the cursor is within the window before moving the camera.
+        if ((Input.mousePosition.x >= 0.0f && Input.mousePosition.x <= screenWidth) && (Input.mousePosition.y >= 0.0f && Input.mousePosition.y <= screenHeight))  
+        {
+            //Actually moves the camera's offset to player.
+            this.transform.localPosition = new Vector3( offsetX * maxCameraOffset, 0.0f, offsetY * maxCameraOffset);
+        }
     }
 }
