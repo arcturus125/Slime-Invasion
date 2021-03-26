@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 428131976}
   m_HandleRect: {fileID: 428131975}
   m_Direction: 2
-  m_Value: 1.0000002
+  m_Value: 1
   m_Size: 0.4799946
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4115,6 +4115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0492720d157f75489c43a9cba5ab47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemToSpawn: {fileID: 0}
   originX: -85
   originZ: -50
   distance: 5
@@ -6317,6 +6318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1966678813}
+  dashingPower: 15
 --- !u!4 &1966678811
 Transform:
   m_ObjectHideFlags: 0

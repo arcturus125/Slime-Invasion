@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinder.tiles;
+using ItemSystem;
 
 namespace HordeSurvivalGame
 {
