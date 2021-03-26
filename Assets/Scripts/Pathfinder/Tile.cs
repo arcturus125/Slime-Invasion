@@ -34,13 +34,14 @@ namespace Pathfinder.tiles
         public int x;
         public int y;
         public GameObject tileObject;
+        public GameObject towerObject = null;
         public bool isWalkable = true;
 
         // attributes assigned per each entity pathfinding
         private float gCost = -1; // distance from the start point
         private float hCost = -1; // distance from the end point
         public float fCost = 99999; // gCost + hCost
-        public Tile parentTile;
+        public Tile parentTile; // Tile that preceeds this in pathfinding calculations
 
         public Tile() { }//used as a dummy constructor
 
@@ -51,11 +52,13 @@ namespace Pathfinder.tiles
             y = yCoOrd;
             tileObject = tileGameObject;
         }
+        // used to turn a Tile into an OreTile
         public Tile(Tile t)
         {
             x = t.x;
             y = t.x;
             tileObject = t.tileObject;
+            isWalkable = t.isWalkable;
         }
 
         // updates the G and H values to calculate a new F value
@@ -82,6 +85,15 @@ namespace Pathfinder.tiles
         public void MakeNonNavicable()
         {
             isWalkable = false;
+        }
+        // setters/getters for towerObject
+        public void SetTower( GameObject tower)
+        {
+            towerObject = tower;
+        }
+        public GameObject GetTower()
+        {
+            return towerObject;
         }
 
         // convert worldspace into a reference to a tile class

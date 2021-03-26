@@ -4,7 +4,7 @@ using UnityEngine;
 using Pathfinder.tiles;
 using UnityEditor;
 
-namespace HordeSurvivalGame
+namespace MapGeneration
 {
     public class MapGeneration : MonoBehaviour
     {
@@ -23,6 +23,9 @@ namespace HordeSurvivalGame
             edgeBottomRight_noShadow = 10,
             edgeBottomRight_shadow = 11
         };
+
+        [SerializeField]
+        private Transform mapParentTransform;
         [SerializeField]
         private Sprite map;
         [SerializeField]
@@ -101,7 +104,7 @@ namespace HordeSurvivalGame
         void createTile(int x, int y, Texture texture,ShadowMap shadow)
         {
             // creates the tile gameobject based from the prefab and positions it
-            GameObject tileObject = Instantiate(tilePrefab, new Vector3(-x, 0, -y), Quaternion.identity);
+            GameObject tileObject = Instantiate(tilePrefab, new Vector3(-x, 0, -y), Quaternion.identity, mapParentTransform);
 
             // sets the primary texture of each tile
             Renderer rend = tileObject.GetComponentsInChildren<Renderer>()[1];

@@ -1,64 +1,99 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 using Pathfinder.tiles;
 
-namespace HordeSurvivalGame
+public class TowerPlacement : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
-    public class TowerPlacement : MonoBehaviour
+    GameObject Tower;
+    public GameObject prefab;
+    bool readyToPlace = false;
+
+    
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        [SerializeField]
-        private Mine mine;
-        [SerializeField]
-        private GameObject templateTower;
+        readyToPlace = true;
+    }
 
-        [SerializeField]
-        private Transform map;
-        public Item test;
-
-
-        // Update is called once per frame
-        void Update()
+    public void OnDrag(PointerEventData eventData)
+    {
+        //dont do anything until the player has dragged their cursor onto the map - do not place towers through the UI
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            RaycastCursor(); //Temporarily stopped in order to give alternate fuinctionality to the mouse inputs. Tower placement will be done within a specific build menu.
+            if (Tower)               //
+            {                        // player can cancel placing a tower by dragging it back onto the UI
+                Destroy(Tower);      //
+                readyToPlace = true; //
+            }                        //
+            return;
+        }
+        // on the first frame that the player has dragged their cursor onto the map, create the object
+        if(readyToPlace)
+        {
+            Tower = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            readyToPlace = false;
         }
 
-        //when the player clicks, raycast from the location of their cursor and place a building on the tile they clicked
-        // TODO: make sure they click a tile 
-        // TODO: make sure a tile is empty before placing anything
-        private void RaycastCursor()
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (Input.GetMouseButtonDown(0))
+            // convert cursor position into worldspace and tilespace
+            Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
+            Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.0f, Mathf.RoundToInt(clickInWorldspace.z));
+            
+            // postion the tower under the cursor
+            Tower.transform.position = clickInTilespace;
+
+            // if tower is walkable, change model colour to green
+            if( Tile.Vector3ToTile(clickInTilespace).isWalkable)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
-                    Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.5f, Mathf.RoundToInt(clickInWorldspace.z));
-
-                    OreTile ore = new OreTile(Tile.Vector3ToTile(clickInTilespace), test);
-                    Mine mine2 = Instantiate(mine, clickInTilespace, Quaternion.identity, map);
-                    mine2.Setup(ore);
-                    
-                }
-
+                Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+                foreach (Renderer r in rend)
+                    r.material.SetColor("_BaseColor", Color.green);
             }
-            else if (Input.GetMouseButtonDown(1))
+            // if tower is NOT walkable, change model colour to red
+            else
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
-
-
-                    Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.25f, Mathf.RoundToInt(clickInWorldspace.z));
-                    Instantiate(templateTower, clickInTilespace, Quaternion.identity, map);
-
-                    Tile.Vector3ToTile(clickInTilespace).MakeNonNavicable();
-                }
-
+                Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+                foreach (Renderer r in rend)
+                    r.material.SetColor("_BaseColor", Color.red);
             }
+
+
         }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (Tower)
+        {
+            // set object to white (default colours) when it is dropped
+            Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+            foreach (Renderer r in rend)
+                r.material.SetColor("_BaseColor", Color.white);
+
+            // once the tower is placed, set the towerObject of the tile (used to decide whether or not towers can connect)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
+                Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.0f, Mathf.RoundToInt(clickInWorldspace.z)); // this line is effectively the same as the one above, but when you remove it, conveyors break about 15% of the time.
+                Tile.Vector3ToTile(clickInTilespace).SetTower(Tower);
+            }
+            Tower = null;
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

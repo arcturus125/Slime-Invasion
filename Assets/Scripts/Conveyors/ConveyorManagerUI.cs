@@ -1,0 +1,181 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Conveyors
+{
+    public class ConveyorManagerUI : MonoBehaviour
+    {
+
+        private static ConveyorManagerUI singleton;
+        public  static ConveyorManager selectedConveyor = null;
+        public  static List<GameObject> destroyOnLoad = new List<GameObject>();
+
+
+
+        bool showSubMenus; // should the fitem filter ScrollArea be displayed?
+        bool nextFrameLoadExistingData = false; // set to true when you want to load the existing ConveyorItem filters in to the UI the next frame. typically runs once when the panel opens
+
+
+        // all the below are assigned in the inspector
+        [Header("Headings")]
+        [SerializeField]
+        private GameObject conveyorManagerPanel;
+        [SerializeField]
+        private Dropdown conveyorType;
+        [Header("Item Filters")]
+        [SerializeField]
+        private ItemFilterUI[] filterAreas;
+        [SerializeField]
+        private RectTransform contentWindow;
+        [SerializeField]
+        private GameObject filtersPanel;
+        [SerializeField]
+        private GameObject splitText;
+        [Header("I/O Editor")]
+        [SerializeField]
+        private GameObject IOEditorPanel;
+        [SerializeField]
+        private Button[] UIArms;
+
+
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            singleton = this;
+            IOEditorPanel.SetActive(false);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            conveyorManagerPanel.SetActive(!(selectedConveyor == null));
+            filtersPanel.SetActive(showSubMenus);
+            splitText.SetActive(!showSubMenus);
+            if (selectedConveyor)
+            {
+                if (selectedConveyor.hasItemFilters)
+                    conveyorType.value = 1;
+               
+                if (showSubMenus)
+                {
+
+
+                    //Debug.Log("Upddating sub menus");
+                    float offset = 0;
+                    for (int i = 0; i < filterAreas.Length; i++)
+                    {
+                        if (selectedConveyor.armTypes[i] == ConveyorManager.IOController.Output)
+                        {
+                            filterAreas[i].gameObject.SetActive(true);
+                            if (nextFrameLoadExistingData)
+                            {
+                                filterAreas[i].LoadExistingData();
+                            }
+
+                            // update Ui positions
+                            filterAreas[i].transform.position = contentWindow.position + new Vector3(filterAreas[i].gameObject.GetComponent<RectTransform>().sizeDelta.x / 2,
+                                                                                                     offset - contentWindow.sizeDelta.y - filterAreas[i].gameObject.GetComponent<RectTransform>().sizeDelta.y / 2,
+                                                                                                     0);
+                            offset += filterAreas[i].effectiveOffset;
+                        }
+                        else
+                            filterAreas[i].gameObject.SetActive(false);
+                    }
+                    contentWindow.sizeDelta = new Vector2(contentWindow.sizeDelta.x,
+                                                           offset);
+
+                    nextFrameLoadExistingData = false;
+                }
+
+                if (IOEditorPanel.activeInHierarchy)
+                {
+                    UpdateEditPanel();
+                }
+            }
+        }
+
+        // used to reset the panel ready for new data to be generated
+        public static void DestroyWindow()
+        {
+            foreach(GameObject temp in destroyOnLoad)
+            {
+                Destroy(temp);
+            }
+            destroyOnLoad.Clear();
+            singleton.IOEditorPanel.SetActive(false);
+            singleton.conveyorType.value = 0;
+        }
+
+        public void ConveyorTypeChanged()
+        {
+            showSubMenus = conveyorType.value == 1;
+            nextFrameLoadExistingData = true;
+            if(selectedConveyor)
+                selectedConveyor.hasItemFilters = true;
+        }
+
+        public void RemoveButtonClicked()
+        {
+            Destroy(selectedConveyor.gameObject);
+        }
+        public void EditButtonClicked()
+        {
+            IOEditorPanel.SetActive(!IOEditorPanel.activeSelf);
+        }
+
+
+        public void OverrideButtonClicked(int buttonIndex)
+        {
+            if(selectedConveyor.CustomArmTypes[buttonIndex] == ConveyorManager.IOController.None)
+            {
+                selectedConveyor.CustomArmTypes[buttonIndex] = ConveyorManager.IOController.Input;
+            }
+            else if (selectedConveyor.CustomArmTypes[buttonIndex] == ConveyorManager.IOController.Input)
+            {
+                selectedConveyor.CustomArmTypes[buttonIndex] = ConveyorManager.IOController.Output;
+            }
+            else if (selectedConveyor.CustomArmTypes[buttonIndex] == ConveyorManager.IOController.Output)
+            {
+                selectedConveyor.CustomArmTypes[buttonIndex] = ConveyorManager.IOController.None;
+            }
+        }
+
+        public void UpdateEditPanel()
+        {
+            for (int i = 0; i < selectedConveyor.conveyorArms.Length; i++)
+            {
+                if (!selectedConveyor.conveyorArms[i].activeInHierarchy)
+                {
+                    UIArms[i].interactable = false;
+                    UIArms[i].GetComponentsInChildren<Image>()[1].enabled = false;
+                }
+                else
+                {
+                    UIArms[i].interactable = true;
+                    UIArms[i].GetComponentsInChildren<Image>()[1].enabled = true;
+                    if (selectedConveyor.TrueArmTypes[i] == ConveyorManager.IOController.Output)
+                    {
+                        UIArms[i].GetComponentsInChildren<Image>()[1].enabled = true;
+                        UIArms[i].GetComponentsInChildren<RectTransform>()[1].localRotation = Quaternion.Euler(0, 0, 0);
+                    }
+                    else if (selectedConveyor.TrueArmTypes[i] == ConveyorManager.IOController.Input)
+                    {
+                        UIArms[i].GetComponentsInChildren<Image>()[1].enabled = true;
+                        UIArms[i].GetComponentsInChildren<RectTransform>()[1].localRotation = Quaternion.Euler(0, 0, 180);
+                    }
+                    else UIArms[i].GetComponentsInChildren<Image>()[1].enabled = false;
+
+
+                }
+
+                if (selectedConveyor.CustomArmTypes[i] != ConveyorManager.IOController.None)
+                    UIArms[i].GetComponentsInChildren<Image>()[1].color = Color.red;
+                else
+                    UIArms[i].GetComponentsInChildren<Image>()[1].color = Color.white;
+            }
+        }
+    }
+}
