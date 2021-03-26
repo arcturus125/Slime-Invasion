@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Pathfinder.tiles;
+using ItemSystem;
 
 namespace HordeSurvivalGame
 {
@@ -10,7 +11,7 @@ namespace HordeSurvivalGame
     {
         public Item resource;
 
-        public OreTile(Tile t, Item drops) : base()
+        public OreTile(Tile t, Item drops) : base(t)
         {
             resource = drops;
             Tile.tileMap[t.x, t.y] = this;

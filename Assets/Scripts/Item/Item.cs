@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HordeSurvivalGame
+namespace ItemSystem
 {
     public class Inventory
     {
