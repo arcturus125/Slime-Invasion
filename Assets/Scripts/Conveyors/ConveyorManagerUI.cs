@@ -9,16 +9,22 @@ namespace Conveyors
     {
 
         private static ConveyorManagerUI singleton;
-        public static ConveyorManager selectedConveyor = null;
-        public static List<GameObject> destroyOnLoad = new List<GameObject>();
+        public  static ConveyorManager selectedConveyor = null;
+        public  static List<GameObject> destroyOnLoad = new List<GameObject>();
 
-        // headings
+
+
+        bool showSubMenus; // should the fitem filter ScrollArea be displayed?
+        bool nextFrameLoadExistingData = false; // set to true when you want to load the existing ConveyorItem filters in to the UI the next frame. typically runs once when the panel opens
+
+
+        // all the below are assigned in the inspector
+        [Header("Headings")]
         [SerializeField]
         private GameObject conveyorManagerPanel;
         [SerializeField]
         private Dropdown conveyorType;
-
-        // item filters
+        [Header("Item Filters")]
         [SerializeField]
         private ItemFilterUI[] filterAreas;
         [SerializeField]
@@ -27,16 +33,13 @@ namespace Conveyors
         private GameObject filtersPanel;
         [SerializeField]
         private GameObject splitText;
-
-        // Input/Output editor
+        [Header("I/O Editor")]
         [SerializeField]
         private GameObject IOEditorPanel;
         [SerializeField]
         private Button[] UIArms;
 
 
-        bool showSubMenus;
-        bool nextFrameLoadExistingData = false;
 
         // Start is called before the first frame update
         void Start()
@@ -53,6 +56,8 @@ namespace Conveyors
             splitText.SetActive(!showSubMenus);
             if (selectedConveyor)
             {
+                if (selectedConveyor.hasItemFilters)
+                    conveyorType.value = 1;
                
                 if (showSubMenus)
                 {
@@ -108,6 +113,8 @@ namespace Conveyors
         {
             showSubMenus = conveyorType.value == 1;
             nextFrameLoadExistingData = true;
+            if(selectedConveyor)
+                selectedConveyor.hasItemFilters = true;
         }
 
         public void RemoveButtonClicked()
