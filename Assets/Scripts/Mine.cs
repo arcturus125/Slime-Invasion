@@ -50,7 +50,7 @@ namespace HordeSurvivalGame
                     Drop();
                 }
             }
-            else Debug.Log("WARNING: mine not placed on an ore. this building will not drop any items");
+            //else Debug.Log("WARNING: mine not placed on an ore. this building will not drop any items");
         }
 
         private void Drop()

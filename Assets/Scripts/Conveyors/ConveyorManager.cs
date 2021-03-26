@@ -21,11 +21,13 @@ namespace Conveyors
         public GameObject[] conveyorArms; // up, down, left, right
         public Vector2[] cardinalDirections;
         public IOController[] armTypes;
+        public IOController[] CustomArmTypes;
 
         public List<Item>[] itemFilters = new List<Item>[4];
 
         public int visibleArms = 0;
         public int noOfInputs  = 0;
+
 
         // Start is called before the first frame update
         void Start()
