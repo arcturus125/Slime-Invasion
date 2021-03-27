@@ -12,8 +12,11 @@ namespace HordeSurvivalGame
         public Item itemToSpawn;
         public float originX = 85.0f;
         public float originZ = 50.0f;
+        [Range(3.0f, 15.0f)]
         public float distance;
+        [Range(1.0f, 10.0f)]
         public int clusterSize;
+        [Range(3.0f, 8.0f)]
         public int veinSize;
 
         // Start is called before the first frame update
