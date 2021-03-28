@@ -14,7 +14,7 @@ namespace HordeSurvivalGame
         public OreTile(Tile t, Item drops) : base()
         {
             x = t.x;
-            y = t.x;
+            y = t.y;
             tileObject = t.tileObject;
             towerObject = t.towerObject;
             isWalkable = t.isWalkable;

@@ -42,8 +42,6 @@ namespace HordeSurvivalGame
         // Update is called once per frame
         void Update()
         {
-            //Tile.tileMap[x, y].ToString();
-
             if (resource) // only drop if the mine is places ontop of a resource
             {
                 timeSinceLastDrop += Time.deltaTime;
