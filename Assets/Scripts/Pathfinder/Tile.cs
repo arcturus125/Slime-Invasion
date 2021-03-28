@@ -58,6 +58,7 @@ namespace Pathfinder.tiles
             x = t.x;
             y = t.x;
             tileObject = t.tileObject;
+            towerObject = t.towerObject;
             isWalkable = t.isWalkable;
         }
 

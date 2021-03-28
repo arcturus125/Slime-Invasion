@@ -15,32 +15,35 @@ namespace HordeSurvivalGame
         Item resource = null;
 
         private float timeSinceLastDrop = 0;
-        //public Mine(Tile t, float minerSpeed) : base(t)
-        //{
-        //    miningSpeed = minerSpeed;
-        //}
-        //// dummy constructor to test the system before we implemented the ore generation
-        //public Mine(Tile t, float minerSpeed, Item test) : base(t)
-        //{
-        //    miningSpeed = minerSpeed;
-        //    ore = new OreTile(t, test);
-        //    resource = ore.resource;
-        //}
         // Start is called before the first frame update
         void Start()
         {
-
+            // TODO: call TowerSetup() on parent
         }
 
-        public void Setup(OreTile ore)
+        public void Setup()
         {
-            TowerSetup(ore);
-            resource = ore.resource;
+            
+        }
+        public override void OnPlaced(Tile t)
+        {
+            base.OnPlaced(t);
+            if (Tile.tileMap[x, y] is OreTile)
+            {
+                Debug.Log("tower placed on ore at" + Tile.TileToVector3(Tile.tileMap[x, y]));
+                OreTile ore = Tile.tileMap[x, y] as OreTile;  // super janky way of doing this, will revisit later
+                resource = ore.resource;
+            }
+            else
+                Debug.Log("tower NOT placed on ore" + Tile.TileToVector3(Tile.tileMap[x, y]));
+
         }
             
         // Update is called once per frame
         void Update()
         {
+            
+
             if (resource) // only drop if the mine is places ontop of a resource
             {
                 timeSinceLastDrop += Time.deltaTime;
@@ -50,7 +53,6 @@ namespace HordeSurvivalGame
                     Drop();
                 }
             }
-            //else Debug.Log("WARNING: mine not placed on an ore. this building will not drop any items");
         }
 
         private void Drop()

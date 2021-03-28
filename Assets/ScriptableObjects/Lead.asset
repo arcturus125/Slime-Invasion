@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lead
   m_EditorClassIdentifier: 
   itemName: Lead
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 30fbdfeabceb2474186767361ce785d0, type: 3}

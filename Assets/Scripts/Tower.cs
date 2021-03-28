@@ -16,26 +16,17 @@ namespace HordeSurvivalGame
         public Inventory inv;
 
 
-        public void TowerSetup(Tile t)
+        /// <summary>
+        /// Initialise the inventory, set the towers position in tilespace and make the tile non-navicable
+        /// </summary>
+        /// <param name="t"></param>
+        public virtual void OnPlaced(Tile t)
         {
             inv = new Inventory();
             x = t.x;
             y = t.y;
 
             t.MakeNonNavicable();
-        }
-
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

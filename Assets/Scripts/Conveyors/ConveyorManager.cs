@@ -33,18 +33,35 @@ namespace Conveyors
         [SerializeField]
         private string UnityInspectorDebugging = ""; // this exists only for debugging things in unity.
 
+        /*  ###############################################
+         *              Conveyor Model Management
+         *  ###############################################
+         */
         public GameObject[] conveyorArms; //  assigned in inspector. contains a reference to the conveyors arms in the following order: up, down, left, right
         public Vector2[] cardinalDirections; // assigned in inspector, commonIndex with conveyorArms. contains the direction each arm is facing
         public IOController[] armTypes; // automatically generated inputs and outputs for each conveyor arm
         public IOController[] CustomArmTypes; // user overridden inputs and outputs - so user can change the default functionality of a conveyor
-        public IOController[] TrueArmTypes; // a combination of the above two, where CustomArmTypes Overrides armTypes if the value is not None
-
-
+        public IOController[] TrueArmTypes; // a combination of the above two, where CustomArmTypes Overrides armTypes if the value is not 
         public bool hasItemFilters = false;
         public List<Item>[] itemFilters = new List<Item>[4];
-
         public int visibleArms = 0; // used in algorithm decision making to decide which arms are inputs and which arms are outputs
         public int noOfInputs  = 0; //
+
+
+        /*  ###############################################
+         *              Conveyor Item Movement
+         *  ###############################################
+         */
+        [SerializeField]
+        private GameObject conveyorSprite;
+        Vector2 inputDirection;
+        bool conveyorBusy = false;
+        float timeElapsed = 0;
+        public Inventory ConveyorInv = new Inventory(); // the items currently held within the conveyor
+        public int maxCapacity = 10; // the max number of items that the conveyor can hold at one time
+        public float timeToTransport = 3.0f;
+        GameObject sprite;
+
 
 
         // initialise lists and flood arrays that require a default value
@@ -59,11 +76,50 @@ namespace Conveyors
                 CustomArmTypes[i] = IOController.None;
             }
         }
-
-        
         void Update()
         {
             UpdateConveyorModel();
+            if (!conveyorBusy)
+            {
+                for (int i = 0; i < TrueArmTypes.Length; i++)
+                {
+                    if (TrueArmTypes[i] == IOController.Input)
+                    {
+                        Tile t = Tile.Vector3ToTile(transform.position);
+                        GameObject tower = Tile.tileMap[t.x + (int)cardinalDirections[i].x, t.y + (int)cardinalDirections[i].y].GetTower();
+                        if (tower.TryGetComponent<Mine>(out Mine m))
+                        {
+                            if (m.inv.items.Count > 0)
+                            {
+                                // get the item and the quantity we want th econveyor to take
+                                Item item = m.inv.items[0];
+                                int quantity = m.inv.quantity[0];
+                                //remove the item from the towers inventory
+                                m.inv.removeItem(item, quantity);
+                                // add the item to the conveyors inventory
+                                ConveyorInv.addItem(item, quantity);
+                                // set the conveyor to "Busy" so it doesnt run this every frame
+                                conveyorBusy = true;
+                                inputDirection = new Vector3(-cardinalDirections[i].x, 0, -cardinalDirections[i].y);
+                                // create object to be ready to move
+                                sprite = Instantiate(conveyorSprite, this.gameObject.transform);
+                                sprite.GetComponent<SpriteRenderer>().sprite = item.icon;
+                                timeElapsed = timeToTransport;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                float percent = timeElapsed / timeToTransport;
+                sprite.transform.localPosition = inputDirection * (1 - percent);
+                sprite.transform.localPosition += Vector3.up;
+
+                timeElapsed += Time.deltaTime;
+
+                timeElapsed = timeElapsed % timeToTransport;
+            }
         }
 
         // NOTE: the order in which each function is called is ### Super Important ### do not play with this function unless you know what you are doing
@@ -165,7 +221,6 @@ namespace Conveyors
                 }
             }
         }
-
         private void YConveyor()
         {
             UnityInspectorDebugging = "YConveyor";
@@ -185,7 +240,6 @@ namespace Conveyors
                 }
             }
         }
-
         private void SConveyor()
         {
             UnityInspectorDebugging = "SConveyor";
