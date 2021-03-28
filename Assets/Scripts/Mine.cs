@@ -42,7 +42,7 @@ namespace HordeSurvivalGame
         // Update is called once per frame
         void Update()
         {
-            
+            //Tile.tileMap[x, y].ToString();
 
             if (resource) // only drop if the mine is places ontop of a resource
             {
@@ -58,7 +58,7 @@ namespace HordeSurvivalGame
         private void Drop()
         {
             inv.addItem(resource, dropSize);
-            Debug.Log("Mine inv: " + inv.quantity[0]+"- "+ inv.items[0].itemName);
+            //Debug.Log("Mine inv: " + inv.quantity[0]+"- "+ inv.items[0].itemName);
         }
     }
 }

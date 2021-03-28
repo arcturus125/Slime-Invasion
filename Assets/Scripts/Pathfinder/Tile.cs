@@ -11,6 +11,9 @@ namespace Pathfinder.tiles
     {
         // static settings
         public static int MapSize = 250;
+        /// <summary>
+        /// WARNING! : if at all possible use Tile.vector3ToTile instead. acessing the tilemap directly can cause unexplainable errors for no reason when dealing with OreTiles
+        /// </summary>
         public static Tile[,] tileMap = new Tile[MapSize, MapSize];
 
 
@@ -92,7 +95,7 @@ namespace Pathfinder.tiles
         {
             towerObject = tower;
         }
-        public GameObject GetTower()
+        public virtual GameObject GetTower()
         {
             return towerObject;
         }
@@ -116,6 +119,14 @@ namespace Pathfinder.tiles
 
             return true;
 
+        }
+        public string ToString()
+        {
+            if(towerObject)
+                Debug.Log(x + "," + y + ": " + towerObject);
+            else
+                Debug.Log(x + "," + y + ": ~ towerObject is null~ ");
+            return base.ToString();
         }
     }
 }

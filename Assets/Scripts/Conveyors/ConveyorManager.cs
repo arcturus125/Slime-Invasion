@@ -79,6 +79,11 @@ namespace Conveyors
         void Update()
         {
             UpdateConveyorModel();
+            //ItemTransfer();
+        }
+
+        private void ItemTransfer()
+        {
             if (!conveyorBusy)
             {
                 for (int i = 0; i < TrueArmTypes.Length; i++)
@@ -296,23 +301,23 @@ namespace Conveyors
         private void UpdateArmVisibility(GameObject arm, Vector2 cardinalDirection)
         {
             Tile t = Tile.Vector3ToTile(transform.position);
-            //if (Tile.tileMap[t.x + (int)cardinalDirection.x, t.y + (int)cardinalDirection.y].GetTower() != null)
             arm.SetActive(CanConveyorConnect(t, cardinalDirection));
         }
         private bool CanConveyorConnect(Tile t, Vector2 cardinalDirection)
         {
             int armIndex = System.Array.IndexOf(cardinalDirections, cardinalDirection);
             armTypes[armIndex] = IOController.None;
+            Tile t_neighbour = Tile.Vector3ToTile(transform.position + new Vector3(-cardinalDirection.x, 0, -cardinalDirection.y));
+
+
+
+
 
             // dont bother running any of the below code if there is no tower adjacent to the conveyor
-            if (Tile.tileMap[t.x + (int)cardinalDirection.x, t.y + (int)cardinalDirection.y].GetTower() == null)
-            {
-                return false;
-            }
-                
+            if (t_neighbour.towerObject == null) return false;
+
             // conveyor can connect to other conveyors
-            ConveyorManager conv;
-            if(Tile.tileMap[t.x + (int)cardinalDirection.x, t.y + (int)cardinalDirection.y].GetTower().TryGetComponent<ConveyorManager>(out conv))
+            if (t_neighbour.GetTower().TryGetComponent(out ConveyorManager conv))
             {
                 ConveyorChaining(cardinalDirection, conv);
                 visibleArms++;
@@ -320,8 +325,7 @@ namespace Conveyors
             }
 
             // conveyor can connect to mine
-            Mine m;
-            if (Tile.tileMap[t.x + (int)cardinalDirection.x, t.y + (int)cardinalDirection.y].GetTower().TryGetComponent<Mine>(out m))
+            if (t_neighbour.GetTower().TryGetComponent(out Mine m))
             {
                 int index = System.Array.IndexOf(cardinalDirections, cardinalDirection);
                 armTypes[armIndex] = IOController.Input;
@@ -331,6 +335,9 @@ namespace Conveyors
 
             return false;
         }
+
+
+
         private void ConveyorChaining(Vector2 cardinalDirection, ConveyorManager otherConveyor)
         {
             Vector2 oppositeDirection = new Vector2(-cardinalDirection.x, -cardinalDirection.y);

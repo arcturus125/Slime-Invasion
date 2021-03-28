@@ -86,6 +86,7 @@ namespace HordeSurvivalGame
                     t.SetTower(Tower);
                     if(Tower.TryGetComponent<Tower>(out Tower towerClassInstance))
                         towerClassInstance.OnPlaced(t);
+
                 }
                 Tower = null;
 

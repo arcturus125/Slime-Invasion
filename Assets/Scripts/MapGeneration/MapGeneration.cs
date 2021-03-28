@@ -8,6 +8,9 @@ namespace MapGeneration
 {
     public class MapGeneration : MonoBehaviour
     {
+        [Header("Debug Settings:")]
+        public bool CreateTileObservers = true;
+
         enum ShadowMap
         {
             None = 0,
@@ -24,6 +27,8 @@ namespace MapGeneration
             edgeBottomRight_shadow = 11
         };
 
+
+        [Header("Sprites:")]
         [SerializeField]
         private Transform mapParentTransform;
         [SerializeField]
@@ -135,6 +140,7 @@ namespace MapGeneration
 
             // hooks the gameobject tile up to the tile system utilised by the pathfinding algorithm
             Tile.tileMap[x, y] = new Tile(x,y, tileObject);
+            tileObject.AddComponent<TileObserver>().INIT(x,y);
 
 
 

@@ -43,7 +43,7 @@ namespace HordeSurvivalGame
 
             Vector3 pos = new Vector3((int)x, 0, (int)y) + origin;
             Tile.Vector3ToTile(pos);
-            Debug.Log("Ore spawned at " + pos);
+            //Debug.Log("Ore spawned at " + pos);
 
             new OreTile(Tile.Vector3ToTile(pos), itemToSpawn);
             Instantiate(prefab, pos, Quaternion.identity);
@@ -69,7 +69,7 @@ namespace HordeSurvivalGame
                     currentOrePos.x += 1;
                 }
                 Tile.Vector3ToTile(currentOrePos);
-                Debug.Log("Ore spawned at " + currentOrePos);
+                //Debug.Log("Ore spawned at " + currentOrePos);
                 new OreTile(Tile.Vector3ToTile(currentOrePos), itemToSpawn);
                 Instantiate(prefab, currentOrePos, Quaternion.identity);
             }
