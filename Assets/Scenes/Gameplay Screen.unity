@@ -6379,6 +6379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abb985b34002bd4186bcc904714b833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1966678807}
   projectileSpeed: 5
   playerPosition: {fileID: 1966678811}
   proj: {fileID: 3012422394887249208, guid: 31d642e53174953469546c2fc351b4b6, type: 3}

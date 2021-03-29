@@ -15,7 +15,7 @@ public class MusicManager : MonoBehaviour
             m.source.clip = m.clip;
             m.source.volume = m.volume;
         }
-        PlayMusic(0);
+        PlayMusic(2);
     }
 
     public void ChooseTrack()
