@@ -728,6 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba0452d337ed104b88dcb13f4147ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnityInspectorDebugging: 
   conveyorArms:
   - {fileID: 270226766351949477}
   - {fileID: 813191493705749334}
@@ -741,8 +742,12 @@ MonoBehaviour:
   armTypes: 00000000000000000000000000000000
   CustomArmTypes: 00000000000000000000000000000000
   TrueArmTypes: 00000000000000000000000000000000
+  hasItemFilters: 0
   visibleArms: 0
   noOfInputs: 0
+  conveyorSprite: {fileID: 2698515960394584463, guid: 66991ec2933cf284480209849c0cca81, type: 3}
+  maxCapacity: 10
+  timeToTransport: 3
 --- !u!1 &8053477252499266961
 GameObject:
   m_ObjectHideFlags: 0

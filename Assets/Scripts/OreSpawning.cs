@@ -8,7 +8,7 @@ namespace HordeSurvivalGame
 {
     public class OreSpawning : MonoBehaviour
     {
-    
+        public GameObject prefab;
         public Item itemToSpawn;
         public float originX = 85.0f;
         public float originZ = 50.0f;
@@ -44,10 +44,12 @@ namespace HordeSurvivalGame
             float x = Mathf.Cos(radians) * range;
             float y = Mathf.Sin(radians) * range;
 
-            Vector3 pos = new Vector3(x, 0, y) + origin;
+            Vector3 pos = new Vector3((int)x, 0, (int)y) + origin;
             Tile.Vector3ToTile(pos);
-            Debug.Log("Ore spawned at " + pos);
+            //Debug.Log("Ore spawned at " + pos);
+
             new OreTile(Tile.Vector3ToTile(pos), itemToSpawn);
+            Instantiate(prefab, pos, Quaternion.identity);
 
             Vector3 currentOrePos = pos;
             for (int i = 0; i < veinSize; i++)
@@ -70,8 +72,9 @@ namespace HordeSurvivalGame
                     currentOrePos.x += 1;
                 }
                 Tile.Vector3ToTile(currentOrePos);
-                Debug.Log("Ore spawned at " + currentOrePos);
+                //Debug.Log("Ore spawned at " + currentOrePos);
                 new OreTile(Tile.Vector3ToTile(currentOrePos), itemToSpawn);
+                Instantiate(prefab, currentOrePos, Quaternion.identity);
             }
         }
     }
