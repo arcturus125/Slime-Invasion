@@ -6,7 +6,7 @@ namespace HordeSurvivalGame
 {
     public class Projectile : MonoBehaviour
     {
-
+        public int projectileDamage = 1;
         public float projectileSpeed = 1.0f;
         public Vector3 initialVelocity;
 
@@ -31,6 +31,15 @@ namespace HordeSurvivalGame
             if (timeLeft < 0) Destroy(this.gameObject);
 
             transform.position += (initialVelocity * Time.deltaTime * projectileSpeed);
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("HIT!");
+            if(collision.gameObject.TryGetComponent(out Enemy e))
+            {
+                e.Damage(projectileDamage);
+            }
         }
     }
 }

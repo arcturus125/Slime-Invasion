@@ -8,7 +8,8 @@ namespace HordeSurvivalGame
 {
     public class Enemy : MonoBehaviour
     {
-        public GameObject dummy;
+        public int maxHealth = 5;
+        public int remainingHealth;
         public float pathfindingleniancy = 0.5f;
         public float speedMultiplier = 0.01f;
 
@@ -21,7 +22,7 @@ namespace HordeSurvivalGame
         // Start is called before the first frame update
         void Start()
         {
-            
+            remainingHealth = maxHealth;
 
         }
 
@@ -70,6 +71,16 @@ namespace HordeSurvivalGame
                 AStarPathfind();
                 FindPathToPlayer = true;
 
+            }
+        }
+
+        public void Damage(int damageNumbers)
+        {
+            Debug.Log("Enemy damaged!");
+            remainingHealth -= damageNumbers;
+            if (remainingHealth <=0)
+            {
+                Destroy(this.gameObject);
             }
         }
     } 
