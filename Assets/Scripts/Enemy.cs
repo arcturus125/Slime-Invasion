@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Pathfinder;
+using UnityEngine.UI;
 
 namespace HordeSurvivalGame 
 {
     public class Enemy : MonoBehaviour
     {
-        public GameObject dummy;
+        [SerializeField]
+        private Slider healthBar;
+        public int maxHealth = 5;
+        public int remainingHealth;
         public float pathfindingleniancy = 0.5f;
         public float speedMultiplier = 0.01f;
+
+        public static float defaultHealthBarTimer = 3.0f; // health bar wil show for 3 seconds before dissapearing
+        float healthBarTimeLeft = 0;
 
 
         Pathfinding p; // instance of the pathfinder
@@ -21,8 +28,8 @@ namespace HordeSurvivalGame
         // Start is called before the first frame update
         void Start()
         {
-            
-
+            remainingHealth = maxHealth;
+            healthBar.gameObject.SetActive(false);
         }
 
         private void AStarPathfind()
@@ -33,6 +40,25 @@ namespace HordeSurvivalGame
 
         // Update is called once per frame
         void Update()
+        {
+            enemyPathfinding();
+
+            if (healthBarTimeLeft > 0)
+            {
+                float percent = (float)remainingHealth / (float)maxHealth;
+                Debug.Log(percent);
+                healthBar.value = percent;
+                healthBar.gameObject.SetActive(true);
+                healthBarTimeLeft -= Time.deltaTime;
+
+                if (healthBarTimeLeft <= 0)
+                {
+                    healthBar.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        private void enemyPathfinding()
         {
             if (FindPathToPlayer)
             {
@@ -65,12 +91,24 @@ namespace HordeSurvivalGame
                 // if the enemy is next to the player, keep finding path to effectively chase the player when they move
                 else AStarPathfind();
             }
-            if(Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 AStarPathfind();
                 FindPathToPlayer = true;
 
             }
+        }
+
+        public void Damage(int damageNumbers)
+        {
+            Debug.Log("Enemy damaged!");
+            remainingHealth -= damageNumbers;
+            if (remainingHealth <=0)
+            {
+                Destroy(this.gameObject);
+            }
+
+            healthBarTimeLeft = defaultHealthBarTimer;
         }
     } 
 }
