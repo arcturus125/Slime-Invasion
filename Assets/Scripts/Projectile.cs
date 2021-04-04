@@ -13,11 +13,12 @@ namespace HordeSurvivalGame
         public float projectileLifetime = 3.0f;
         private float timeLeft;
 
-        public void INIT(Vector3 velocity, float speed)
+        public void INIT(Vector3 velocity, float speed, int damage = 1)
         {
             initialVelocity = velocity;
             projectileSpeed = speed;
             transform.position += initialVelocity.normalized;
+            projectileDamage = damage;
         }
 
         private void Start()
@@ -35,7 +36,7 @@ namespace HordeSurvivalGame
 
         void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("HIT!");
+            // when the projectile hits an enemt
             if(collision.gameObject.TryGetComponent(out Enemy e))
             {
                 e.Damage(projectileDamage);
