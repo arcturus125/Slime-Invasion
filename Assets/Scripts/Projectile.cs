@@ -15,6 +15,8 @@ namespace HordeSurvivalGame
 
         public void INIT(Vector3 velocity, float speed = 1, int damage = 1)
         {
+            transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
+            GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
             initialVelocity = velocity;
             projectileSpeed = speed;
             transform.position += initialVelocity.normalized;
