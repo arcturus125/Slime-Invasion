@@ -8,7 +8,6 @@ namespace HordeSurvivalGame
 {
     public class ProjectileShooting : MonoBehaviour
     {
-        public float projectileSpeed = 1;
         public Transform playerPosition;
         public Projectile proj;
 
@@ -45,7 +44,7 @@ namespace HordeSurvivalGame
 
 
                 Projectile test = Instantiate(proj, playerPosition.position, Quaternion.identity);
-                test.INIT(finalVelocity.normalized, projectileSpeed);
+                test.INIT(finalVelocity.normalized);
 
             }
         }

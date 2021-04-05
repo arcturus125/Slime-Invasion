@@ -114,7 +114,9 @@ MonoBehaviour:
   LookAtEnemy: 1
   head: {fileID: 634832989556087125}
   range: 10
+  fireRate: 1
   targetEnemy: {fileID: 0}
+  projectilePrefab: {fileID: 3012422394887249208, guid: 31d642e53174953469546c2fc351b4b6, type: 3}
 --- !u!1 &634832989556087125
 GameObject:
   m_ObjectHideFlags: 0

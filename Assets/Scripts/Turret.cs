@@ -9,9 +9,13 @@ namespace HordeSurvivalGame
         public bool LookAtEnemy = true;
         public GameObject head; //private
         public float range = 10;
+        public float fireRate = 1.0f; // the time, in seconds, between each shot
 
         public Enemy targetEnemy; // private
+        public Projectile projectilePrefab;
 
+
+        float timer = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -37,6 +41,19 @@ namespace HordeSurvivalGame
                         targetEnemy.gameObject.transform.position.x,
                         head.transform.position.y,
                         targetEnemy.gameObject.transform.position.z));
+                    if(timer <= 0)
+                    {
+                        // shoot
+
+                        Projectile test = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                        test.INIT(head.transform.forward);
+
+                        timer = fireRate;
+                    }
+                    else
+                    {
+                        timer -= Time.deltaTime;
+                    }
                 }
             }
         }

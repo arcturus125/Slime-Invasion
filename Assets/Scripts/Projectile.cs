@@ -13,7 +13,7 @@ namespace HordeSurvivalGame
         public float projectileLifetime = 3.0f;
         private float timeLeft;
 
-        public void INIT(Vector3 velocity, float speed, int damage = 1)
+        public void INIT(Vector3 velocity, float speed = 1, int damage = 1)
         {
             initialVelocity = velocity;
             projectileSpeed = speed;
