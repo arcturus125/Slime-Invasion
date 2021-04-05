@@ -21,7 +21,9 @@ namespace HordeSurvivalGame
         // Start is called before the first frame update
         void Start()
         {
-            
+            //Moved this code to the start function rather than waiting for a Keypress so the enemies imediately start chasing the player.
+            AStarPathfind();
+            FindPathToPlayer = true;
 
         }
 
@@ -65,12 +67,12 @@ namespace HordeSurvivalGame
                 // if the enemy is next to the player, keep finding path to effectively chase the player when they move
                 else AStarPathfind();
             }
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                AStarPathfind();
-                FindPathToPlayer = true;
+            //if(Input.GetKeyDown(KeyCode.F))
+            //{
+            //    AStarPathfind();
+            //    FindPathToPlayer = true;
 
-            }
+            //}
         }
     } 
 }
