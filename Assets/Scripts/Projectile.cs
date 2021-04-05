@@ -13,7 +13,7 @@ namespace HordeSurvivalGame
         public float projectileLifetime = 3.0f;
         private float timeLeft;
 
-        public void INIT(Vector3 velocity, float speed, int damage = 1)
+        public void INIT(Vector3 velocity, float speed = 1, int damage = 1)
         {
             transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
             GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
