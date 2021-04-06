@@ -11,6 +11,9 @@ namespace HordeSurvivalGame
         public Transform playerPosition;
         public Projectile proj;
 
+        float projectileSpeed = 1;
+        int projectileDamage = 1;
+
         // Update is called once per frame
         void Update()
         {
@@ -44,7 +47,7 @@ namespace HordeSurvivalGame
 
 
                 Projectile test = Instantiate(proj, playerPosition.position, Quaternion.identity);
-                test.INIT(finalVelocity.normalized);
+                test.INIT(finalVelocity.normalized, projectileSpeed, projectileDamage);
 
             }
         }
