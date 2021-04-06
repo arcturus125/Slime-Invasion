@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using Pathfinder;
-using UnityEngine.UI;
 
 namespace HordeSurvivalGame 
 {
@@ -14,7 +14,8 @@ namespace HordeSurvivalGame
         public int maxHealth = 5;
         public int remainingHealth;
         public float pathfindingleniancy = 0.5f;
-        public float speedMultiplier = 0.01f;
+        public float finalSpeed = 0.01f; // the speed of the enemy AFTER all the effects have been applied
+        public float defaultSpeed = 0.01f;
 
         public static float defaultHealthBarTimer = 3.0f; // health bar wil show for 3 seconds before dissapearing
         float healthBarTimeLeft = 0;
@@ -66,7 +67,7 @@ namespace HordeSurvivalGame
                 if (path != null)
                 {
                     //transform.localPosition += Vector3.forward * Time.deltaTime * speedMultiplier;
-                    transform.position = Vector3.MoveTowards(transform.position, path[i], speedMultiplier);
+                    transform.position = Vector3.MoveTowards(transform.position, path[i], finalSpeed);
                     //transform.Translate(transform.TransformDirection(Vector3.forward) * Time.deltaTime * speedMultiplier, Space.Self);
 
                     // if close to the waypoint, set target to the next waypoint
