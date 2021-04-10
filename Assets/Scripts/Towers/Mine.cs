@@ -5,8 +5,9 @@ using System;
 
 using Pathfinder.tiles;
 using ItemSystem;
+using HordeSurvivalGame;
 
-namespace HordeSurvivalGame
+namespace Towers
 {
     public class Mine : Tower
     {

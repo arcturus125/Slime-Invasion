@@ -20,6 +20,9 @@ TextureImporter:
   - first:
       213: 6554268643293285704
     second: Decorative_props_5
+  - first:
+      213: -1201658074928827221
+    second: Decorative_props_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -220,7 +223,7 @@ TextureImporter:
         width: 95
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,6 +231,27 @@ TextureImporter:
       bones: []
       spriteID: 84d4af5ea9075fa50800000000000000
       internalID: 6554268643293285704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decorative_props_6
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 423
+        width: 63
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba43366f85ad25fe0800000000000000
+      internalID: -1201658074928827221
       vertices: []
       indices: 
       edges: []

@@ -111,10 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730f1e2fef5b17f499bca0f0105e58bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookAtEnemy: 1
+  x: 0
+  y: 0
+  recievableItem: {fileID: 0}
   head: {fileID: 634832989556087125}
   range: 10
+  fireRate: 1
+  projectileDamage: 1
+  projectileSpeed: 3
   targetEnemy: {fileID: 0}
+  projectilePrefab: {fileID: 3012422394887249208, guid: 31d642e53174953469546c2fc351b4b6, type: 3}
 --- !u!1 &634832989556087125
 GameObject:
   m_ObjectHideFlags: 0

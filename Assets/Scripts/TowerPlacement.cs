@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+
 using Pathfinder.tiles;
+using Towers;
 
 namespace HordeSurvivalGame
 {
@@ -12,6 +15,7 @@ namespace HordeSurvivalGame
         GameObject Tower;
         public GameObject prefab;
         bool readyToPlace = false;
+        bool allowPlacement = false;
 
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -54,6 +58,7 @@ namespace HordeSurvivalGame
                     Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
                     foreach (Renderer r in rend)
                         r.material.SetColor("_BaseColor", Color.green);
+                    allowPlacement = true;
                 }
                 // if tower is NOT walkable, change model colour to red
                 else
@@ -61,6 +66,17 @@ namespace HordeSurvivalGame
                     Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
                     foreach (Renderer r in rend)
                         r.material.SetColor("_BaseColor", Color.red);
+                    allowPlacement = false;
+                }
+
+                if(Tile.Vector3ToTile(clickInTilespace).towerObject != null)
+                {
+                    Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+                    foreach (Renderer r in rend)
+                        r.material.SetColor("_BaseColor", Color.red);
+                    allowPlacement = false;
+
+                    Debug.LogWarning("Player attempted to place a tower ontop of another tower. cancelling placement");
                 }
 
 
@@ -69,7 +85,7 @@ namespace HordeSurvivalGame
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (Tower)
+            if (Tower && allowPlacement)
             {
                 // set object to white (default colours) when it is dropped
                 Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
@@ -89,11 +105,15 @@ namespace HordeSurvivalGame
                     if (Tower.TryGetComponent<Conveyors.ConveyorManager>(out Conveyors.ConveyorManager conveyorClassInstance))
                         conveyorClassInstance.OnPlaced();
 
+                    t.isWalkable = false; // tile can no longer be walked on since there has been a tower placed on it
+
                 }
                 Tower = null;
 
 
             }
+            if (Tower && !allowPlacement)
+                Destroy(Tower);
         }
 
         // Start is called before the first frame update

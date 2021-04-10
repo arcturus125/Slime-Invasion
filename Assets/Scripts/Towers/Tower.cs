@@ -5,14 +5,14 @@ using UnityEngine;
 using Pathfinder.tiles;
 using ItemSystem;
 
-namespace HordeSurvivalGame
+namespace Towers
 {
     public class Tower : MonoBehaviour
     {
-        public int x; // delete if unused
-        public int y; //
+        public int x; 
+        public int y; 
 
-        public bool canRecieveItems = false;
+        public Item recievableItem; // acts as a filter, only allowing items to be placed in the tower if they match this item
         public Inventory inv;
 
 
