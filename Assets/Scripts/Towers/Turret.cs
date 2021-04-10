@@ -13,7 +13,7 @@ namespace Towers
         public float range = 10;
         public float fireRate = 1.0f; // the time, in seconds, between each shot
         public int projectileDamage = 1; // the damage that each projectile will do to an enemy
-        public float projectileSpeed = 1; // the speed the tower will force out projectiles
+        public float projectileSpeed = 3; // the speed the tower will force out projectiles
 
         /* #### multiple possible types of turret tower
          *      basic turret:
