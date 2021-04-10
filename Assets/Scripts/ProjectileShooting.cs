@@ -11,6 +11,9 @@ namespace HordeSurvivalGame
         public Transform playerPosition;
         public Projectile proj;
 
+        float projectileSpeed = 3;
+        int projectileDamage = 1;
+
         // Update is called once per frame
         void Update()
         {
@@ -25,10 +28,6 @@ namespace HordeSurvivalGame
                 Vector3 pointClicked = Vector3.zero;
                 if (Physics.Raycast(cursorPosition, Camera.main.transform.forward, out hit))
                 {
-                    if (hit.transform == sprite.transform) //If the user clicks on the player, no projectiles are spawned, as they would be stationary.
-                    {
-                        return;
-                    }
                     pointClicked = hit.transform.position;
 
                     ConveyorManager conv;
@@ -49,7 +48,7 @@ namespace HordeSurvivalGame
 
 
                 Projectile test = Instantiate(proj, playerPosition.position, Quaternion.identity);
-                test.INIT(finalVelocity.normalized);
+                test.INIT(finalVelocity.normalized, projectileSpeed, projectileDamage);
 
             }
         }
