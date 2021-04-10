@@ -20,7 +20,6 @@ namespace HordeSurvivalGame
         public static float defaultHealthBarTimer = 3.0f; // health bar wil show for 3 seconds before dissapearing
         float healthBarTimeLeft = 0;
 
-
         Pathfinding p; // instance of the pathfinder
         public List<Vector3> path; // the current or last path the enemy has treversed
         int i = 0;
@@ -31,6 +30,10 @@ namespace HordeSurvivalGame
         {
             remainingHealth = maxHealth;
             healthBar.gameObject.SetActive(false);
+            //Moved this code to the start function rather than waiting for a Keypress so the enemies imediately start chasing the player.
+            AStarPathfind();
+            FindPathToPlayer = true;
+
         }
 
         private void AStarPathfind()
@@ -92,12 +95,12 @@ namespace HordeSurvivalGame
                 // if the enemy is next to the player, keep finding path to effectively chase the player when they move
                 else AStarPathfind();
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                AStarPathfind();
-                FindPathToPlayer = true;
+            //if(Input.GetKeyDown(KeyCode.F))
+            //{
+            //    AStarPathfind();
+            //    FindPathToPlayer = true;
 
-            }
+            //}
         }
 
         public void Damage(int damageNumbers)

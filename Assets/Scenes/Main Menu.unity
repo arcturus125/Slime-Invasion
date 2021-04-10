@@ -6876,7 +6876,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1850312270}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 431299643}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: QuitApplicationButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1850312270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8622,9 +8634,9 @@ ParticleSystem:
     enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
-      minScalar: 0
+      minMaxState: 3
+      scalar: 0.7
+      minScalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8675,7 +8687,7 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -8728,9 +8740,9 @@ ParticleSystem:
         m_RotationOrder: 4
     z:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: -0.5
-      minScalar: 0
+      minMaxState: 3
+      scalar: -0.3
+      minScalar: -0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
