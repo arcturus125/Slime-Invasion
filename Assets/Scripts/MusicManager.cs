@@ -89,8 +89,8 @@ public class MusicManager : MonoBehaviour
             {
                 if (timeLeftInSong <= 0.0f) //Timer has run out.
                 {
-                    noOfLoops--; //A loop has played.
                     PlayMusic();
+                    noOfLoops--; //A loop has played.
                 }
             }
             else //Change to a different song
