@@ -17,6 +17,8 @@ namespace HordeSurvivalGame
         const KeyCode MOVE_RIGHT = KeyCode.D;
 
         const float MOVEMENT_SPEED = 1200.0f; // the speed of the player
+        private const float DASH_TIMER_AMOUNT = 3.0f;
+        private float dashTimer = 0.0f;
 
         //private float dashTimer = 0.0f;
         //public float timeToDash = 1.0f;
@@ -40,6 +42,10 @@ namespace HordeSurvivalGame
             movementX = 0.0f;
             movementZ = 0.0f;
 
+            if (dashTimer >= 0.0f)
+            {
+                dashTimer -= Time.deltaTime;
+            }
             
             Movement(); // move the player based on keyboard inputs
             Dash();
@@ -96,9 +102,14 @@ namespace HordeSurvivalGame
             //    dashTimer += Time.deltaTime;
             //}
 
-            if (Input.GetMouseButtonDown(1))
+
+            if (dashTimer <= 0.0f)
             {
-                _rigidbody.AddForce(new Vector3(-movementX, 0.0f, -movementZ) * dashingPower, ForceMode.Impulse);
+                if (Input.GetMouseButtonDown(1))
+                {
+                    _rigidbody.AddForce(new Vector3(-movementX, 0.0f, -movementZ) * dashingPower, ForceMode.Impulse);
+                    dashTimer = DASH_TIMER_AMOUNT;
+                }
             }
 
         }
