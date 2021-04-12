@@ -39,6 +39,7 @@ namespace Pathfinder.tiles
         public GameObject tileObject;
         public GameObject towerObject = null;
         public bool isWalkable = true;
+        public Vector3 vector;
 
         // attributes assigned per each entity pathfinding
         private float gCost = -1; // distance from the start point
@@ -54,6 +55,7 @@ namespace Pathfinder.tiles
             x = xCoOrd;
             y = yCoOrd;
             tileObject = tileGameObject;
+            vector = new Vector3(-x, 0, -y);
         }
         // used to turn a Tile into an OreTile
         public Tile(Tile t)
@@ -107,7 +109,8 @@ namespace Pathfinder.tiles
         }
         public static Vector3 TileToVector3(Tile t)
         {
-            return new Vector3(-t.x + 0.0f, 0, -t.y+ 0.0f);
+            return t.vector;
+            //return new Vector3(-t.x + 0.0f, 0, -t.y+ 0.0f);
         }
         // checks any indexers before they create out of bounds errors
         public static bool IsOnMap(int x, int y)
