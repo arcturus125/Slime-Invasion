@@ -28,7 +28,7 @@ namespace HordeSurvivalGame
         public float pathfindingleniancy = 0.5f; // the distance from a waypoint before the enemy targets the next (higher = smoother path bit more clipping of objects)
         public int repathfindAfterTicks = 5;
         public float pathfindingErrorTimer = 3; // if pathfinding fails, wait until this many seconds pass before re-atteempting
-        float errorTimer = 0;
+        public float errorTimer = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -72,8 +72,13 @@ namespace HordeSurvivalGame
         {
             if (FindPathToPlayer)
             {
-                // if enemy is not already next to the player
-                if (path != null || path.Count == 1)
+                if (path != null)
+                {
+                    if (path.Count <= 1)
+                        path = null;
+                }
+                // if enemy is able to find a path
+                if (path != null)
                 {
                     if (pathIndexer <= path.Count - 1)
                     {
@@ -110,10 +115,9 @@ namespace HordeSurvivalGame
                 {
                     if (errorTimer > 0)
                     {
+                        errorTimer -= Time.deltaTime;
                         if (errorTimer <= 0)
                             AStarPathfind();
-                        else
-                            errorTimer -= Time.deltaTime;
                     }
                     else
                         errorTimer += pathfindingErrorTimer;
