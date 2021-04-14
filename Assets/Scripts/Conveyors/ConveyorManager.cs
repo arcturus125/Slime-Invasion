@@ -46,6 +46,7 @@ namespace Conveyors
         public IOController[] TrueArmTypes; // a combination of the above two, where CustomArmTypes Overrides armTypes if the value is not 
         public bool hasItemFilters = false;
         public List<Item>[] itemFilters = new List<Item>[4];
+        public bool[] canItemFiterBeEdited = new bool[4];
         public int visibleArms = 0; // used in algorithm decision making to decide which arms are inputs and which arms are outputs
         public int noOfInputs  = 0; //
 
@@ -92,9 +93,13 @@ namespace Conveyors
             {
                 itemFilters[i] = new List<Item>();
             }
-            for(int i =0; i < CustomArmTypes.Length;i++)
+            for(int i = 0; i < CustomArmTypes.Length;i++)
             {
                 CustomArmTypes[i] = IOController.None;
+            }
+            for(int i = 0; i < canItemFiterBeEdited.Length;i++)
+            {
+                canItemFiterBeEdited[i] = false;
             }
         }
         void Update()

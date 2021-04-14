@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Pathfinder;
+using System;
 
 namespace HordeSurvivalGame 
 {
@@ -13,17 +14,21 @@ namespace HordeSurvivalGame
         private Slider healthBar;
         public int maxHealth = 5;
         public int remainingHealth;
-        public float pathfindingleniancy = 0.5f;
         public float finalSpeed = 0.01f; // the speed of the enemy AFTER all the effects have been applied
         public float defaultSpeed = 0.01f;
 
         public static float defaultHealthBarTimer = 3.0f; // health bar wil show for 3 seconds before dissapearing
         float healthBarTimeLeft = 0;
 
+        [Header("Pathfinding Settings")]
         Pathfinding p; // instance of the pathfinder
         public List<Vector3> path; // the current or last path the enemy has treversed
-        int i = 0;
-        bool FindPathToPlayer = false; // TODO: change to enum with 3 states, "idle, find path and Moving"
+        int pathIndexer = 0;
+        bool FindPathToPlayer = false; // pathfinding can be disabled here
+        public float pathfindingleniancy = 0.5f; // the distance from a waypoint before the enemy targets the next (higher = smoother path bit more clipping of objects)
+        public int repathfindAfterTicks = 5;
+        public float pathfindingErrorTimer = 3; // if pathfinding fails, wait until this many seconds pass before re-atteempting
+        float errorTimer = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -40,6 +45,7 @@ namespace HordeSurvivalGame
         {
             p = new Pathfinding();
             path = p.FindPath(this.transform, Player.playerTransform);
+            pathIndexer = 0;
         }
 
         // Update is called once per frame
@@ -70,15 +76,16 @@ namespace HordeSurvivalGame
                 if (path != null)
                 {
                     //transform.localPosition += Vector3.forward * Time.deltaTime * speedMultiplier;
-                    transform.position = Vector3.MoveTowards(transform.position, path[i], finalSpeed);
+                    transform.position = Vector3.MoveTowards(transform.position, path[pathIndexer], finalSpeed);
                     //transform.Translate(transform.TransformDirection(Vector3.forward) * Time.deltaTime * speedMultiplier, Space.Self);
 
                     // if close to the waypoint, set target to the next waypoint
-                    if (Vector3.Distance(this.transform.position, path[i]) < pathfindingleniancy)
+                    if (Vector3.Distance(this.transform.position, path[pathIndexer]) < pathfindingleniancy)
                     {
-                        if (i < path.Count - 1)
+                        if (pathIndexer < path.Count - 1)
                         {
-                            i++;
+                            PathfindingTick();
+                            pathIndexer++;
                         }
                         // if the player has just reached the end of their path
                         else
@@ -87,13 +94,25 @@ namespace HordeSurvivalGame
                             //FindPathToPlayer = false;
 
                             //### find another path
-                            i = 0;
+                            pathIndexer = 0;
                             AStarPathfind();
                         }
                     }
                 }
-                // if the enemy is next to the player, keep finding path to effectively chase the player when they move
-                else AStarPathfind();
+                // if pathfinding fails OR enemy is on the same tile as the player
+                // wait 3 seconds before pathfinding again
+                else
+                {
+                    if (errorTimer > 0)
+                    {
+                        if (errorTimer <= 0)
+                            AStarPathfind();
+                        else
+                            errorTimer -= Time.deltaTime;
+                    }
+                    else
+                        errorTimer += pathfindingErrorTimer;
+                }
             }
             //if(Input.GetKeyDown(KeyCode.F))
             //{
@@ -101,6 +120,16 @@ namespace HordeSurvivalGame
             //    FindPathToPlayer = true;
 
             //}
+        }
+
+        int tickNumber = 0;
+        private void PathfindingTick()
+        {
+            tickNumber++;
+            if(tickNumber >= repathfindAfterTicks)
+            {
+                AStarPathfind();
+            }
         }
 
         public void Damage(int damageNumbers)
