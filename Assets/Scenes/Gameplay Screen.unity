@@ -2459,7 +2459,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &593468890
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4635,7 +4635,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5.0000024
+  m_Radius: 4.75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1403715956
 MeshRenderer:
@@ -7220,8 +7220,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 11733ede952c962478b35a93e65a2689, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
