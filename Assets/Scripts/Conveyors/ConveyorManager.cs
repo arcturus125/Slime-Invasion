@@ -113,7 +113,9 @@ namespace Conveyors
 
         private void ItemTransfer()
         {
-            // waiting for input
+            //////////////////////////////////////////
+            ///     IDLE
+            //////////////////////////////////////////
             if (state == ConveyorState.Idle)
             {
                 foreach (GameObject s in spriteObjects)  //
@@ -149,8 +151,10 @@ namespace Conveyors
                     }
                 }
             }
-            // item moving into the center of the conveyor
-            else if(state == ConveyorState.Inputting)
+            //////////////////////////////////////////
+            ///     INPUT_CYCLE
+            //////////////////////////////////////////
+            else if (state == ConveyorState.Inputting)
             {
                 //  onfirst frame
                 //      for each input
@@ -209,45 +213,22 @@ namespace Conveyors
                         outputDirections.Add(cardinalDirections[i]);     
                     }                                                    
                 }
+
                 // Are we ready to output?
-                bool readyForOutput = true;
-                foreach (Vector2 direction in outputDirections)
-                {
+                bool readyForOutput = true;                        // by default we are ready for output. 
+                foreach (Vector2 direction in outputDirections)    // then we loop through all the neighboring conveyors and if they are Not Idle (not ready to recieve an item)
+                {                                                  // then we set readyForOutput to false and chech again on the next frame TODO: use a timer instead of checking every frame
                     Tile t = Tile.Vector3ToTile(this.transform.position + new Vector3(-direction.x, 0, -direction.y));
                     if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
                     {
-                        if (conv.state == ConveyorState.Idle)//||      
-                                                             // conv.state == ConveyorState.Outputting)  
-                        {
-                            //state = ConveyorState.Outputting;
-                            //firstframe = true;
-
-                            //// destroy all the sprites and clear the list
-                            //foreach (GameObject spriteObject in spriteObjects)
-                            //    Destroy(spriteObject);
-                            //spriteObjects.Clear();
-                        }
-                        else
+                        if (!(conv.state == ConveyorState.Idle))
                         {
                             readyForOutput = false;
                         }
                     }
-                    //// if the conveyor is connected to a tower,
-                    //// move to Outputting stage and clear all sprites
-                    //if (t.GetTower().TryGetComponent(out Tower tow))
-                    //{
-                    //    state = ConveyorState.Outputting;
-                    //    firstframe = true;
-
-                    //    // destroy all the sprites and clear the list
-                    //    foreach (GameObject spriteObject in spriteObjects)
-                    //        Destroy(spriteObject);
-                    //    spriteObjects.Clear();
-                        
-                    //}
 
                 }
-                // when we are ready to output
+                // when we are ready to output, proceed
                 if(readyForOutput && outputDirections.Count > 0)
                 {
                     state = ConveyorState.Outputting;
@@ -259,11 +240,16 @@ namespace Conveyors
                     spriteObjects.Clear();
                 }
             }
-            // item moving out of the conveyor, away from the centre
+            //////////////////////////////////////////
+            ///     OUTPUT_CYCLE
+            //////////////////////////////////////////
             else if (state == ConveyorState.Outputting)
             {
                 //  onfirst frame
                 //      for each output
+                //          create an inventory for each output direction
+                //          if an item is allowed (by item filters) to go in a direction, it will be added to the inventory headed in that direction
+                //          if an item is NOT allowed a certain direction, it will not be added to that output Inventory, and therefore will not go that direction
                 //          create a sprite
                 //  after first frame
                 //      calculate the percentage (timeElapsed/timeToTransport)
@@ -278,17 +264,6 @@ namespace Conveyors
                     firstframe = false;
 
 
-                    // clear outputInventories
-                    // create a list of vector2 named itemOutputDirections
-                    // for each item in conveyors inventory
-                    //      for each outputDirection in outputDirections
-                    //          get the numOfOutputs that will recieve this item (item filters)
-                    //          store outputDirection in item itemOutputDirections
-                    //  for each direction in itemOutputDirections
-                    //      armInv = new inventory ( item, quantity/numOfOutputs)
-                    //      outputInventories.add (armInv) 
-
-
                     outputInventories.Clear();
                     List<Vector2> itemOutputDirections = new List<Vector2>();
                     int numOfItemsDirections = 0;
@@ -299,91 +274,59 @@ namespace Conveyors
                         {
                             Vector2 outputDirection = outputDirections[i];
                             // if the item is in the item filter OR if the item filter is empty
-                            if (!hasItemFilters)
-                            {
-                                Debug.Log("NO Item Filters");
-                            }
-                            else
-                            {
-                                Debug.Log("Item Filter Found");
-                            }
-
-
+                            // add it to the itemOutputDirections (therefore allowing the item to go that direction)
+                            // NOTE: empty item filters will accept all items
                             int outputDirectionCardinalIndex = GetCardinalDirection(outputDirection);
-                            if (itemFilters[outputDirectionCardinalIndex].Contains(item))
+                            if (itemFilters[outputDirectionCardinalIndex].Contains(item) || itemFilters[outputDirectionCardinalIndex].Count == 0)
                             {
-                                Debug.Log("Conveyor:: item filter Match");
-                                numOfItemsDirections++;
-                                itemOutputDirections.Add(outputDirection);
-                            }
-                            else if (itemFilters[outputDirectionCardinalIndex].Count == 0)
-                            {
-                                if (outputDirections.Count > 1)
-                                {
-                                    Debug.Log("Conveyor:: item filter Empty, assuming match");
-                                }
                                 numOfItemsDirections++;
                                 itemOutputDirections.Add(outputDirection);
                             }
                         }
 
-
-                        for (int k = 0; k < outputDirections.Count; k++)
-                        {
-                            spriteObjects.Add(new GameObject());
-                            Inventory tempInv = new Inventory();
-                            outputInventories.Add(tempInv);
-
+                        for (int k = 0; k < outputDirections.Count; k++) // in order to avoid errors
+                        {                                                // an output where Zero items are sent must
+                            spriteObjects.Add(new GameObject());         // have an empty inventory - the absence of an inventory will cause errors
+                            outputInventories.Add(new Inventory());      //
                         }
 
-                        for ( int k = 0; k< itemOutputDirections.Count;k++)
-                        {
-                            Inventory tempInv = new Inventory();
-                            tempInv.addItem(item, ConveyorInv.quantity[j]); // still duplicating
-                            int temp = outputDirections.IndexOf(itemOutputDirections[k]);
-                            outputInventories[temp] = tempInv;
-                                
+                        for ( int k = 0; k< itemOutputDirections.Count;k++)                        // if an item is meant to travel in a particular direction
+                        {                                                                          // it *OVERWRITES* the before code
+                            Inventory tempInv = new Inventory();                                   // therefore every output will have an inventory
+                            tempInv.addItem(item, ConveyorInv.quantity[j]); // still duplicating   // and output with zero items, will be an inventory of length 0
+                            int temp = outputDirections.IndexOf(itemOutputDirections[k]);          //
+                            outputInventories[temp] = tempInv;                                     //
                         }
                     }
+
                     // the above creates an inventory for each output that respects item filters.
                     // these inventories are then used to pass items to the next tower
                     // also used to change the sprite of items scrolling across the conveyor
 
-
-                    
-                    
                     for (int i = 0; i < outputDirections.Count; i++)
                     {
                         // if the output inventory contains an item
                         // show that item scrolling across the conveyor
-                            if (outputInventories[i].items.Count > 0)
-                            {
-                                GameObject spriteObject = Instantiate(conveyorSprite, this.gameObject.transform);
-                                //spriteObject.GetComponent<SpriteRenderer>().sprite = sprites[0]; 
-                                spriteObject.GetComponent<SpriteRenderer>().sprite = outputInventories[i].items[0].icon; // TODO: loop through all elements, instead of just taking the first
-                                spriteObjects[i] = spriteObject;
-                            }
-                        
+                        if (outputInventories[i].items.Count > 0)
+                        {
+                            GameObject spriteObject = Instantiate(conveyorSprite, this.gameObject.transform);
+                            spriteObject.GetComponent<SpriteRenderer>().sprite = outputInventories[i].items[0].icon; // TODO: loop through all elements, instead of just taking the first
+                            spriteObjects[i] = spriteObject;                                                         // ( show all items scrolling across the conveyor, not just the one in slot 0)
+                        }
                     }                                                                                                                  
-                }                                                                                                                      
+                }           
+                // move items across the conveyor in the appropriate direction
                 else if (timeElapsed > 0 && timeElapsed < timeToTransport)                                                             
-                {
-
-                    if (outputDirections.Count > 1)
-                    {
-                        Debug.Log("Test");
-                    }                                                                                                 
+                {                                                                                                
                     for (int i = 0; i < outputDirections.Count; i++)                                                                   
                     {
-
-                            if (outputInventories[i].items.Count > 0)
-                            {
-                                GameObject spriteObject = spriteObjects[i];
-                                float percent = timeElapsed / timeToTransport;
-                                spriteObject.transform.localPosition = new Vector3(-outputDirections[i].x, 0, -outputDirections[i].y) * percent;
-                                spriteObject.transform.localPosition += Vector3.up;
-                            }
-                        
+                        if (outputInventories[i].items.Count > 0)
+                        {
+                            GameObject spriteObject = spriteObjects[i];
+                            float percent = timeElapsed / timeToTransport;
+                            spriteObject.transform.localPosition = new Vector3(-outputDirections[i].x, 0, -outputDirections[i].y) * percent;
+                            spriteObject.transform.localPosition += Vector3.up;
+                        }
                     }                                                                                                                        
                 }                                                                                                                            
                 else if (timeElapsed >= timeToTransport)                                                                                     
@@ -393,60 +336,41 @@ namespace Conveyors
                     for (int i = 0; i < outputDirections.Count; i++)                                                                         
                     {
 
-                            if (outputInventories[i].items.Count > 0)
+                        if (outputInventories[i].items.Count > 0)
+                        {
+                            GameObject spriteObject = spriteObjects[0];
+                            Tile t = Tile.Vector3ToTile(this.transform.position + new Vector3(-outputDirections[i].x, 0, -outputDirections[i].y));
+                            if (t.GetTower())
                             {
-                                GameObject spriteObject = spriteObjects[0];
-                                Tile t = Tile.Vector3ToTile(this.transform.position + new Vector3(-outputDirections[i].x, 0, -outputDirections[i].y));
-                                if (t.GetTower())
+                                // if connected to a conveyor
+                                // "Link" the conveyor so that inputs and outputs match up
+                                if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
                                 {
-                                    // if connected to a conveyor
-                                    // "Link" the conveyor so that inputs and outputs match up
-                                    if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
+                                    conv.link(outputInventories[i].items[0], outputInventories[i].quantity[0], outputDirections[i]);
+                                    outputInventories[i].items.RemoveAt(0);
+                                    outputInventories[i].quantity.RemoveAt(0);
+                                    spriteObjects.Remove(spriteObject);
+                                    Destroy(spriteObject);
+
+                                }
+                                // if connected to a tower
+                                // output the conveyors inventory into the towers
+                                if (t.GetTower().TryGetComponent(out Tower tower))
+                                {
+                                    // for each item in the conveyors inventory
+                                    // add that item to the towers inventory
+                                    for (int j = 0; j < outputInventories[i].items.Count; j++)
                                     {
-                                        conv.link(outputInventories[i].items[0], outputInventories[i].quantity[0], outputDirections[i]);
-                                        outputInventories[i].items.RemoveAt(0);
-                                        outputInventories[i].quantity.RemoveAt(0);
-                                        spriteObjects.Remove(spriteObject);
-                                        Destroy(spriteObject);
-
-                                    }
-
-                                    if (t.GetTower().TryGetComponent(out Tower tower))
-                                    {
-                                        // for each item in the conveyors inventory
-                                        // add that item to the towers inventory
-                                        for (int j = 0; j < ConveyorInv.items.Count; j++)
-                                        {
-                                            tower.inv.addItem(ConveyorInv.items[j], ConveyorInv.quantity[j]);
-                                            ConveyorInv.items.RemoveAt(j);
-                                            ConveyorInv.quantity.RemoveAt(j);
-                                        }
-
+                                        tower.inv.addItem(outputInventories[i].items[j], outputInventories[i].quantity[j]);
+                                        outputInventories[i].items.RemoveAt(j);
+                                        outputInventories[i].quantity.RemoveAt(j);
                                     }
                                 }
-                                else Debug.Log("No tower");
                             }
-                        
+                        }
                     }
-                    sprites.Clear();
-
-
-                        
+                    sprites.Clear();      
                 }
-            }
-
-            // take a vector and return it's cardinal index (0 = up, 1 = down, 2 = left, 3 = right)
-            int GetCardinalDirection(Vector2 outputDirection)
-            {
-                for (int cardinal = 0; cardinal < cardinalDirections.Length; cardinal++)
-                {
-                    if (outputDirection == cardinalDirections[cardinal])
-                    {
-                         return cardinal;
-                    }
-                }
-
-                return -1;
             }
         }
         public void link(Item item, int quantity, Vector2 output)
@@ -685,6 +609,19 @@ namespace Conveyors
             {
                 armTypes[myIndex] = IOController.Input;
             }
+        }
+        // take a vector and return it's cardinal index (0 = up, 1 = down, 2 = left, 3 = right)
+        private int GetCardinalDirection(Vector2 outputDirection)
+        {
+            for (int cardinal = 0; cardinal < cardinalDirections.Length; cardinal++)
+            {
+                if (outputDirection == cardinalDirections[cardinal])
+                {
+                    return cardinal;
+                }
+            }
+
+            return -1;
         }
     }
 }
