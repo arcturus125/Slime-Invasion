@@ -28,7 +28,8 @@ namespace Conveyors
         {
             None,
             Input,
-            Output
+            Output,
+            OutputToTower
         }
 
         [SerializeField]
@@ -190,7 +191,8 @@ namespace Conveyors
 
                     inputDirections.Clear(); // now that the inputs are complete, delete the input directions ready for the next inputs.
                     for (int i = 0; i < TrueArmTypes.Length; i++){
-                        if (TrueArmTypes[i] == IOController.Output){
+                        if (TrueArmTypes[i] == IOController.Output || TrueArmTypes[i] == IOController.OutputToTower)
+                        {
                             outputDirections.Add(cardinalDirections[i]);
                         }
                     }
@@ -201,20 +203,22 @@ namespace Conveyors
                 outputDirections.Clear();                                //
                 for (int i = 0; i < TrueArmTypes.Length; i++)            //
                 {                                                        // constantly check for new inputs, otherwise when items stop, they will never start again
-                    if (TrueArmTypes[i] == IOController.Output)          //
-                    {                                                    //
-                        outputDirections.Add(cardinalDirections[i]);     //
-                    }                                                    //
+                    if (TrueArmTypes[i] == IOController.Output || TrueArmTypes[i] == IOController.OutputToTower)         
+                    {                                                    
+                        outputDirections.Add(cardinalDirections[i]);     
+                    }                                                    
                 }
 
 
                 foreach (Vector2 direction in outputDirections)
                 {
+                    // if the current conveyor is connected to another conveyor, 
+                    // wait for the neighbouring conveyor to be ready to recieve an input
                     Tile t = Tile.Vector3ToTile(this.transform.position + new Vector3(-direction.x, 0, -direction.y));
                     if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
                     {
-                        if (conv.state == ConveyorState.Idle )//||      // only move on when the output conveyor is Idle
-                           // conv.state == ConveyorState.Outputting)  // or outputting it's own item, making room for this one
+                        if (conv.state == ConveyorState.Idle )//||      
+                           // conv.state == ConveyorState.Outputting)  
                         {
                             state = ConveyorState.Outputting;
                             firstframe = true;
@@ -225,7 +229,20 @@ namespace Conveyors
                             spriteObjects.Clear();
                         }
                     }
-                    
+                    // if the conveyor is connected to a tower,
+                    // move to putputting stage and clear all sprites
+                    if (t.GetTower().TryGetComponent(out Tower tow))
+                    {
+                        state = ConveyorState.Outputting;
+                        firstframe = true;
+
+                        // destroy all the sprites and clear the list
+                        foreach (GameObject spriteObject in spriteObjects)
+                            Destroy(spriteObject);
+                        spriteObjects.Clear();
+                        
+                    }
+
                 }
             }
             // item moving out of the conveyor, away from the centre
@@ -273,11 +290,28 @@ namespace Conveyors
                         Tile t = Tile.Vector3ToTile(this.transform.position + new Vector3(-outputDirections[i].x, 0, -outputDirections[i].y));
                         if (t.GetTower())
                         {
+                            // if connected to a conveyor
+                            // "Link" the conveyor so that inputs and outputs match up
                             if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
                             {
-                                conv.link(ConveyorInv.items[0], ConveyorInv.quantity[0], outputDirections[i]);
+                                conv.link(ConveyorInv.items[0], ConveyorInv.quantity[0], outputDirections[i]); // TODO move ALL items over to the enxt tower, not just the first in the index
+                                ConveyorInv.items.Clear();
+                                ConveyorInv.quantity.Clear();
                                 spriteObjects.Remove(spriteObject);
                                 Destroy(spriteObject);
+
+                            }
+
+                            if (t.GetTower().TryGetComponent(out Tower tower))
+                            {
+                                // for each item in the conveyors inventory
+                                // add that item to the towers inventory
+                                for(int j = 0; j < ConveyorInv.items.Count; j++)
+                                {
+                                    tower.inv.addItem(ConveyorInv.items[j], ConveyorInv.quantity[j]);
+                                    ConveyorInv.items.RemoveAt(j);
+                                    ConveyorInv.quantity.RemoveAt(j);
+                                }
 
                             }
                         }
@@ -460,7 +494,7 @@ namespace Conveyors
                 conveyorArms[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
 
                 // if controller arm type is "Output", the arrow will point away from the centre of the conveyor
-                if (TrueArmTypes[i] == IOController.Output)
+                if (TrueArmTypes[i] == IOController.Output || TrueArmTypes[i] == IOController.OutputToTower)
                 {
                     conveyorArms[i].GetComponentInChildren<SpriteRenderer>().gameObject.transform.localRotation = Quaternion.Euler(90, 90, 0);
                 }
@@ -484,9 +518,6 @@ namespace Conveyors
             Tile t_neighbour = Tile.Vector3ToTile(transform.position + new Vector3(-cardinalDirection.x, 0, -cardinalDirection.y));
 
 
-
-
-
             // dont bother running any of the below code if there is no tower adjacent to the conveyor
             if (t_neighbour.towerObject == null) return false;
 
@@ -507,6 +538,14 @@ namespace Conveyors
                 return true;
             }
 
+            //conveyor can connect to towers
+            if (t_neighbour.GetTower().TryGetComponent(out Tower turrret))
+            {
+                int index = System.Array.IndexOf(cardinalDirections, cardinalDirection);
+                armTypes[armIndex] = IOController.OutputToTower;
+                visibleArms++;
+                return true;
+            }
             return false;
         }
 

@@ -50,7 +50,7 @@ namespace HordeSurvivalGame
             if (healthBarTimeLeft > 0)
             {
                 float percent = (float)remainingHealth / (float)maxHealth;
-                Debug.Log(percent);
+                //Debug.Log(percent);
                 healthBar.value = percent;
                 healthBar.gameObject.SetActive(true);
                 healthBarTimeLeft -= Time.deltaTime;
@@ -105,7 +105,6 @@ namespace HordeSurvivalGame
 
         public void Damage(int damageNumbers)
         {
-            Debug.Log("Enemy damaged!");
             remainingHealth -= damageNumbers;
             if (remainingHealth <=0)
             {

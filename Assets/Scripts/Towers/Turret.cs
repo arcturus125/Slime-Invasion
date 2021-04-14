@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using HordeSurvivalGame;
+using System;
+using ItemSystem;
 
 namespace Towers
 {
@@ -45,7 +47,7 @@ namespace Towers
         // Start is called before the first frame update
         void Start()
         {
-
+            inv = new Inventory();
         }
 
         // Update is called once per frame
@@ -60,6 +62,15 @@ namespace Towers
             else
             {
                 ShootAtEnemy();
+            }
+            PrintInv();
+        }
+
+        private void PrintInv()
+        {
+            for(int i = 0; i < inv.items.Count;i++)
+            {
+                Debug.Log( inv.items[i].name +" : "+ inv.quantity[i]);
             }
         }
 
@@ -97,7 +108,6 @@ namespace Towers
                     // if it has the tag "enemy", target that entity
                     if (colliderInRange.gameObject.tag == "Enemy")
                     {
-                        Debug.Log("found enemy");
                         targetEnemy = colliderInRange.gameObject.GetComponent<Enemy>();
                     }
                 }
