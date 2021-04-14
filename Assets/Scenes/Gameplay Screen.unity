@@ -1113,7 +1113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1604074641}
-  test: 0
 --- !u!1 &224907070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,7 +2019,7 @@ GameObject:
   - component: {fileID: 478136768}
   - component: {fileID: 478136767}
   m_Layer: 5
-  m_Name: Drag and Drop Image (2)
+  m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2058,6 +2057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 289923724865494613, guid: edf2019c70479854a816ec5e7bdfbd8d, type: 3}
+  moneyCost: 0
 --- !u!114 &478136768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2683,7 +2683,7 @@ GameObject:
   - component: {fileID: 662208634}
   - component: {fileID: 662208633}
   m_Layer: 5
-  m_Name: Drag and Drop Image (1)
+  m_Name: Conveyor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2721,6 +2721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5441440179506755017, guid: e27bcfa79fbd59c4fbdbf28b9afcb4e3, type: 3}
+  moneyCost: 0
 --- !u!114 &662208634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3982,7 +3983,7 @@ GameObject:
   - component: {fileID: 1169422335}
   - component: {fileID: 1169422337}
   m_Layer: 5
-  m_Name: Drag and Drop Image
+  m_Name: Mining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4058,6 +4059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4531346496615889119, guid: 84cfd0fec5393fb49867111d3d8e1503, type: 3}
+  moneyCost: 5
 --- !u!1 &1200527568
 GameObject:
   m_ObjectHideFlags: 0
