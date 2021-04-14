@@ -19,7 +19,6 @@ namespace Towers
         // Start is called before the first frame update
         void Start()
         {
-            // TODO: call TowerSetup() on parent
             inv = new Inventory();
         }
 

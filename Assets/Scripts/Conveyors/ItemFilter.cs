@@ -42,12 +42,12 @@ namespace Conveyors {
             int index = this.GetComponentInChildren<Dropdown>().value;
 
             ConveyorManagerUI.selectedConveyor.itemFilters[armIndex][itemIndexInItemFilter] = dropdownItems[index];
-            Debug.Log("CXhanging "+itemIndexInItemFilter);
+            //Debug.Log("CXhanging "+itemIndexInItemFilter);
         }
 
         internal void INIT(int itemFilterIndex, int itemIndex)
         {
-            Debug.Log(itemIndex);
+            //Debug.Log(itemIndex);
             itemIndexInItemFilter = itemIndex;
             armIndex = itemFilterIndex;
 
