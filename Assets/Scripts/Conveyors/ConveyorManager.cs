@@ -203,44 +203,60 @@ namespace Conveyors
             {
                 outputDirections.Clear();                                //
                 for (int i = 0; i < TrueArmTypes.Length; i++)            //
-                {                                                        // constantly check for new inputs, otherwise when items stop, they will never start again
+                {                                                        // constantly check for new outputs, otherwise when items stop, they will never start again
                     if (TrueArmTypes[i] == IOController.Output || TrueArmTypes[i] == IOController.OutputToTower)         
                     {                                                    
                         outputDirections.Add(cardinalDirections[i]);     
                     }                                                    
                 }
-
+                // Are we ready to output?
+                bool readyForOutput = true;
                 foreach (Vector2 direction in outputDirections)
                 {
                     Tile t = Tile.Vector3ToTile(this.transform.position + new Vector3(-direction.x, 0, -direction.y));
                     if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
                     {
-                        if (conv.state == ConveyorState.Idle )//||      
-                           // conv.state == ConveyorState.Outputting)  
+                        if (conv.state == ConveyorState.Idle)//||      
+                                                             // conv.state == ConveyorState.Outputting)  
                         {
-                            state = ConveyorState.Outputting;
-                            firstframe = true;
+                            //state = ConveyorState.Outputting;
+                            //firstframe = true;
 
-                            // destroy all the sprites and clear the list
-                            foreach (GameObject spriteObject in spriteObjects)
-                                Destroy(spriteObject);
-                            spriteObjects.Clear();
+                            //// destroy all the sprites and clear the list
+                            //foreach (GameObject spriteObject in spriteObjects)
+                            //    Destroy(spriteObject);
+                            //spriteObjects.Clear();
+                        }
+                        else
+                        {
+                            readyForOutput = false;
                         }
                     }
-                    // if the conveyor is connected to a tower,
-                    // move to Outputting stage and clear all sprites
-                    if (t.GetTower().TryGetComponent(out Tower tow))
-                    {
-                        state = ConveyorState.Outputting;
-                        firstframe = true;
+                    //// if the conveyor is connected to a tower,
+                    //// move to Outputting stage and clear all sprites
+                    //if (t.GetTower().TryGetComponent(out Tower tow))
+                    //{
+                    //    state = ConveyorState.Outputting;
+                    //    firstframe = true;
 
-                        // destroy all the sprites and clear the list
-                        foreach (GameObject spriteObject in spriteObjects)
-                            Destroy(spriteObject);
-                        spriteObjects.Clear();
+                    //    // destroy all the sprites and clear the list
+                    //    foreach (GameObject spriteObject in spriteObjects)
+                    //        Destroy(spriteObject);
+                    //    spriteObjects.Clear();
                         
-                    }
+                    //}
 
+                }
+                // when we are ready to output
+                if(readyForOutput && outputDirections.Count > 0)
+                {
+                    state = ConveyorState.Outputting;
+                    firstframe = true;
+
+                    // destroy all the sprites and clear the list
+                    foreach (GameObject spriteObject in spriteObjects)
+                        Destroy(spriteObject);
+                    spriteObjects.Clear();
                 }
             }
             // item moving out of the conveyor, away from the centre
