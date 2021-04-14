@@ -45,78 +45,71 @@ namespace Pathfinder
 
         private void SearchAdjacentTiles(Tile startTile, Tile destinationTile, Tile CurrentTile)
         {
-            //Debug.Log("Calculating best adjacent tile from :" + CurrentTile.x + "," + CurrentTile.y);
-
-            // if a path is found
-            if (CurrentTile == destinationTile)
+            for(int i = 0; i < 5000;i++)
             {
-                DrawPath(CurrentTile, startTile);
-            }
-            else
-            {
-                CloseTile(CurrentTile);
-
-
-                
-                // for each neighbour of the current tile
-                for (int xOffset = -1; xOffset <= 1; xOffset++){
-                for (int yOffset = -1; yOffset <= 1; yOffset++)
+                // if a path is found
+                if (CurrentTile == destinationTile)
                 {
-                    if (!(xOffset == 0 && yOffset == 0)) // dont pathfind the tile you are already on
+                    DrawPath(CurrentTile, startTile);
+                    break;
+                }
+                else
+                {
+                    CloseTile(CurrentTile);
+
+
+
+                    // for each neighbour of the current tile
+                    for (int xOffset = -1; xOffset <= 1; xOffset++)
                     {
-                        Tile neighbour = Tile.tileMap[CurrentTile.x + xOffset, CurrentTile.y + yOffset];
-                        if (!closedTiles.Contains(neighbour))// dont pathfind a closed tile
+                        for (int yOffset = -1; yOffset <= 1; yOffset++)
                         {
-                            // if ther are errors here. move this if statement to encapsulate the definition of "neighnour"
-                            if (Tile.IsOnMap(CurrentTile.x + xOffset, CurrentTile.y + yOffset)) // check if tile is on the map (within bounds of array)
+                            if (!(xOffset == 0 && yOffset == 0)) // dont pathfind the tile you are already on
                             {
-                                if (neighbour.isWalkable)//  dont pathfind over tiles that aren't walkable
+                                Tile neighbour = Tile.tileMap[CurrentTile.x + xOffset, CurrentTile.y + yOffset];
+                                if (!closedTiles.Contains(neighbour))// dont pathfind a closed tile
                                 {
-                                    // only update the f cost if it is less than it was before
-                                    if ((neighbour.CheckFCost(startTile, destinationTile) < neighbour.fCost) || !OpenTiles.Contains(neighbour))
+                                    // if ther are errors here. move this if statement to encapsulate the definition of "neighnour"
+                                    if (Tile.IsOnMap(CurrentTile.x + xOffset, CurrentTile.y + yOffset)) // check if tile is on the map (within bounds of array)
                                     {
-                                        neighbour.UpdateValues(startTile, destinationTile, Tile.tileMap[CurrentTile.x, CurrentTile.y]);
-                                        OpenTile(Tile.tileMap[CurrentTile.x + xOffset, CurrentTile.y + yOffset]);
+                                        if (neighbour.isWalkable)//  dont pathfind over tiles that aren't walkable
+                                        {
+                                            // only update the f cost if it is less than it was before
+                                            if ((neighbour.CheckFCost(startTile, destinationTile) < neighbour.fCost) || !OpenTiles.Contains(neighbour))
+                                            {
+                                                neighbour.UpdateValues(startTile, destinationTile, Tile.tileMap[CurrentTile.x, CurrentTile.y]);
+                                                OpenTile(Tile.tileMap[CurrentTile.x + xOffset, CurrentTile.y + yOffset]);
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-                }
 
-                // search through all open tiles for the one with the lowest fCost
+                    // search through all open tiles for the one with the lowest fCost
 
-                Tile bestTile = new Tile();
-                float bestFCost = 99999.0f;
-                if(OpenTiles.Count > 0)
-                {
-                    foreach (Tile t in OpenTiles)
+                    Tile bestTile = new Tile();
+                    float bestFCost = 99999.0f;
+                    if (OpenTiles.Count > 0)
                     {
-                        if (t.fCost < bestFCost)
+                        foreach (Tile t in OpenTiles)
                         {
-                            bestTile = t;
-                            bestFCost = t.fCost;
+                            if (t.fCost < bestFCost)
+                            {
+                                bestTile = t;
+                                bestFCost = t.fCost;
+                            }
                         }
                     }
-                }
-                // if there are no open tiles left, the pathfinding cannot find a path
-                else
-                {
-                    Debug.LogError("Pathfinder: no path is possible");
-                    return;
-                }
+                    // if there are no open tiles left, the pathfinding cannot find a path
+                    else
+                    {
+                        Debug.LogError("Pathfinder: no path is possible");
+                        return;
+                    }
 
-                // this if statement is to stop infinite loops. this recursive funtion will call itself 1000 times before it fails; this stops unity crashing
-                if (count < 5000)
-                {
-                    count++;
-                    // run this function on the open tile with the lowest fCost
-                    SearchAdjacentTiles(startTile, destinationTile, bestTile);
-                }
-                else
-                {
-                    Debug.LogError("Pathfinder: failed");
+                    CurrentTile = bestTile;
                 }
             }
         }

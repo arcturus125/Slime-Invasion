@@ -11,7 +11,6 @@ namespace HordeSurvivalGame
 {
     public class TowerPlacement : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
     {
-        public ItemSystem.Item debugItem;
         GameObject Tower;
         public GameObject prefab;
         bool readyToPlace = false;

@@ -20,6 +20,7 @@ namespace Towers
         void Start()
         {
             // TODO: call TowerSetup() on parent
+            inv = new Inventory();
         }
 
         public void Setup()
@@ -51,6 +52,16 @@ namespace Towers
                     timeSinceLastDrop -= miningSpeed;
                     Drop();
                 }
+            }
+            //PrintInv();
+        }
+
+
+        private void PrintInv()
+        {
+            for (int i = 0; i < inv.items.Count; i++)
+            {
+                Debug.Log(inv.items[i].name + " : " + inv.quantity[i]);
             }
         }
 
