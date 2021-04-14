@@ -9,11 +9,18 @@ namespace HordeSurvivalGame
 {
     public class OreSpawning : MonoBehaviour
     {
-        public Sprite map; //The walkable map, which will be used to make sure the player can access all of the ores.
-        public GameObject prefab; //The prefab of the ore texture.
-        public Item itemToSpawn; //Item that will be spawned when mining the ore.
-        public float originX; //The X and Z position the clusters will originate from.
-        public float originZ;
+        [SerializeField]
+        private Transform parent;
+        [SerializeField]
+        private Sprite map; //The walkable map, which will be used to make sure the player can access all of the ores.
+        [SerializeField]
+        private GameObject prefab; //The prefab of the ore texture.
+        [SerializeField]
+        private Item itemToSpawn; //Item that will be spawned when mining the ore.
+        [SerializeField]
+        private float originX; //The X and Z position the clusters will originate from.
+        [SerializeField]
+        private float originZ;
         [Range(3.0f, 10.0f)]
         public float distance; //How far the spawn circle will be from the origin.
         [Range(1.0f, 10.0f)]
@@ -45,7 +52,7 @@ namespace HordeSurvivalGame
 
             if (ValidTile(pos))
             {
-                Instantiate(prefab, pos, Quaternion.identity); //Uses the prefab.
+                Instantiate(prefab, pos, Quaternion.identity, parent); //Uses the prefab.
                 new OreTile(Tile.Vector3ToTile(pos), itemToSpawn); //Sets tile to spawn the related ore.
             }
 
@@ -74,7 +81,7 @@ namespace HordeSurvivalGame
 
                 if (ValidTile(currentOrePos))
                 {
-                    Instantiate(prefab, currentOrePos, Quaternion.identity); //Changes the tile to an ore, like it did with the start of the vein.
+                    Instantiate(prefab, currentOrePos, Quaternion.identity, parent); //Changes the tile to an ore, like it did with the start of the vein.
                     new OreTile(Tile.Vector3ToTile(currentOrePos), itemToSpawn);
                 }
             }

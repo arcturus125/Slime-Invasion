@@ -12,7 +12,7 @@ public class CameraArm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined; //Confines the cursor to the playable space when the game starts.
+        //Cursor.lockState = CursorLockMode.Confined; //Confines the cursor to the playable space when the game starts.
     }
 
     // Update is called once per frame

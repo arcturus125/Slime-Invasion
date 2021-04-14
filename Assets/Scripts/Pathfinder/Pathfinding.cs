@@ -10,7 +10,6 @@ namespace Pathfinder
 {
     class Pathfinding
     {
-        // TODO: find different modifier to make only accessible in the same namespace
         internal List<Tile> OpenTiles = new List<Tile>(); // tiles you have yet to check 
         internal List<Tile> closedTiles = new List<Tile>(); // tiles that haev already been checked
 
@@ -36,22 +35,26 @@ namespace Pathfinder
             }
 
 
-            SearchAdjacentTiles(startTile, destinationTile, startTile);
+            if(SearchAdjacentTiles(startTile, destinationTile, startTile)) 
+            {
+                path.Reverse();
+                return path;
+            }
+            Debug.LogWarning("Pathfinder cannot find path");
+            return null; // if path cannot be found, an empty list is returned as to not break iterative code dependant on this
 
-            path.Reverse();
-            return path;
         }
 
 
-        private void SearchAdjacentTiles(Tile startTile, Tile destinationTile, Tile CurrentTile)
+        private bool SearchAdjacentTiles(Tile startTile, Tile destinationTile, Tile CurrentTile)
         {
-            for(int i = 0; i < 5000;i++)
+            for(int i = 0; i < 1000;i++)
             {
                 // if a path is found
                 if (CurrentTile == destinationTile)
                 {
                     DrawPath(CurrentTile, startTile);
-                    break;
+                    return true;
                 }
                 else
                 {
@@ -106,12 +109,13 @@ namespace Pathfinder
                     else
                     {
                         Debug.LogError("Pathfinder: no path is possible");
-                        return;
+                        return false;
                     }
 
                     CurrentTile = bestTile;
                 }
             }
+            return false;
         }
 
         // using the linked list of Tiles (parent tiles) trace back the path to the start
