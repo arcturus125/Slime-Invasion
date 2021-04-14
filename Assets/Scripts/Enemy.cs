@@ -73,29 +73,34 @@ namespace HordeSurvivalGame
             if (FindPathToPlayer)
             {
                 // if enemy is not already next to the player
-                if (path != null)
+                if (path != null || path.Count == 1)
                 {
-                    //transform.localPosition += Vector3.forward * Time.deltaTime * speedMultiplier;
-                    transform.position = Vector3.MoveTowards(transform.position, path[pathIndexer], finalSpeed);
-                    //transform.Translate(transform.TransformDirection(Vector3.forward) * Time.deltaTime * speedMultiplier, Space.Self);
-
-                    // if close to the waypoint, set target to the next waypoint
-                    if (Vector3.Distance(this.transform.position, path[pathIndexer]) < pathfindingleniancy)
+                    if (pathIndexer <= path.Count - 1)
                     {
-                        if (pathIndexer < path.Count - 1)
-                        {
-                            PathfindingTick();
-                            pathIndexer++;
-                        }
-                        // if the player has just reached the end of their path
-                        else
-                        {
-                            //### stop pathfinding
-                            //FindPathToPlayer = false;
 
-                            //### find another path
-                            pathIndexer = 0;
-                            AStarPathfind();
+
+                        //transform.localPosition += Vector3.forward * Time.deltaTime * speedMultiplier;
+                        transform.position = Vector3.MoveTowards(transform.position, path[pathIndexer], finalSpeed);
+                        //transform.Translate(transform.TransformDirection(Vector3.forward) * Time.deltaTime * speedMultiplier, Space.Self);
+
+                        // if close to the waypoint, set target to the next waypoint
+                        if (Vector3.Distance(this.transform.position, path[pathIndexer]) < pathfindingleniancy)
+                        {
+                            if (pathIndexer < path.Count - 1)
+                            {
+                                PathfindingTick();
+                                pathIndexer++;
+                            }
+                            // if the player has just reached the end of their path
+                            else
+                            {
+                                //### stop pathfinding
+                                //FindPathToPlayer = false;
+
+                                //### find another path
+                                pathIndexer = 0;
+                                AStarPathfind();
+                            }
                         }
                     }
                 }
