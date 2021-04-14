@@ -13,6 +13,7 @@ namespace HordeSurvivalGame
     {
         GameObject Tower;
         public GameObject prefab;
+        public int moneyCost = 0;
         bool readyToPlace = false;
         bool allowPlacement = false;
 
@@ -52,7 +53,7 @@ namespace HordeSurvivalGame
                 Tower.transform.position = clickInTilespace;
 
                 // if tower is walkable, change model colour to green
-                if (Tile.Vector3ToTile(clickInTilespace).isWalkable)
+                if ((Tile.Vector3ToTile(clickInTilespace).isWalkable) && PlayerResources.GetMoney() >= moneyCost)
                 {
                     Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
                     foreach (Renderer r in rend)
@@ -106,6 +107,7 @@ namespace HordeSurvivalGame
 
                     t.isWalkable = false; // tile can no longer be walked on since there has been a tower placed on it
 
+                    PlayerResources.DecrementMoney(moneyCost);
                 }
                 Tower = null;
 

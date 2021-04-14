@@ -146,10 +146,16 @@ namespace HordeSurvivalGame
             remainingHealth -= damageNumbers;
             if (remainingHealth <=0)
             {
-                Destroy(this.gameObject);
+                EnemyDeath();
             }
 
             healthBarTimeLeft = defaultHealthBarTimer;
+        }
+
+        public void EnemyDeath()
+        {
+            Destroy(this.gameObject);
+            PlayerResources.IncrementMoney(1);
         }
     } 
 }
