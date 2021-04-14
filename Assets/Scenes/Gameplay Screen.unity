@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93184b6fde95f0b408bba895848fc95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4102407045809105792, guid: 591f3e3fa12cd7e4dad9fe78e02f4501, type: 3}
+  enemy: {fileID: 848315080429237820, guid: 4cbd2645d2e28fc49933c433fcc13985, type: 3}
   spawnableMap: {fileID: 21300000, guid: d26638c91138d3245b7d39279b892dbc, type: 3}
 --- !u!4 &621419264
 Transform:
@@ -6683,8 +6683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abb985b34002bd4186bcc904714b833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 1966678807}
-  projectileSpeed: 5
   playerPosition: {fileID: 1966678811}
   proj: {fileID: 3012422394887249208, guid: 31d642e53174953469546c2fc351b4b6, type: 3}
 --- !u!1 &1970966837
