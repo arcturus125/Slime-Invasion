@@ -269,8 +269,15 @@ namespace Conveyors
                 {
                     firstframe = false;
 
-
+                    // reset inventories for each output
                     outputInventories.Clear();
+                    for (int k = 0; k < outputDirections.Count; k++)
+                    {                                                // in order to avoid errors
+                        spriteObjects.Add(new GameObject());         // have an empty inventory for each output - the absence of an inventory will cause errors
+                        outputInventories.Add(new Inventory());      //
+                    }
+
+
                     List<Vector2> itemOutputDirections = new List<Vector2>();
                     int numOfItemsDirections = 0;
                     for(int j = 0; j <  ConveyorInv.items.Count; j++)
@@ -289,21 +296,14 @@ namespace Conveyors
                                 itemOutputDirections.Add(outputDirection);
                             }
                         }
-
-                        for (int k = 0; k < outputDirections.Count; k++) // in order to avoid errors
-                        {                                                // an output where Zero items are sent must
-                            spriteObjects.Add(new GameObject());         // have an empty inventory - the absence of an inventory will cause errors
-                            outputInventories.Add(new Inventory());      //
-                        }
-
-                        for ( int k = 0; k< itemOutputDirections.Count;k++)                        // if an item is meant to travel in a particular direction
-                        {                                                                          // it *OVERWRITES* the before code
-                            Inventory tempInv = new Inventory();                                   // therefore every output will have an inventory
-                            tempInv.addItem(item, ConveyorInv.quantity[j] / numOfItemsDirections);   // and output with zero items, will be an inventory of length 0
-                            int temp = outputDirections.IndexOf(itemOutputDirections[k]);          //
-                            outputInventories[temp] = tempInv;                                     //
-                        }
-                    }
+                        
+                        
+                        for ( int k = 0; k< itemOutputDirections.Count;k++)
+                        {                                                                                            // if an item is meant to travel in a particular direction
+                            int temp = outputDirections.IndexOf(itemOutputDirections[k]);                            // it *OVERWRITES* the before code
+                            outputInventories[temp].addItem(item, ConveyorInv.quantity[j] / numOfItemsDirections);   // therefore every output will have an inventory
+                        }                                                                                            // and output with zero items, will be an inventory of length 0
+                    }                                                                                                //
 
                     // the above creates an inventory for each output that respects item filters.
                     // these inventories are then used to pass items to the next tower
@@ -352,9 +352,12 @@ namespace Conveyors
                                 // "Link" the conveyor so that inputs and outputs match up
                                 if (t.GetTower().TryGetComponent<ConveyorManager>(out ConveyorManager conv))
                                 {
-                                    conv.link(outputInventories[i].items[0], outputInventories[i].quantity[0], outputDirections[i]);
-                                    outputInventories[i].items.RemoveAt(0);
-                                    outputInventories[i].quantity.RemoveAt(0);
+                                    for (int j = 0; j < outputInventories[i].items.Count; )
+                                    {
+                                        conv.link(outputInventories[i].items[j], outputInventories[i].quantity[j], outputDirections[i]);
+                                        outputInventories[i].items.RemoveAt(j);
+                                        outputInventories[i].quantity.RemoveAt(j);
+                                    }
                                     spriteObjects.Remove(spriteObject);
                                     Destroy(spriteObject);
 
