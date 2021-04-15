@@ -98,6 +98,8 @@ namespace HordeSurvivalGame
                 {
                     Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
                     Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.0f, Mathf.RoundToInt(clickInWorldspace.z)); // this line is effectively the same as the one above, but when you remove it, conveyors break about 15% of the time.
+
+                    Tower.transform.position = clickInTilespace;
                     Tile t = Tile.Vector3ToTile(clickInTilespace);
                     t.SetTower(Tower);
                     if (Tower.TryGetComponent<Tower>(out Tower towerClassInstance))
