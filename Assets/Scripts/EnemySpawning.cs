@@ -60,6 +60,6 @@ public class EnemySpawning : MonoBehaviour
         } while (spawnableMap.texture.GetPixel(-xPos, -zPos) == Color.black); //Loop while the chosen tile is invalid.
 
         //Debug.Log("Spawned Enemy at :" + xPos + ", " + zPos);
-        return new Vector3(xPos, 2.0f, zPos);
+        return new Vector3(xPos, 0.2f, zPos);
     }
 }

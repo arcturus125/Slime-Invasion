@@ -4359,7 +4359,6 @@ GameObject:
   - component: {fileID: 1378792383}
   - component: {fileID: 1378792384}
   - component: {fileID: 1378792385}
-  - component: {fileID: 1378792386}
   m_Layer: 0
   m_Name: OreGeneration
   m_TagString: Untagged
@@ -4591,27 +4590,6 @@ MonoBehaviour:
   distance: 10
   clusterSize: 5
   veinSize: 4
---- !u!114 &1378792386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378792374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0492720d157f75489c43a9cba5ab47b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 1378792376}
-  map: {fileID: 21300000, guid: d26638c91138d3245b7d39279b892dbc, type: 3}
-  prefab: {fileID: 711269642932055221, guid: f9d825d3ab64d244984ccab4cd62cb3e, type: 3}
-  itemToSpawn: {fileID: 11400000, guid: 6e566b4d0dc2e784c922468d6df963a5, type: 2}
-  originX: -85
-  originZ: -53
-  distance: 10
-  clusterSize: 3
-  veinSize: 7
 --- !u!1 &1379617002
 GameObject:
   m_ObjectHideFlags: 0
