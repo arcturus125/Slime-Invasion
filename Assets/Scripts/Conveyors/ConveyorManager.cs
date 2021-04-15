@@ -175,7 +175,8 @@ namespace Conveyors
                 if (firstframe)
                 {
                     firstframe = false;
-                    for(int i = 0; i < inputDirections.Count;i++)
+
+                    for (int i = 0; i < inputDirections.Count;i++)
                     {
                         GameObject spriteObject = Instantiate(conveyorSprite, this.gameObject.transform);
                         spriteObject.GetComponent<SpriteRenderer>().sprite = sprites[i];
@@ -298,7 +299,7 @@ namespace Conveyors
                         for ( int k = 0; k< itemOutputDirections.Count;k++)                        // if an item is meant to travel in a particular direction
                         {                                                                          // it *OVERWRITES* the before code
                             Inventory tempInv = new Inventory();                                   // therefore every output will have an inventory
-                            tempInv.addItem(item, ConveyorInv.quantity[j]); // still duplicating   // and output with zero items, will be an inventory of length 0
+                            tempInv.addItem(item, ConveyorInv.quantity[j] / numOfItemsDirections);   // and output with zero items, will be an inventory of length 0
                             int temp = outputDirections.IndexOf(itemOutputDirections[k]);          //
                             outputInventories[temp] = tempInv;                                     //
                         }
@@ -374,7 +375,11 @@ namespace Conveyors
                             }
                         }
                     }
-                    sprites.Clear();      
+                    // last thing before looping round the cycles
+                    sprites.Clear();
+
+                    ConveyorInv.items.Clear();
+                    ConveyorInv.quantity.Clear();
                 }
             }
         }
