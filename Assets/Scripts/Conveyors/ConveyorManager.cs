@@ -46,7 +46,7 @@ namespace Conveyors
         public IOController[] TrueArmTypes; // a combination of the above two, where CustomArmTypes Overrides armTypes if the value is not 
         public bool hasItemFilters = false;
         public List<Item>[] itemFilters = new List<Item>[4];
-        public bool[] canItemFiterBeEdited = new bool[4];
+        public bool[] canItemFiterBeEdited = new bool[4]; // when false. the user will be unable to edit any item filters
         public int visibleArms = 0; // used in algorithm decision making to decide which arms are inputs and which arms are outputs
         public int noOfInputs  = 0; //
 
@@ -99,7 +99,7 @@ namespace Conveyors
             }
             for(int i = 0; i < canItemFiterBeEdited.Length;i++)
             {
-                canItemFiterBeEdited[i] = false;
+                canItemFiterBeEdited[i] = true;
             }
         }
         void Update()
@@ -175,7 +175,8 @@ namespace Conveyors
                 if (firstframe)
                 {
                     firstframe = false;
-                    for(int i = 0; i < inputDirections.Count;i++)
+
+                    for (int i = 0; i < inputDirections.Count;i++)
                     {
                         GameObject spriteObject = Instantiate(conveyorSprite, this.gameObject.transform);
                         spriteObject.GetComponent<SpriteRenderer>().sprite = sprites[i];
@@ -298,7 +299,7 @@ namespace Conveyors
                         for ( int k = 0; k< itemOutputDirections.Count;k++)                        // if an item is meant to travel in a particular direction
                         {                                                                          // it *OVERWRITES* the before code
                             Inventory tempInv = new Inventory();                                   // therefore every output will have an inventory
-                            tempInv.addItem(item, ConveyorInv.quantity[j]); // still duplicating   // and output with zero items, will be an inventory of length 0
+                            tempInv.addItem(item, ConveyorInv.quantity[j] / numOfItemsDirections);   // and output with zero items, will be an inventory of length 0
                             int temp = outputDirections.IndexOf(itemOutputDirections[k]);          //
                             outputInventories[temp] = tempInv;                                     //
                         }
@@ -374,7 +375,11 @@ namespace Conveyors
                             }
                         }
                     }
-                    sprites.Clear();      
+                    // last thing before looping round the cycles
+                    sprites.Clear();
+
+                    ConveyorInv.items.Clear();
+                    ConveyorInv.quantity.Clear();
                 }
             }
         }
@@ -593,10 +598,14 @@ namespace Conveyors
             }
 
             //conveyor can connect to towers
-            if (t_neighbour.GetTower().TryGetComponent(out Tower turrret))
+            if (t_neighbour.GetTower().TryGetComponent(out Tower tower))
             {
                 int index = System.Array.IndexOf(cardinalDirections, cardinalDirection);
                 armTypes[armIndex] = IOController.OutputToTower;
+                itemFilters[armIndex].Clear();
+                itemFilters[armIndex].Add(tower.recievableItem);
+                canItemFiterBeEdited[armIndex] = false;
+                hasItemFilters = true;
                 visibleArms++;
                 return true;
             }

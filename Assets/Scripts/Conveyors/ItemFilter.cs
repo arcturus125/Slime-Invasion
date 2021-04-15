@@ -17,8 +17,8 @@ namespace Conveyors {
         [HideInInspector]
         public ItemFilterUI parentUIManager;
 
-        private int armIndex;
-        private int itemIndexInItemFilter;
+        public int armIndex;
+        public int itemIndexInItemFilter;
 
 
         private void Update()
@@ -41,8 +41,10 @@ namespace Conveyors {
         {
             int index = this.GetComponentInChildren<Dropdown>().value;
 
-            ConveyorManagerUI.selectedConveyor.itemFilters[armIndex][itemIndexInItemFilter] = dropdownItems[index];
-            //Debug.Log("CXhanging "+itemIndexInItemFilter);
+            if(loop)
+                ConveyorManagerUI.selectedConveyor.itemFilters[armIndex][itemIndexInItemFilter] = dropdownItems[index];
+            loop = false;                                                                                 //
+            Debug.Log("CXhanging "+itemIndexInItemFilter);
         }
 
         internal void INIT(int itemFilterIndex, int itemIndex)
@@ -54,9 +56,14 @@ namespace Conveyors {
             int index = this.GetComponentInChildren<Dropdown>().value;
             ConveyorManagerUI.selectedConveyor.itemFilters[itemFilterIndex].Add(dropdownItems[index]);
         }
+        bool loop = true;
         internal void SetItem(Item i)
         {
+            loop = false;
             this.GetComponentInChildren<Dropdown>().value = System.Array.IndexOf(dropdownItems, i);
+            bool canBeEdited = ConveyorManagerUI.selectedConveyor.canItemFiterBeEdited[armIndex];
+            if (!canBeEdited) this.GetComponentInChildren<Dropdown>().interactable = false;
+            else this.GetComponentInChildren<Dropdown>().interactable = true;
             Debug.Log("Setting item: " + i.itemName);
         }
     }

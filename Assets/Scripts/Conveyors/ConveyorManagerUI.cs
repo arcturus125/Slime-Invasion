@@ -57,7 +57,10 @@ namespace Conveyors
             if (selectedConveyor)
             {
                 if (selectedConveyor.hasItemFilters)
+                {
                     conveyorType.value = 1;
+                    //showSubMenus = true;
+                }
                
                 if (showSubMenus)
                 {
