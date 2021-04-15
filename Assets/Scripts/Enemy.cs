@@ -14,8 +14,8 @@ namespace HordeSurvivalGame
         private Slider healthBar;
         public int maxHealth = 5;
         public int remainingHealth;
-        public float finalSpeed = 0.01f; // the speed of the enemy AFTER all the effects have been applied
-        public float defaultSpeed = 0.01f;
+        public float finalSpeed = 0.02f; // the speed of the enemy AFTER all the effects have been applied
+        public float defaultSpeed = 0.02f;
 
         public static float defaultHealthBarTimer = 3.0f; // health bar wil show for 3 seconds before dissapearing
         float healthBarTimeLeft = 0;

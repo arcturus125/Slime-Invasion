@@ -9,6 +9,7 @@ public class EnemySpawning : MonoBehaviour
     float spawnTimer; //The timer that is used between enemy spawns. TODO: This won't be a static number, and will have an element of randomness to it, while keeping balance by being slower towards the start of the game, and getting more difficult later on.
     [SerializeField]
     private Sprite spawnableMap; //The image of the playable area. Used to ensure enemies don't spawn on inaccessible or invalid tiles.
+    public GameObject player; //Used to make sure enemies don't spawn too close to the player.
 
     // Start is called before the first frame update
     void Start()
@@ -43,23 +44,35 @@ public class EnemySpawning : MonoBehaviour
     {
         const float MAP_MAX_X = -202.0f; //The size of the map. Negative values as the entire map is flipped on both axies.
         const float MAP_MAX_Z = -94.0f;
+        const int MINIMUM_SPAWN_DISTANCE_FROM_PLAYER = 10;
+
+        Vector3 playerPosition = player.transform.position;
+        bool tooCloseToPlayer = false;
 
         int xPos = 0; //The X and Z positions to be put in the returned vector.
         int zPos = 0;
         int infiniteLoopPrevention = 0; //A counter to prevent the game freezing in the case of an infinite loop.
         do
         {
+            tooCloseToPlayer = false; //This needs to be set every loop, and is assumed to be false, as it is only set later if it is true.
+
             xPos = (int)Random.Range(0.0f, MAP_MAX_X); //Chooses a random point on both the X and Z axies.
             zPos = (int)Random.Range(0.0f, MAP_MAX_Z);
+
+            int distanceToPlayerX = Mathf.Abs(xPos) - (int)Mathf.Abs(playerPosition.x); //Number of tiles the potential enemy spawn point is away from the player's current position.
+            int distanceToPlayerZ = Mathf.Abs(zPos) - (int)Mathf.Abs(playerPosition.z);
+            distanceToPlayerX = Mathf.Abs(distanceToPlayerX); //Makes sure values are positive.
+            distanceToPlayerZ = Mathf.Abs(distanceToPlayerZ);
+            if (distanceToPlayerX < MINIMUM_SPAWN_DISTANCE_FROM_PLAYER && distanceToPlayerZ < MINIMUM_SPAWN_DISTANCE_FROM_PLAYER) tooCloseToPlayer = true; //If the enemy position is within a radius of the player, it's too close and shouldn't spawn.
+
             infiniteLoopPrevention++;
-            if (infiniteLoopPrevention > 100)
+            if (infiniteLoopPrevention > 100) //Surpassed loop limit. Most likely indicates there would be an infinate loop.
             {
-                Debug.Log("Used break to exit loop");
+                Debug.Log("Enemy failed to spawn. Cancelling attempt");
                 return Vector3.zero; //Returns 0, which is treated as an exception and ignored.
             }
-        } while (spawnableMap.texture.GetPixel(-xPos, -zPos) == Color.black); //Loop while the chosen tile is invalid.
+        } while ((spawnableMap.texture.GetPixel(-xPos, -zPos) == Color.black) || (tooCloseToPlayer)); //Loop while the chosen tile is invalid.
 
-        //Debug.Log("Spawned Enemy at :" + xPos + ", " + zPos);
         return new Vector3(xPos, 0.2f, zPos);
     }
 }

@@ -2626,6 +2626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 848315080429237820, guid: 4cbd2645d2e28fc49933c433fcc13985, type: 3}
   spawnableMap: {fileID: 21300000, guid: d26638c91138d3245b7d39279b892dbc, type: 3}
+  player: {fileID: 1966678807}
 --- !u!4 &621419264
 Transform:
   m_ObjectHideFlags: 0
