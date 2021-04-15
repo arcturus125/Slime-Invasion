@@ -42,11 +42,11 @@ public class MusicManager : MonoBehaviour
         }
         noOfSongsLeftInQueue = music.Length;
 
-        Debug.Log("New Order");
-        for (int i = 0; i < music.Length; i++) //Makes all tracks in playlist invalid. This is necessary as the array is searched for values, so there cannot be any valid ones initially.
-        {
-            Debug.Log(musicOrder[i]);
-        }
+        //Debug.Log("New Order");
+        //for (int i = 0; i < music.Length; i++) //Makes all tracks in playlist invalid. This is necessary as the array is searched for values, so there cannot be any valid ones initially.
+        //{
+        //    Debug.Log(musicOrder[i]);
+        //}
     }
 
     private bool CanBeAddedToPlaylist(int songIndex) //Returns true if the song index is currently unused in the playlist.

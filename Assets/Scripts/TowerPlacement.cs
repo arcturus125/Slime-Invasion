@@ -14,6 +14,7 @@ namespace HordeSurvivalGame
         GameObject Tower;
         public GameObject prefab;
         public int moneyCost = 0;
+        public int ironCost = 0;
         bool readyToPlace = false;
         bool allowPlacement = false;
 
@@ -53,7 +54,7 @@ namespace HordeSurvivalGame
                 Tower.transform.position = clickInTilespace;
 
                 // if tower is walkable, change model colour to green
-                if ((Tile.Vector3ToTile(clickInTilespace).isWalkable) && PlayerResources.GetMoney() >= moneyCost)
+                if ((Tile.Vector3ToTile(clickInTilespace).isWalkable) && (PlayerResources.GetMoney() >= moneyCost) && (PlayerResources.GetIron() >= ironCost))
                 {
                     Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
                     foreach (Renderer r in rend)
@@ -115,20 +116,7 @@ namespace HordeSurvivalGame
 
 
             }
-            if (Tower && !allowPlacement)
-                Destroy(Tower);
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            if (Tower && !allowPlacement) Destroy(Tower);
         }
     }
 }
