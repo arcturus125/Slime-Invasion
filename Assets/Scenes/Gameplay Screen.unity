@@ -4059,7 +4059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4531346496615889119, guid: 84cfd0fec5393fb49867111d3d8e1503, type: 3}
-  moneyCost: 5
+  moneyCost: 0
 --- !u!1 &1200527568
 GameObject:
   m_ObjectHideFlags: 0

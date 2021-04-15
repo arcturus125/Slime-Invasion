@@ -44,7 +44,9 @@ namespace Conveyors
 
         private void loadExistingData()
         {
-            for (int i = 0; i < ConveyorManagerUI.selectedConveyor.itemFilters[itemFilterIndex].Count; i++)
+            // for all the filters on a specific arm
+            int loops = ConveyorManagerUI.selectedConveyor.itemFilters[itemFilterIndex].Count;
+            for (int i = 0; i < loops; i++)
             {
                 // move the UI
                 Vector3 oldPosition = plus.GetComponent<RectTransform>().position;
@@ -53,9 +55,16 @@ namespace Conveyors
                 ItemFilter filterObject = Instantiate(filter, this.transform);
                 filterObject.gameObject.transform.position = oldPosition;
                 filterObject.parentUIManager = this;
+                filterObject.armIndex = itemFilterIndex;
+                filterObject.itemIndexInItemFilter = numberOfFilters;
                 ConveyorManagerUI.destroyOnLoad.Add(filterObject.gameObject);
                 filterObject.SetItem(ConveyorManagerUI.selectedConveyor.itemFilters[itemFilterIndex][i]);
                 numberOfFilters++;
+
+
+                bool canBeEdited = ConveyorManagerUI.selectedConveyor.canItemFiterBeEdited[itemFilterIndex];
+                if (!canBeEdited) plus.interactable = false;
+                else plus.interactable = true;
             }
         }
         public void PlusButtonClicked()
