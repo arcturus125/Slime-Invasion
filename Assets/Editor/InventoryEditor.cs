@@ -19,7 +19,7 @@ public class InventoryEditor : Editor
             Item item = conveyor.ConveyorInv.items[i];
             int quantity = conveyor.ConveyorInv.quantity[i];
 
-            text += (item.name + ": " + quantity);
+            text += (item.name + ": " + quantity + "\n");
         }
         if (conveyor.ConveyorInv.items.Count == 0) text += "Inv empty";
 
