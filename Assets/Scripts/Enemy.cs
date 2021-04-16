@@ -169,6 +169,8 @@ namespace HordeSurvivalGame
         public void AttackPlayer()
         {
             PlayerResources.AddLives(-1);
+            Player pl = new Player();
+            pl.LostHealth();
         }
     } 
 }

@@ -28,5 +28,12 @@ namespace HordeSurvivalGame
 
 
         }
+
+        public void LostHealth()
+        {
+            Debug.Log("Ouch!");
+            HeartSpriteManager heart = new HeartSpriteManager();
+            heart.HeartsChanged();
+        }
     }
 }
