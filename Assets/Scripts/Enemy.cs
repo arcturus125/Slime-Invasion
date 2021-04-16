@@ -155,7 +155,7 @@ namespace HordeSurvivalGame
         public void EnemyDeath()
         {
             Destroy(this.gameObject);
-            PlayerResources.IncrementMoney(1);
+            PlayerResources.AddMoney(1);
         }
     } 
 }

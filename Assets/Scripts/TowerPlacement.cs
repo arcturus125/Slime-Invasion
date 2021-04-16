@@ -58,21 +58,17 @@ namespace HordeSurvivalGame
                 // if tower is walkable, change model colour to green
                 if ((Tile.Vector3ToTile(clickInTilespace).isWalkable))
                 {
-                    if (developerMode) //If it is on, it just places without checking.
+                    
+                    if (developerMode ||                                                                    // if dev mode turned on, place tower OR
+                        (PlayerResources.GetMoney() >= moneyCost && PlayerResources.GetIron() >= ironCost)) // of player can afford it, place tower
                     {
                         Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
                         foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.green);
                         allowPlacement = true;
                     }
-                    else if (!developerMode && (PlayerResources.GetMoney() >= moneyCost) && (PlayerResources.GetIron() >= ironCost)) //Dev mode is not on, player needs to pay.
-                    {
-                        Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
-                        foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.green);
-                        allowPlacement = true;
-                    }
+                    // if player can not afford tower, show as red, and do not allow placement when click released
                     else
                     {
-
                         Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
                         foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.red);
                     }
@@ -112,6 +108,8 @@ namespace HordeSurvivalGame
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
+                    // recalculate these variables as the click is released or sometimes on the rare occasion, 
+                    // the tower is placed on one square, but appears to be on another
                     Vector3 clickInWorldspace = hit.collider.gameObject.transform.position;
                     Vector3 clickInTilespace = new Vector3(Mathf.RoundToInt(clickInWorldspace.x), 0.0f, Mathf.RoundToInt(clickInWorldspace.z)); // this line is effectively the same as the one above, but when you remove it, conveyors break about 15% of the time.
 
@@ -131,8 +129,8 @@ namespace HordeSurvivalGame
 
                     if (!developerMode)
                     {
-                        PlayerResources.DecrementMoney(moneyCost);
-                        PlayerResources.DecrementIron(ironCost);
+                        PlayerResources.AddMoney(-moneyCost);
+                        PlayerResources.AddIron(-ironCost);
                     }
                 }
                 Tower = null;
