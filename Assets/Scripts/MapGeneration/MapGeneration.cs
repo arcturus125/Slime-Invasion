@@ -24,7 +24,8 @@ namespace MapGeneration
             edgeBottomLeft_noShadow = 8,
             edgeBottomLeft_shadow = 9,
             edgeBottomRight_noShadow = 10,
-            edgeBottomRight_shadow = 11
+            edgeBottomRight_shadow = 11,
+            cube = 12
         };
 
 
