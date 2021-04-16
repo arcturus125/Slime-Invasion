@@ -48,7 +48,7 @@ namespace Pathfinder
 
         private bool SearchAdjacentTiles(Tile startTile, Tile destinationTile, Tile CurrentTile)
         {
-            for(int i = 0; i < 2500;i++)
+            for(int i = 0; i < 500;i++)
             {
                 // if a path is found
                 if (CurrentTile == destinationTile)
