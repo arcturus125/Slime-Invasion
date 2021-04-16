@@ -63,8 +63,8 @@ MonoBehaviour:
   healthBar: {fileID: 5717084768819305354}
   maxHealth: 5
   remainingHealth: 0
-  finalSpeed: 0.01
-  defaultSpeed: 0.01
+  finalSpeed: 0.02
+  defaultSpeed: 0.02
   path: []
   pathfindingleniancy: 0.5
   repathfindAfterTicks: 5

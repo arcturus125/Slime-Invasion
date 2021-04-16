@@ -14,8 +14,10 @@ namespace HordeSurvivalGame
         GameObject Tower;
         public GameObject prefab;
         public int moneyCost = 0;
+        public int ironCost = 0;
         bool readyToPlace = false;
         bool allowPlacement = false;
+        bool developerMode = false; //Costs for towers are ignored, to be able to test features, without removing the cost entirely.
 
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -52,28 +54,43 @@ namespace HordeSurvivalGame
                 // postion the tower under the cursor
                 Tower.transform.position = clickInTilespace;
 
+                allowPlacement = false;
                 // if tower is walkable, change model colour to green
-                if ((Tile.Vector3ToTile(clickInTilespace).isWalkable) && PlayerResources.GetMoney() >= moneyCost)
+                if ((Tile.Vector3ToTile(clickInTilespace).isWalkable))
                 {
-                    Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
-                    foreach (Renderer r in rend)
-                        r.material.SetColor("_BaseColor", Color.green);
-                    allowPlacement = true;
+                    if (developerMode) //If it is on, it just places without checking.
+                    {
+                        Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+                        foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.green);
+                        allowPlacement = true;
+                    }
+                    else if (!developerMode && (PlayerResources.GetMoney() >= moneyCost) && (PlayerResources.GetIron() >= ironCost)) //Dev mode is not on, player needs to pay.
+                    {
+                        Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+                        foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.green);
+                        allowPlacement = true;
+                    }
+                    else
+                    {
+
+                        Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
+                        foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.red);
+                    }
+                    
+                    
                 }
                 // if tower is NOT walkable, change model colour to red
                 else
                 {
                     Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
-                    foreach (Renderer r in rend)
-                        r.material.SetColor("_BaseColor", Color.red);
+                    foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.red);
                     allowPlacement = false;
                 }
 
                 if(Tile.Vector3ToTile(clickInTilespace).towerObject != null)
                 {
                     Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
-                    foreach (Renderer r in rend)
-                        r.material.SetColor("_BaseColor", Color.red);
+                    foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.red);
                     allowPlacement = false;
 
                     Debug.LogWarning("Player attempted to place a tower ontop of another tower. cancelling placement");
@@ -89,8 +106,7 @@ namespace HordeSurvivalGame
             {
                 // set object to white (default colours) when it is dropped
                 Renderer[] rend = Tower.GetComponentsInChildren<Renderer>();
-                foreach (Renderer r in rend)
-                    r.material.SetColor("_BaseColor", Color.white);
+                foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.white);
 
                 // once the tower is placed, set the towerObject of the tile (used to decide whether or not towers can connect)
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -103,32 +119,36 @@ namespace HordeSurvivalGame
                     Tile t = Tile.Vector3ToTile(clickInTilespace);
                     t.SetTower(Tower);
                     if (Tower.TryGetComponent<Tower>(out Tower towerClassInstance))
-                        towerClassInstance.OnPlaced(t); 
+                    {
+                        towerClassInstance.OnPlaced(t);
+                        //t.isWalkable = false; // tile can no longer be walked on since there has been a tower placed on it
+                    }
                     if (Tower.TryGetComponent<Conveyors.ConveyorManager>(out Conveyors.ConveyorManager conveyorClassInstance))
+                    {
                         conveyorClassInstance.OnPlaced();
+                    }
 
-                    t.isWalkable = false; // tile can no longer be walked on since there has been a tower placed on it
 
-                    PlayerResources.DecrementMoney(moneyCost);
+                    if (!developerMode)
+                    {
+                        PlayerResources.DecrementMoney(moneyCost);
+                        PlayerResources.DecrementIron(ironCost);
+                    }
                 }
                 Tower = null;
 
 
             }
-            if (Tower && !allowPlacement)
-                Destroy(Tower);
+            if (Tower && !allowPlacement) Destroy(Tower);
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.P)) //Enter dev mode.
+            {
+                developerMode = !developerMode;
+                Debug.LogWarning("Dev mode is "+ developerMode);
+            }
         }
     }
 }

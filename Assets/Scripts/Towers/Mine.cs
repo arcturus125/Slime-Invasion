@@ -35,8 +35,7 @@ namespace Towers
                 OreTile ore = Tile.tileMap[x, y] as OreTile;  // super janky way of doing this, will revisit later
                 resource = ore.resource;
             }
-            else
-                Debug.Log("tower NOT placed on ore" + Tile.TileToVector3(Tile.tileMap[x, y]));
+            else Debug.Log("tower NOT placed on ore" + Tile.TileToVector3(Tile.tileMap[x, y]));
 
         }
             
