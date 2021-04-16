@@ -1917,6 +1917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3446656237036358478}
+  - component: {fileID: 7055894351061383774}
   m_Layer: 0
   m_Name: Ice Tower
   m_TagString: Untagged
@@ -1956,6 +1957,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7055894351061383774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719124171194370459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d7005221c58f04cb1a3a706cbeebdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  recievableItem: {fileID: 11400000, guid: 91829cbf5bd9012478d25238983f7682, type: 2}
 --- !u!1 &5222636894151588583
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,7 +72,7 @@ public class MusicManager : MonoBehaviour
         }
 
         currentSong = music[index]; //The song to be played.
-        currentSong.source.volume = musicVolume;
+        if (currentSong.source.volume != 0) currentSong.source.volume = musicVolume;
         currentSong.source.Play(); //Actually plays the music.
     }
 
