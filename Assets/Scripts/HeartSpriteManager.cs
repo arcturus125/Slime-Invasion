@@ -17,15 +17,15 @@ namespace HordeSurvivalGame
         }
         private void Update()
         {
-            if (PlayerResources.GetPlayerHealth() >= 0)
-            {
-                hearts.sprite = heartSprites[PlayerResources.GetPlayerHealth()]; //Currently in Update. There were issues with the function below, so for now, it's done here.
-            }
+            //if (PlayerResources.GetPlayerHealth() >= 0)
+            //{
+            //    hearts.sprite = heartSprites[PlayerResources.GetPlayerHealth()]; //Currently in Update. There were issues with the function below, so for now, it's done here. //TODO: this.
+            //}
         }
 
         public void HeartsChanged()
         {
-            //hearts.sprite = heartSprites[PlayerResources.GetPlayerHealth()];
+            hearts.sprite = heartSprites[PlayerResources.GetPlayerHealth()];
         }
     }
 }
