@@ -9,15 +9,20 @@ namespace HordeSurvivalGame
     {
         [SerializeField]
         private Transform cameraTarget;
+        public float LerpTime = 0.1f;
+        public float snapdistance = 0.1f;
 
         // Update is called once per frame
         void Update()
         {
-            // if the camera has a target. the camera will smoothly follow behind the players movement using linear interpolation
-            // if no target, camera will stay put
             if (cameraTarget)
             {
-                transform.position = cameraTarget.position; //Vector3.Lerp(transform.position, cameraTarget.position, LerpTime);
+                // if the camera is very close to the target, just smap to the target
+                if(Vector3.Distance(transform.position, cameraTarget.position) < snapdistance)
+                    transform.position = cameraTarget.position; 
+                // if far from the target (teleporting), lerp the the distance to smooth the transition
+                else
+                    transform.position = Vector3.Lerp(transform.position, cameraTarget.position, LerpTime);
             }
 
         }

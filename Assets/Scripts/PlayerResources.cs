@@ -8,7 +8,7 @@ namespace HordeSurvivalGame
 {
     class PlayerResources
     {
-        // used to reference specific item types in inventory
+        // used to reference specific item types in inventory - better than trying to load files or determine what an item is via name
         public static Item iron;
         public static Item coal;
         public static Item lead;
