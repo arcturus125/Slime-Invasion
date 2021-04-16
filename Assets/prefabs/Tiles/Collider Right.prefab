@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4721828276105854445}
   - component: {fileID: 4721828276105854446}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4721828277069090904}
   - component: {fileID: 4721828277069090907}
   - component: {fileID: 4721828277069090906}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
