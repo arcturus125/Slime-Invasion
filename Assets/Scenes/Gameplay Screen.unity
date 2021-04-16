@@ -1095,10 +1095,10 @@ RectTransform:
   m_Father: {fileID: 108916126}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_SizeDelta: {x: 0, y: -1.0001221}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &213850979
 MonoBehaviour:
@@ -1312,6 +1312,7 @@ MonoBehaviour:
   prefab: {fileID: 4719124171194370459, guid: f47b6cd9df8f08c49acb9082c01d0843, type: 3}
   moneyCost: 0
   ironCost: 5
+  developerMode: 0
 --- !u!114 &282262323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,6 +2151,7 @@ MonoBehaviour:
   prefab: {fileID: 289923724865494613, guid: edf2019c70479854a816ec5e7bdfbd8d, type: 3}
   moneyCost: 0
   ironCost: 5
+  developerMode: 0
 --- !u!114 &478136768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2737,6 +2739,7 @@ MonoBehaviour:
   prefab: {fileID: 5441440179506755017, guid: e27bcfa79fbd59c4fbdbf28b9afcb4e3, type: 3}
   moneyCost: 1
   ironCost: 0
+  developerMode: 0
 --- !u!114 &662208634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2927,6 +2930,7 @@ MonoBehaviour:
   prefab: {fileID: 7251338520865531201, guid: 360368716a640f04484b2cb5d757f1ad, type: 3}
   moneyCost: 0
   ironCost: 5
+  developerMode: 0
 --- !u!114 &677950613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,6 +3358,7 @@ MonoBehaviour:
   prefab: {fileID: 5380266958609010338, guid: 54a4f9f3eea5610428a60d6dba2e8b51, type: 3}
   moneyCost: 0
   ironCost: 5
+  developerMode: 0
 --- !u!114 &761153671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4190,6 +4195,7 @@ MonoBehaviour:
   prefab: {fileID: 2084453290848720202, guid: 6f8e3beb911350e488635bfc4cfcce0c, type: 3}
   moneyCost: 0
   ironCost: 5
+  developerMode: 0
 --- !u!114 &1106388048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4349,6 +4355,7 @@ MonoBehaviour:
   prefab: {fileID: 4531346496615889119, guid: 84cfd0fec5393fb49867111d3d8e1503, type: 3}
   moneyCost: 5
   ironCost: 0
+  developerMode: 0
 --- !u!1 &1200527568
 GameObject:
   m_ObjectHideFlags: 0
@@ -4682,6 +4689,7 @@ MonoBehaviour:
   prefab: {fileID: 5601829110882828450, guid: af8610c8604ce764495995bde88ee9da, type: 3}
   moneyCost: 0
   ironCost: 5
+  developerMode: 0
 --- !u!114 &1311024949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5892,7 +5900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -701, y: 314}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1604074641
@@ -7400,6 +7408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8171b08d36a4c994f8e292db9a8154b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iron: {fileID: 11400000, guid: 6e566b4d0dc2e784c922468d6df963a5, type: 2}
+  coal: {fileID: 11400000, guid: 91829cbf5bd9012478d25238983f7682, type: 2}
+  lead: {fileID: 11400000, guid: dc22b42ef0f48894bb2e1a02112d2a34, type: 2}
 --- !u!114 &1966678815
 MonoBehaviour:
   m_ObjectHideFlags: 0
