@@ -30,11 +30,16 @@ namespace HordeSurvivalGame
                 {
                     pointClicked = hit.transform.position;
 
-                    ConveyorManager conv;
-                    if (hit.collider.gameObject.TryGetComponent<ConveyorManager>(out conv))
+                    if (hit.collider.gameObject.TryGetComponent(out ConveyorManager conv))
                     {
                         ConveyorManagerUI.DestroyWindow();
                         ConveyorManagerUI.selectedConveyor = conv;
+                    }
+                    if(hit.collider.gameObject.TryGetComponent(out TeleportButton tb))
+                    {
+                        Debug.Log("clicked teleport arrow");
+                        tb.Teleport();
+                        return; // when the player click a teleport button, don't shoot
                     }
                     else
                     {

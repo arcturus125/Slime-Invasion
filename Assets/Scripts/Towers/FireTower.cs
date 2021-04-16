@@ -16,7 +16,7 @@ namespace Towers
 
         List<Enemy> targetEnemies = new List<Enemy>(); // the enemies that this tower will damage
 
-    // Start is called before the first frame update
+        // Start is called before the first frame update
         void Start()
         {
 
@@ -32,6 +32,25 @@ namespace Towers
              *  else
              *      timer -= time.deltatime
              */
+            if (timer <= 0)
+            {
+                Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
+                targetEnemies.Clear();
+                foreach (Collider c in colls)
+                {
+                    if (c.gameObject.TryGetComponent(out Enemy e))
+                    {
+                        targetEnemies.Add(e);
+                    }
+                }
+                foreach(Enemy e in targetEnemies)
+                {
+                    e.Damage(DPS);
+                }
+                timer ++;
+            }
+            else
+                timer -= Time.deltaTime;
         }
     }
 }

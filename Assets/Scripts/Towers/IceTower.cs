@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using HordeSurvivalGame;
-
+using System;
 
 namespace Towers
 {
@@ -29,12 +29,58 @@ namespace Towers
              *  
              *  if an enemy has left the radius of this tower: ( in the lastframe but not in the curentFrame)
              *      set the enemies speed back to the default speed;
-             *  for each enemy in currentFrame:
-             *      enemies speed = enemies default speed * slowingPower
+             *  if an enemy has entered the radius of this tower: ( in the curentFrame but not in the lastframe)
+             *      set the enemies speed  to enemies speed * slowing power;
              *      
              *  lastFrame = currentFrame
+             *  clear current frame
              */
-            
+
+            Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
+            foreach(Collider c in colls)
+            {
+                if (c.gameObject.TryGetComponent(out Enemy e))
+                {
+                    currentFrame_Enemies.Add(e);
+                }
+            }
+
+            foreach(Enemy e in currentFrame_Enemies)
+            {
+                if (lastFrame_Enemies.Contains(e)) continue;
+                else
+                {
+                    // enemy just entered the range of the tower
+                    EnemyEnter(e);
+                }
+            }
+            foreach (Enemy e in lastFrame_Enemies)
+            {
+                if (currentFrame_Enemies.Contains(e)) continue;
+                else
+                {
+                    // enemy just left the range of the tower
+                    EnemyLeave(e);
+                }
+            }
+            lastFrame_Enemies.Clear();
+            foreach (Enemy e in currentFrame_Enemies)
+                lastFrame_Enemies.Add(e);
+            currentFrame_Enemies.Clear();
+
+
+        }
+
+        private void EnemyLeave(Enemy e)
+        {
+            e.finalSpeed = e.finalSpeed / slowingPower;
+            Debug.Log("speeding back up");
+        }
+
+        private void EnemyEnter(Enemy e)
+        {
+            e.finalSpeed = e.finalSpeed * slowingPower;
+            Debug.Log("slowing down");
         }
     }
 }

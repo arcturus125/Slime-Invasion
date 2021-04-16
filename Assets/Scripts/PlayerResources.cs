@@ -2,66 +2,79 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using ItemSystem;
+
 namespace HordeSurvivalGame
 {
     class PlayerResources
     {
-        //Member Variables.
-        private static int playerMoney = 0;
-        private static int playerIron = 0;
-        private static int playerCoal = 0;
-        private static int playerLead = 0;
+        // used to reference specific item types in inventory - better than trying to load files or determine what an item is via name
+        public static Item iron;
+        public static Item coal;
+        public static Item lead;
 
-        //Getters.
+
+        private static int playerMoney = 0;
+        private static Inventory playerInv = new Inventory();
+
+        // return the amount of money the player has
         public static int GetMoney()
         {
             return playerMoney;
         }
+        // return the amount of iron in the players inventory
         public static int GetIron()
         {
-            return playerIron;
+            return GetInventoryItemCount(iron);
         }
+        // return the amount of coal in the players inventory
         public static int GetCoal()
         {
-            return playerCoal;
+            return GetInventoryItemCount(coal);
         }
+        // return the amount of lead in the players inventory
         public static int GetLead()
         {
-            return playerLead;
+            return GetInventoryItemCount(lead);
         }
 
-        //Setters.
-        public static void IncrementMoney(int value)
+
+        public static void AddMoney(int amount)
         {
-            playerMoney += value;
+            playerMoney += amount;
         }
-        public static void DecrementMoney(int value)
+        public static void AddIron(int amount)
         {
-            playerMoney -= value;
+            UpdateInventory(iron, amount);
         }
-        public static void IncrementIron(int value)
+        public static void AddCoal(int amount)
         {
-            playerIron += value;
+            UpdateInventory(coal, amount);
         }
-        public static void DecrementIron(int value)
+        public static void AddLead(int amount)
         {
-            playerIron -= value;
+            UpdateInventory(lead, amount);
         }
-        public static void IncrementCoal(int value)
+
+        private static void UpdateInventory(Item i , int count)
         {
-            playerCoal += value;
+            if (count < 0)
+            {
+                playerInv.removeItem(i, count);
+            }
+            else
+            {
+                playerInv.addItem(i, count);
+            }
         }
-        public static void DecrementCoal(int value)
+        private static int GetInventoryItemCount(Item i)
         {
-            playerCoal -= value;
-        }
-        public static void IncrementLead(int value)
-        {
-            playerLead += value;
-        }
-        public static void DecrementLead(int value)
-        {
-            playerLead -= value;
+            if (playerInv.IsItemInInv(i))
+            {
+                int index = playerInv.getItemIndex(i);
+                return playerInv.quantity[index];
+            }
+            return 0;
         }
 
     }
