@@ -17,7 +17,7 @@ namespace HordeSurvivalGame
         public int ironCost = 0;
         bool readyToPlace = false;
         bool allowPlacement = false;
-        bool developerMode = false; //Costs for towers are ignored, to be able to test features, without removing the cost entirely.
+        public bool developerMode = false; //Costs for towers are ignored, to be able to test features, without removing the cost entirely.
 
 
         public void OnBeginDrag(PointerEventData eventData)

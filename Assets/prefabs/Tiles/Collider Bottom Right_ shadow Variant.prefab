@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2464908523741694251, guid: 89d9478dd5b14b04f9d038c4cbb09089, type: 3}
       propertyPath: m_Name
-      value: Collider Bottom Right_ shadow
+      value: Collider Bottom Right_ shadow Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4022719189830874137, guid: 89d9478dd5b14b04f9d038c4cbb09089, type: 3}
       propertyPath: m_Mesh

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 93533339301242909}
   - component: {fileID: 93533339301242910}
   - component: {fileID: 93533339301242911}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 93533340262647208}
   - component: {fileID: 93533340262647211}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

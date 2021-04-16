@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5438310448176802776}
   - component: {fileID: 5438310448176802779}
   - component: {fileID: 5438310448176802778}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5438310449343465069}
   - component: {fileID: 5438310449343465070}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider Cliff Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
