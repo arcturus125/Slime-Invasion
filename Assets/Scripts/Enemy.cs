@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Pathfinder;
+using Pathfinder.tiles;
 using System;
 
 namespace HordeSurvivalGame 
@@ -74,9 +75,18 @@ namespace HordeSurvivalGame
             {
                 if (path != null)
                 {
-                    if (path.Count <= 1)
+                    if (path.Count == 1)
+                    {
                         path = null;
+                    }
+                    if (Vector3.Distance(this.transform.position, Player.playerTransform.position) < 1.5f)
+                    {
+                        path = null; //Stop pathfinding as player has been reached.
+                        AttackPlayer();
+                        Debug.Log("Player Attacked");
+                    }
                 }
+                
                 // if enemy is able to find a path
                 if (path != null)
                 {
@@ -119,8 +129,7 @@ namespace HordeSurvivalGame
                         if (errorTimer <= 0)
                             AStarPathfind();
                     }
-                    else
-                        errorTimer += pathfindingErrorTimer;
+                    else errorTimer += pathfindingErrorTimer;
                 }
             }
             //if(Input.GetKeyDown(KeyCode.F))
@@ -156,6 +165,10 @@ namespace HordeSurvivalGame
         {
             Destroy(this.gameObject);
             PlayerResources.AddMoney(1);
+        }
+        public void AttackPlayer()
+        {
+            PlayerResources.AddLives(-1);
         }
     } 
 }

@@ -2389,7 +2389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTarget: {fileID: 1966678811}
   LerpTime: 0.5
-  snapdistance: 0.2
+  snapdistance: 5
 --- !u!4 &538841655
 Transform:
   m_ObjectHideFlags: 0
