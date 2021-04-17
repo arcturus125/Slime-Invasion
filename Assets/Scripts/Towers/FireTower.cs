@@ -8,6 +8,7 @@ namespace Towers
 {
     public class FireTower : Tower
     {
+        public ParticleSystem fireParticles;
 
         float effectRadius = 5; // the radius that this tower will damage enemies
         int DPS = 3; // the damage the fire tower will do each second
@@ -47,6 +48,7 @@ namespace Towers
                 foreach(Enemy e in targetEnemies)
                 {
                     e.Damage(DPS);
+                    //Instantiate(fireParticles, e.transform.position, Quaternion.identity);
                 }
                 attackSpeedTimer = 1 / (DEFAULT_ATTACK_SPEED * speedMultiplier);
             }

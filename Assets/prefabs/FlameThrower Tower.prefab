@@ -2875,6 +2875,7 @@ MonoBehaviour:
   recievableItem: {fileID: 11400000, guid: 91829cbf5bd9012478d25238983f7682, type: 2}
   speedMultiplier: 1
   powerNeedToSpeedUp: 20
+  fireParticles: {fileID: 8510011928160643820, guid: d64a912ba5179c047836dd19802289a0, type: 3}
 --- !u!65 &2173000731443141528
 BoxCollider:
   m_ObjectHideFlags: 0
