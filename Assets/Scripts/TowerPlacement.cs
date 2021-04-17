@@ -56,7 +56,7 @@ namespace HordeSurvivalGame
 
                 allowPlacement = false;
                 // if tower is walkable, change model colour to green
-                if ((Tile.Vector3ToTile(clickInTilespace).isWalkable))
+                if ((Tile.Vector3ToTile(clickInTilespace).isPlaceable))
                 {
                     
                     if (developerMode ||                                                                    // if dev mode turned on, place tower OR

@@ -640,5 +640,11 @@ namespace Conveyors
 
             return -1;
         }
+
+        private void OnDestroy()
+        {
+            Tile t = Tile.Vector3ToTile( transform.position);
+            t.tileObject = null;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Conveyors;
+using Towers;
 
 namespace HordeSurvivalGame
 {
@@ -29,21 +30,28 @@ namespace HordeSurvivalGame
                 if (Physics.Raycast(cursorPosition, Camera.main.transform.forward, out hit))
                 {
                     pointClicked = hit.transform.position;
-
+                    // if conveyor clicked
                     if (hit.collider.gameObject.TryGetComponent(out ConveyorManager conv))
                     {
                         ConveyorManagerUI.DestroyWindow();
                         ConveyorManagerUI.selectedConveyor = conv;
                     }
-                    if(hit.collider.gameObject.TryGetComponent(out TeleportButton tb))
+                    else ConveyorManagerUI.selectedConveyor = null;
+
+                    // if tower clicked
+                    if (hit.collider.gameObject.TryGetComponent(out Tower t))
+                    {
+                        TowerConfigManager.selectedTower = t;
+                    }
+                    else TowerConfigManager.selectedTower = null;
+
+
+                    // if teleport button clicked
+                    if (hit.collider.gameObject.TryGetComponent(out TeleportButton tb))
                     {
                         Debug.Log("clicked teleport arrow");
                         tb.Teleport();
                         return; // when the player click a teleport button, don't shoot
-                    }
-                    else
-                    {
-                        ConveyorManagerUI.selectedConveyor = null;
                     }
                 }
 

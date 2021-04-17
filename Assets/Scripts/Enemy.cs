@@ -31,6 +31,9 @@ namespace HordeSurvivalGame
         public float pathfindingErrorTimer = 3; // if pathfinding fails, wait until this many seconds pass before re-atteempting
         public float errorTimer = 0;
 
+        
+        public Player playerReference;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -169,8 +172,7 @@ namespace HordeSurvivalGame
         public void AttackPlayer()
         {
             PlayerResources.AddLives(-1);
-            Player pl = new Player();
-            pl.LostHealth();
+            playerReference.LostHealth();
         }
     } 
 }
