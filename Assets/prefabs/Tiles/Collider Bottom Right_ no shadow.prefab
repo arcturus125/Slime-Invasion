@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7543448168966174774}
   m_Layer: 2
   m_Name: Collider Bottom Right_ no shadow
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5341199595225698862}
   m_Layer: 2
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
