@@ -39,6 +39,7 @@ namespace Pathfinder.tiles
         public GameObject tileObject;
         public GameObject towerObject = null;
         public bool isWalkable = true;
+        public bool isPlaceable = false;
         public Vector3 vector;
 
         // attributes assigned per each entity pathfinding

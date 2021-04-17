@@ -59,6 +59,9 @@ namespace MapGeneration
         [SerializeField]
         private Color blankUnderlayColour;
 
+        [SerializeField]
+        private Color placeableColour;
+
         int height = 10;
         int width = 10;
 
@@ -150,6 +153,13 @@ namespace MapGeneration
             if (CompareColours(mapWalkable.texture.GetPixel(x, y), Color.black))
             {
                 Tile.tileMap[x, y].isWalkable = false;
+            }
+
+            // is the tile placeable?
+            if (CompareColours(mapWalkable.texture.GetPixel(x, y),placeableColour))
+            {
+                Debug.Log("placeable");
+                Tile.tileMap[x, y].isPlaceable = true;
             }
         }
     }

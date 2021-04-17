@@ -494,6 +494,7 @@ MonoBehaviour:
   - {fileID: 3683254670252358625, guid: 98a1ce06cb646a747b376a2706a4ccce, type: 3}
   shadowPrefab: {fileID: 3683254670252358625, guid: 98a1ce06cb646a747b376a2706a4ccce, type: 3}
   blankUnderlayColour: {r: 0, g: 0, b: 0, a: 0}
+  placeableColour: {r: 0, g: 1, b: 0.1764706, a: 0}
 --- !u!4 &34485501
 Transform:
   m_ObjectHideFlags: 0
