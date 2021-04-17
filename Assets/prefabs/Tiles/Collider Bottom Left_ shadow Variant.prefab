@@ -11,9 +11,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1671016499871301263, guid: a6c4f12f51a4f254888b83887b3df195, type: 3}
+      propertyPath: m_TagString
+      value: Map
+      objectReference: {fileID: 0}
     - target: {fileID: 1867494203094580418, guid: a6c4f12f51a4f254888b83887b3df195, type: 3}
       propertyPath: m_Name
       value: Collider Bottom Left_ shadow Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991713878600499292, guid: a6c4f12f51a4f254888b83887b3df195, type: 3}
+      propertyPath: m_TagString
+      value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335708503476058807, guid: a6c4f12f51a4f254888b83887b3df195, type: 3}
+      propertyPath: m_TagString
+      value: Map
       objectReference: {fileID: 0}
     - target: {fileID: 5649780843196338203, guid: a6c4f12f51a4f254888b83887b3df195, type: 3}
       propertyPath: m_Mesh

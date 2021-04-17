@@ -6,6 +6,7 @@ namespace HordeSurvivalGame
 {
     public class Projectile : MonoBehaviour
     {
+        public int punchThrough = 1;
         public int projectileDamage = 1;
         public float projectileSpeed = 1.0f;
         public Vector3 initialVelocity;
@@ -38,10 +39,17 @@ namespace HordeSurvivalGame
 
         void OnCollisionEnter(Collision collision)
         {
+            if(collision.gameObject.tag == "Map")
+            {
+                Destroy(this.gameObject);
+            }    
             // when the projectile hits an enemt
             if(collision.gameObject.TryGetComponent(out Enemy e))
             {
                 e.Damage(projectileDamage);
+                punchThrough--;
+                if (punchThrough <= 0)
+                    Destroy(this.gameObject);
             }
         }
     }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5438310448176802778}
   m_Layer: 2
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5438310449343465070}
   m_Layer: 2
   m_Name: Collider Cliff Top
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

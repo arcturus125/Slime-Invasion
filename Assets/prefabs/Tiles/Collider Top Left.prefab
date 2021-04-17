@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 3147886804511370557}
   m_Layer: 2
   m_Name: Collider Top Left
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -137,6 +137,7 @@ namespace MapGeneration
             if(shadow != ShadowMap.None)
             {
                 Instantiate(shadowPrefabs[(int)shadow], new Vector3(-x, 0, -y), Quaternion.identity, tileObject.transform);
+
             }
 
 
