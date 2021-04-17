@@ -37,7 +37,7 @@ namespace Towers
              */
 
             Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
-            foreach (Collider c in colls)
+            foreach(Collider c in colls)
             {
                 if (c.gameObject.TryGetComponent(out Enemy e))
                 {
@@ -45,7 +45,7 @@ namespace Towers
                 }
             }
 
-            foreach (Enemy e in currentFrame_Enemies)
+            foreach(Enemy e in currentFrame_Enemies)
             {
                 if (lastFrame_Enemies.Contains(e)) continue;
                 else
@@ -73,13 +73,13 @@ namespace Towers
 
         private void EnemyLeave(Enemy e)
         {
-            e.finalSpeed = e.finalSpeed / (slowingPower * speedMultiplier);
+            e.finalSpeed = e.finalSpeed / slowingPower;
             Debug.Log("speeding back up");
         }
 
         private void EnemyEnter(Enemy e)
         {
-            e.finalSpeed = e.finalSpeed * (slowingPower * speedMultiplier);
+            e.finalSpeed = e.finalSpeed * slowingPower;
             Debug.Log("slowing down");
         }
     }

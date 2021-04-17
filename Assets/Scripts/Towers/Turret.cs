@@ -13,7 +13,7 @@ namespace Towers
         public GameObject head; //private
 
         public float range = 10;
-        public float fireRate = 1.0f; // How many times the turret will fire per second.
+        public float fireRate = 1.0f; // the time, in seconds, between each shot
         public int projectileDamage = 1; // the damage that each projectile will do to an enemy
         public float projectileSpeed = 3; // the speed the tower will force out projectiles
 
@@ -89,7 +89,7 @@ namespace Towers
                 Projectile test = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
                 test.INIT(head.transform.forward,projectileSpeed, projectileDamage);
 
-                timer = 1 /(fireRate * speedMultiplier);
+                timer = fireRate;
             }
             else
             {

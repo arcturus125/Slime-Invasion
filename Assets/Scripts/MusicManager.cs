@@ -15,7 +15,6 @@ public class MusicManager : MonoBehaviour
     const float MAX_MUSIC_VOLUME = 1.0f;
     float musicVolume = MAX_MUSIC_VOLUME / 2; //Starts at half volume.
     float incrementVolumeAmount = MAX_MUSIC_VOLUME / 20; //5% of max music volume
-    bool isMuted = false;
 
 
     // Start is called before the first frame update
@@ -73,8 +72,7 @@ public class MusicManager : MonoBehaviour
         }
 
         currentSong = music[index]; //The song to be played.
-        if (!isMuted) currentSong.source.volume = musicVolume;
-        else currentSong.source.volume = 0.0f;
+        if (currentSong.source.volume != 0) currentSong.source.volume = musicVolume;
         currentSong.source.Play(); //Actually plays the music.
     }
 
@@ -118,32 +116,19 @@ public class MusicManager : MonoBehaviour
             if (currentSong.source.volume == 0.0f)
             {
                 currentSong.source.volume = musicVolume;
-                isMuted = false;
             }
-            else
-            {
-                currentSong.source.volume = 0.0f;
-                isMuted = true;
-            }
+            else currentSong.source.volume = 0.0f;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && musicVolume < MAX_MUSIC_VOLUME) //Increase volume.
         {
-            if (currentSong.source.volume == 0.0f)
-            {
-                musicVolume = 0.0f; //If the current volume is 0 (Could be muted), Set the value to 0;
-                isMuted = false;
-            }
+            if (currentSong.source.volume == 0.0f) musicVolume = 0.0f; //If the current volume is 0 (Could be muted), Set the value to 0;
             musicVolume += incrementVolumeAmount; //Increment
             if (musicVolume > MAX_MUSIC_VOLUME) musicVolume = MAX_MUSIC_VOLUME; //If gone over, reset. Avoids floating point errors.
             currentSong.source.volume = musicVolume;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && musicVolume > 0.0f) //Lower volume.
         {
-            if (currentSong.source.volume == 0.0f)
-            {
-                musicVolume = 0.0f;
-                isMuted = false;
-            }
+            if (currentSong.source.volume == 0.0f) musicVolume = 0.0f;
             musicVolume -= incrementVolumeAmount;
             if (musicVolume < 0.0f) musicVolume = 0.0f;
             currentSong.source.volume = musicVolume;

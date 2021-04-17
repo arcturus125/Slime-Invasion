@@ -16,8 +16,6 @@ namespace HordeSurvivalGame
         [SerializeField]
         private Item lead;
 
-        HeartSpriteManager heart = new HeartSpriteManager();
-
         public static Transform playerTransform;
         // Start is called before the first frame update
         void Awake()
@@ -28,12 +26,7 @@ namespace HordeSurvivalGame
             PlayerResources.coal = coal;
             PlayerResources.lead = lead;
 
-        }
 
-        public void LostHealth()
-        {
-            Debug.Log("Ouch!");
-            heart.HeartsChanged();
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Towers
                 timeSinceLastDrop += Time.deltaTime;
                 if (timeSinceLastDrop >= miningSpeed)
                 {
-                    timeSinceLastDrop -= miningSpeed * speedMultiplier;
+                    timeSinceLastDrop -= miningSpeed;
                     Drop();
                 }
             }
