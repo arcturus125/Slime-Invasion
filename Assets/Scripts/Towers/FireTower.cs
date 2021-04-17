@@ -8,11 +8,13 @@ namespace Towers
 {
     public class FireTower : Tower
     {
+        public ParticleSystem fireParticles;
 
         float effectRadius = 5; // the radius that this tower will damage enemies
         int DPS = 3; // the damage the fire tower will do each second
 
-        float timer = 1;
+        const float DEFAULT_ATTACK_SPEED = 1.0f;
+        float attackSpeedTimer = DEFAULT_ATTACK_SPEED;
 
         List<Enemy> targetEnemies = new List<Enemy>(); // the enemies that this tower will damage
 
@@ -32,7 +34,7 @@ namespace Towers
              *  else
              *      timer -= time.deltatime
              */
-            if (timer <= 0)
+            if (attackSpeedTimer <= 0)
             {
                 Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
                 targetEnemies.Clear();
@@ -46,11 +48,11 @@ namespace Towers
                 foreach(Enemy e in targetEnemies)
                 {
                     e.Damage(DPS);
+                    //Instantiate(fireParticles, e.transform.position, Quaternion.identity);
                 }
-                timer ++;
+                attackSpeedTimer = 1 / (DEFAULT_ATTACK_SPEED * speedMultiplier);
             }
-            else
-                timer -= Time.deltaTime;
+            else attackSpeedTimer -= Time.deltaTime;
         }
     }
 }
