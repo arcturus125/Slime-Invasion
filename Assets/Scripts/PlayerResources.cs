@@ -13,9 +13,11 @@ namespace HordeSurvivalGame
         public static Item coal;
         public static Item lead;
 
-
         private static int playerMoney = 0;
         private static Inventory playerInv = new Inventory();
+
+        private const int MAX_HEALTH = 6;
+        private static int playerHealth = MAX_HEALTH;
 
         // return the amount of money the player has
         public static int GetMoney()
@@ -37,6 +39,10 @@ namespace HordeSurvivalGame
         {
             return GetInventoryItemCount(lead);
         }
+        public static int GetPlayerHealth()
+        {
+            return playerHealth;
+        }
 
 
         public static void AddMoney(int amount)
@@ -54,6 +60,10 @@ namespace HordeSurvivalGame
         public static void AddLead(int amount)
         {
             UpdateInventory(lead, amount);
+        }
+        public static void AddLives(int value)
+        {
+            playerHealth += value;
         }
 
         private static void UpdateInventory(Item i , int count)

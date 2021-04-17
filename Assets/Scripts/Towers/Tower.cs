@@ -14,6 +14,10 @@ namespace Towers
 
         public Item recievableItem; // acts as a filter, only allowing items to be placed in the tower if they match this item
         public Inventory inv;
+        private const float DEFAULT_SPEED_MULTIPLIER = 1.0f;
+        public float speedMultiplier = DEFAULT_SPEED_MULTIPLIER;
+        public int powerNeedToSpeedUp = 0;
+         
 
 
         /// <summary>
@@ -27,6 +31,11 @@ namespace Towers
             y = t.y;
 
             t.MakeNonNavicable();
+        }
+
+        public void SetSpeedMultiplier(float multiplier)
+        {
+            speedMultiplier = multiplier;
         }
     }
 }

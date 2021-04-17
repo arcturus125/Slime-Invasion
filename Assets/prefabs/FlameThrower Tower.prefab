@@ -2825,7 +2825,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3451898221595687488}
   - component: {fileID: -5387318792521274822}
-  - component: {fileID: 4925511365511524313}
+  - component: {fileID: 2173000731443141528}
   m_Layer: 2
   m_Name: FlameThrower Tower
   m_TagString: Untagged
@@ -2873,7 +2873,10 @@ MonoBehaviour:
   x: 0
   y: 0
   recievableItem: {fileID: 11400000, guid: 91829cbf5bd9012478d25238983f7682, type: 2}
---- !u!65 &4925511365511524313
+  speedMultiplier: 1
+  powerNeedToSpeedUp: 20
+  fireParticles: {fileID: 8510011928160643820, guid: d64a912ba5179c047836dd19802289a0, type: 3}
+--- !u!65 &2173000731443141528
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2884,7 +2887,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.8, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &5810702374039847329
 GameObject:
