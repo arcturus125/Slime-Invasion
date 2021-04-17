@@ -97,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &3722334795616319150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   range: 10
   fireRate: 1
   projectileDamage: 1
-  projectileSpeed: 3
+  projectileSpeed: 5
   targetEnemy: {fileID: 0}
   projectilePrefab: {fileID: 3012422394887249208, guid: 31d642e53174953469546c2fc351b4b6, type: 3}
 --- !u!1 &634832989556087125
@@ -247,7 +247,7 @@ BoxCollider:
   m_GameObject: {fileID: 3565128703016735383}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -342,7 +342,7 @@ BoxCollider:
   m_GameObject: {fileID: 4477685415056620985}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -437,7 +437,7 @@ BoxCollider:
   m_GameObject: {fileID: 5974507276125670854}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -532,7 +532,7 @@ BoxCollider:
   m_GameObject: {fileID: 6841438287121024061}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -627,7 +627,7 @@ BoxCollider:
   m_GameObject: {fileID: 8380185244369724409}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

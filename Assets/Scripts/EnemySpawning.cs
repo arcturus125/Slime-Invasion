@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HordeSurvivalGame;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class EnemySpawning : MonoBehaviour
     float spawnTimer; //The timer that is used between enemy spawns. TODO: This won't be a static number, and will have an element of randomness to it, while keeping balance by being slower towards the start of the game, and getting more difficult later on.
     [SerializeField]
     private Sprite spawnableMap; //The image of the playable area. Used to ensure enemies don't spawn on inaccessible or invalid tiles.
-    public GameObject player; //Used to make sure enemies don't spawn too close to the player.
+    public Player player; //Used to make sure enemies don't spawn too close to the player.
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,8 @@ public class EnemySpawning : MonoBehaviour
         Vector3 spawnPos = ReturnPosition(); //Vector that is used as the position the enemy will be spawned in at.
         if (spawnPos != Vector3.zero) //Makes sure the returned value isn't the exception value, and is a valid position.
         {
-            Instantiate(enemy, spawnPos, Quaternion.identity); //Enemy spawn.
+            GameObject GO = Instantiate(enemy, spawnPos, Quaternion.identity); //Enemy spawn.
+            GO.GetComponent<Enemy>().playerReference = player;
         }
     }
 

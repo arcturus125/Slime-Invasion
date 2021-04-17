@@ -61,9 +61,14 @@ namespace Towers
             // if the tower has a target, shoot at it
             else
             {
-                ShootAtEnemy();
+                // if the gun has ammo
+                if (inv.IsItemInInv(recievableItem))
+                {
+                    ShootAtEnemy();
+                    
+                }
             }
-            PrintInv();
+            // PrintInv();
         }
 
         private void PrintInv()
@@ -90,6 +95,8 @@ namespace Towers
                 test.INIT(head.transform.forward,projectileSpeed, projectileDamage);
 
                 timer = 1 /(fireRate * speedMultiplier);
+                inv.removeItem(recievableItem);
+                
             }
             else
             {

@@ -37,5 +37,13 @@ namespace Towers
         {
             speedMultiplier = multiplier;
         }
+
+
+        private void OnDestroy()
+        {
+            Tile t = Tile.Vector3ToTile(transform.position);
+            t.tileObject = null;
+            t.isWalkable = true;
+        }
     }
 }

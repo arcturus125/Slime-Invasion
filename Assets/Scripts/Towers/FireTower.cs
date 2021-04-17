@@ -27,13 +27,22 @@ namespace Towers
         // Update is called once per frame
         void Update()
         {
+            // if the gun has ammo
+            if (inv.IsItemInInv(recievableItem))
+            {
+                Attack();
+            }
+        }
+
+        private void Attack()
+        {
             /* if timer <=0
-             *      get a list of all enemies within effectRadius
-             *      damage those enemies by DPS
-             *      timer = 1;
-             *  else
-             *      timer -= time.deltatime
-             */
+                         *      get a list of all enemies within effectRadius
+                         *      damage those enemies by DPS
+                         *      timer = 1;
+                         *  else
+                         *      timer -= time.deltatime
+                         */
             if (attackSpeedTimer <= 0)
             {
                 Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
@@ -45,10 +54,11 @@ namespace Towers
                         targetEnemies.Add(e);
                     }
                 }
-                foreach(Enemy e in targetEnemies)
+                foreach (Enemy e in targetEnemies)
                 {
                     e.Damage(DPS);
                     //Instantiate(fireParticles, e.transform.position, Quaternion.identity);
+                    inv.removeItem(recievableItem);
                 }
                 attackSpeedTimer = 1 / (DEFAULT_ATTACK_SPEED * speedMultiplier);
             }

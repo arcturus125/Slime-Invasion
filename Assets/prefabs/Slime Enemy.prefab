@@ -70,6 +70,7 @@ MonoBehaviour:
   repathfindAfterTicks: 5
   pathfindingErrorTimer: 3
   errorTimer: 0
+  pl: {fileID: 0}
 --- !u!95 &1211300489520486230
 Animator:
   serializedVersion: 3

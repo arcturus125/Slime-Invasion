@@ -16,7 +16,9 @@ namespace HordeSurvivalGame
         [SerializeField]
         private Item lead;
 
-        HeartSpriteManager heart = new HeartSpriteManager();
+
+        [SerializeField]
+        private HeartSpriteManager heart;
 
         public static Transform playerTransform;
         // Start is called before the first frame update

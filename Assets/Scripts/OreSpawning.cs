@@ -47,7 +47,7 @@ namespace HordeSurvivalGame
             float x = Mathf.Cos(radians) * range; //The X and Y points.
             float y = Mathf.Sin(radians) * range;
 
-            Vector3 pos = new Vector3((int)x, 0.1f, (int)y) + origin; //X and Y put into a Vector.
+            Vector3 pos = new Vector3((int)x, 0.045f, (int)y) + origin; //X and Y put into a Vector.
             Tile.Vector3ToTile(pos);
 
             if (ValidTile(pos))
