@@ -8,10 +8,16 @@ namespace HordeSurvivalGame
     public class ResourcesDisplay : MonoBehaviour
     {
         public Text moneyText;
+        public Text ironText;
+        public Text coalText;
+        public Text leadText;
 
         void Update()
         {
-            moneyText.text = "Money- " + PlayerResources.GetMoney();
+            moneyText.text = PlayerResources.GetMoney().ToString();
+            ironText.text = PlayerResources.GetIron().ToString();
+            coalText.text = PlayerResources.GetCoal().ToString();
+            leadText.text = PlayerResources.GetLead().ToString();
         }
     }
     
