@@ -21,15 +21,19 @@ public class EnemySpawning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spawnTimer > 0.0f) //Timer isn't finished.
+        if (!CameraScript.gameOver)
         {
-            spawnTimer -= Time.deltaTime; //Count down.
+            if (spawnTimer > 0.0f) //Timer isn't finished.
+            {
+                spawnTimer -= Time.deltaTime; //Count down.
+            }
+            else
+            {
+                spawnTimer = TIMER_START_VALUE; //Reset timer.
+                SpawnEnemy();
+            }
         }
-        else
-        {
-            spawnTimer = TIMER_START_VALUE; //Reset timer.
-            SpawnEnemy();
-        }
+        
     }
 
     private void SpawnEnemy() //Spawns an enemy in the scene.
