@@ -39,18 +39,29 @@ public class TowerConfigManager : MonoBehaviour
 
         if (selectedTower != null)
         {
-            foreach (TowerInventoryItem listing in itemListings)
-                Destroy(listing.gameObject);
-            itemListings.Clear();
-
-
-            Inventory towerInv = selectedTower.inv;
-            for (int i = 0; i < towerInv.items.Count; i++)
+            if (itemListings.Count != selectedTower.inv.items.Count)
             {
-                TowerInventoryItem temp =  Instantiate(prefab, Vector3.zero, Quaternion.identity, contentWindow);
-                temp.transform.localPosition = new Vector2(Xoffset, Yoffset + YOffsetMultiplier * i);
-                temp.INIT(towerInv.items[i], towerInv.quantity[i]);
-                itemListings.Add(temp);
+                foreach (TowerInventoryItem listing in itemListings)
+                    Destroy(listing.gameObject);
+                itemListings.Clear();
+
+
+                Inventory towerInv = selectedTower.inv;
+                for (int i = 0; i < towerInv.items.Count; i++)
+                {
+                    TowerInventoryItem temp = Instantiate(prefab, Vector3.zero, Quaternion.identity, contentWindow);
+                    temp.transform.localPosition = new Vector2(Xoffset, Yoffset + YOffsetMultiplier * i);
+                    temp.INIT(towerInv.items[i], towerInv.quantity[i]);
+                    itemListings.Add(temp);
+                }
+            }
+            else
+            {
+                Inventory towerInv = selectedTower.inv;
+                for (int i = 0; i < towerInv.items.Count; i++)
+                {
+                    itemListings[i].INIT(towerInv.items[i], towerInv.quantity[i]);
+                }
             }
         }
     }

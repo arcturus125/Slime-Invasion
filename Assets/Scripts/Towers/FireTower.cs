@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using HordeSurvivalGame;
+using ItemSystem;
 
 namespace Towers
 {
@@ -21,7 +22,7 @@ namespace Towers
         // Start is called before the first frame update
         void Start()
         {
-
+            inv = new Inventory(); // give tower a temporary inventory until the tower is placed - this elliviates errors and is overwritten later
         }
 
         // Update is called once per frame
