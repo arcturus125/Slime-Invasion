@@ -19,6 +19,7 @@ namespace HordeSurvivalGame
             towerObject = t.towerObject;
             isWalkable = t.isWalkable;
             vector = t.vector;
+            isPlaceable = t.isPlaceable;
 
         resource = drops;
             Tile.tileMap[t.x, t.y] = this;

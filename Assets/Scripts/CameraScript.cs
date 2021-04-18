@@ -14,9 +14,10 @@ namespace HordeSurvivalGame
 
         public static bool gameOver = false;
 
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
+            PlayerResources.ResetResources();
+            gameOver = false;
             mainCamera.enabled = true;
             endScreenCamera.enabled = false;
             gameCanvas.enabled = true;
