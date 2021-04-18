@@ -159,7 +159,7 @@ namespace MapGeneration
             // is the tile placeable?
             if (CompareColours(mapWalkable.texture.GetPixel(x, y),placeableColour))
             {
-                Debug.Log("placeable");
+                //Debug.Log("placeable");
                 Tile.tileMap[x, y].isPlaceable = true;
             }
         }

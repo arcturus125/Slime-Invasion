@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using ItemSystem;
 
 namespace HordeSurvivalGame
 {
-    class PlayerResources
+    class PlayerResources : MonoBehaviour
     {
         // used to reference specific item types in inventory - better than trying to load files or determine what an item is via name
         public static Item iron;
@@ -18,6 +19,14 @@ namespace HordeSurvivalGame
 
         private const int MAX_HEALTH = 6;
         private static int playerHealth = MAX_HEALTH;
+
+        public static void ResetResources()
+        {
+            playerMoney = 0;
+            playerInv = new Inventory();
+            playerHealth = MAX_HEALTH;
+        }
+
 
         // return the amount of money the player has
         public static int GetMoney()
@@ -64,6 +73,10 @@ namespace HordeSurvivalGame
         public static void AddLives(int value)
         {
             playerHealth += value;
+        }
+        public static void SetLives(int value) //TEST
+        {
+            playerHealth = value;
         }
 
         private static void UpdateInventory(Item i , int count)
