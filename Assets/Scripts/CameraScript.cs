@@ -7,7 +7,6 @@ namespace HordeSurvivalGame
     public class CameraScript : MonoBehaviour
     {
         public Camera mainCamera;
-        public Camera endScreenCamera;
 
         public Canvas gameCanvas;
         public Canvas gameOverCanvas;
@@ -19,7 +18,6 @@ namespace HordeSurvivalGame
             PlayerResources.ResetResources();
             gameOver = false;
             mainCamera.enabled = true;
-            endScreenCamera.enabled = false;
             gameCanvas.enabled = true;
             gameOverCanvas.enabled = false;
         }
@@ -28,8 +26,9 @@ namespace HordeSurvivalGame
         {
             if (PlayerResources.GetPlayerHealth() < 1)
             {
-                mainCamera.enabled = false;
-                endScreenCamera.enabled = true;
+                mainCamera.enabled = true;
+                mainCamera.transform.position = new Vector3(0.0f, 300.0f, 0.0f);
+                mainCamera.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 gameCanvas.enabled = false;
                 gameOverCanvas.enabled = true;
                 gameOver = true;
