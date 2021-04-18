@@ -1929,7 +1929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
-  recievableItem: {fileID: 0}
+  recievableItem: {fileID: 11400000, guid: dc22b42ef0f48894bb2e1a02112d2a34, type: 2}
   speedMultiplier: 1
   powerNeedToSpeedUp: 20
   head: {fileID: 6143136699074251752}
