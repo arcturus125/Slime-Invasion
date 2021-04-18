@@ -271,6 +271,8 @@ namespace Conveyors
 
                     // reset inventories for each output
                     outputInventories.Clear();
+
+
                     for (int k = 0; k < outputDirections.Count; k++)
                     {                                                // in order to avoid errors
                         spriteObjects.Add(new GameObject());         // have an empty inventory for each output - the absence of an inventory will cause errors
@@ -316,8 +318,9 @@ namespace Conveyors
                         if (outputInventories[i].items.Count > 0)
                         {
                             GameObject spriteObject = Instantiate(conveyorSprite, this.gameObject.transform);
-                            spriteObject.GetComponent<SpriteRenderer>().sprite = outputInventories[i].items[0].icon; // TODO: loop through all elements, instead of just taking the first
-                            spriteObjects[i] = spriteObject;                                                         // ( show all items scrolling across the conveyor, not just the one in slot 0)
+                            spriteObject.GetComponent<SpriteRenderer>().sprite = outputInventories[i].items[0].icon;    // TODO: loop through all elements, instead of just taking the first
+                            Destroy(spriteObjects[i]);                                                                  // ( show all items scrolling across the conveyor, not just the one in slot 0)
+                            spriteObjects[i] = spriteObject;
                         }
                     }                                                                                                                  
                 }           

@@ -15,7 +15,7 @@ namespace HordeSurvivalGame
         public static Item lead;
 
         private static int playerMoney = 0;
-        private static Inventory playerInv = new Inventory();
+        public static Inventory playerInv = new Inventory();
 
         private const int MAX_HEALTH = 6;
         private static int playerHealth = MAX_HEALTH;
@@ -90,7 +90,7 @@ namespace HordeSurvivalGame
                 playerInv.addItem(i, count);
             }
         }
-        private static int GetInventoryItemCount(Item i)
+        public static int GetInventoryItemCount(Item i)
         {
             if (playerInv.IsItemInInv(i))
             {
