@@ -15,6 +15,9 @@ namespace Towers
         List<Enemy> lastFrame_Enemies = new List<Enemy>();
         List<Enemy> currentFrame_Enemies = new List<Enemy>();
 
+        public Material enemyEffectNone;
+        public Material enemyEffectIce;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -61,6 +64,7 @@ namespace Towers
                 {
                     // enemy just left the range of the tower
                     EnemyLeave(e);
+                    e.effectLayer.GetComponent<Renderer>().material = enemyEffectNone;
                 }
             }
             lastFrame_Enemies.Clear();
@@ -80,6 +84,7 @@ namespace Towers
         private void EnemyEnter(Enemy e)
         {
             e.finalSpeed = e.finalSpeed * (slowingPower * speedMultiplier);
+            e.effectLayer.GetComponent<Renderer>().material = enemyEffectIce;
             Debug.Log("slowing down");
         }
     }

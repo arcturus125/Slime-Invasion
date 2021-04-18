@@ -3595,7 +3595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5441440179506755017, guid: e27bcfa79fbd59c4fbdbf28b9afcb4e3, type: 3}
-  moneyCost: 2
+  moneyCost: 5
   ironCost: 0
   developerMode: 0
 --- !u!114 &662208634
