@@ -929,7 +929,7 @@ MonoBehaviour:
   prefab: {fileID: -16417033517385697, guid: 3e1b12e2a44436947b6db258d9d11118, type: 3}
   contentWindow: {fileID: 1887505332}
   scrollView: {fileID: 638987507}
-  EmptyPanel: {fileID: 0}
+  EmptyPanel: {fileID: 173896356}
   YOffsetMultiplier: -30
   Yoffset: -18.2
   Xoffset: 208.7
