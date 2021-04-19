@@ -21,6 +21,8 @@ namespace Towers
         private const float DEFAULT_SPEED_MULTIPLIER = 1.0f;
         public float speedMultiplier = DEFAULT_SPEED_MULTIPLIER;
         public int powerNeedToSpeedUp = 0;
+
+        public static float refundPercent = 0.85f;
          
 
 
@@ -51,8 +53,8 @@ namespace Towers
             t.tileObject = null;
             t.isWalkable = true;
 
-            PlayerResources.AddMoney(moneyCost);
-            PlayerResources.AddIron(ironCost);
+            PlayerResources.AddMoney((int)(moneyCost *refundPercent));
+            PlayerResources.AddIron((int)(ironCost * refundPercent));
             for(int i= 0; i < inv.items.Count;i++)
             {
                 PlayerResources.UpdateInventory(inv.items[i], inv.quantity[i]);
