@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Towers;
 using UnityEngine;
 
 namespace HordeSurvivalGame
 {
-    public class Teleporter : MonoBehaviour
+    public class Teleporter : Tower
     {
         public TeleportButton prefab;
 

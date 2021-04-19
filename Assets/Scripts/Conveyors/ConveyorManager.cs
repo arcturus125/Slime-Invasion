@@ -606,6 +606,8 @@ namespace Conveyors
             //conveyor can connect to towers
             if (t_neighbour.GetTower().TryGetComponent(out Tower tower))
             {
+                if(tower.recievableItem == null)
+                    return false;
                 int index = System.Array.IndexOf(cardinalDirections, cardinalDirection);
                 armTypes[armIndex] = IOController.OutputToTower;
                 itemFilters[armIndex].Clear();
