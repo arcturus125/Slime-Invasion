@@ -75,7 +75,7 @@ namespace HordeSurvivalGame
                 }
             }
 
-            if (CameraScript.GetTimeSurvived() > (5.0f * 60.0f) && defaultSpeed < SPEED_CAP) //Enemy doesn't start to speed up for the first 5 minutes.
+            if (CameraScript.GetTimeSurvived() > (2.0f * 60.0f) && defaultSpeed < SPEED_CAP) //Enemy doesn't start to speed up for the first 5 minutes.
             {
                 defaultSpeed += Time.deltaTime / 50000.0f;
                 Debug.Log("Speed is " + defaultSpeed);

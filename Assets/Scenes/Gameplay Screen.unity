@@ -1898,7 +1898,7 @@ MonoBehaviour:
   description: 'Slows all enemies to half speed within it''s radius via AoE. Range:
     5. Can slow down enemies more with electricy,  uses 25 from powerbank. Takes
     iron'
-  moneyCost: 0
+  moneyCost: 15
   ironCost: 50
   developerMode: 0
 --- !u!114 &282262323
@@ -3091,8 +3091,8 @@ MonoBehaviour:
   description: 'Shoots at one enemy at a time. Attacks: 1/ per second, Range: 10,
     Damage per shot: 1. Can be sped up with electricy,  uses 10 from powerbank. Takes
     lead'
-  moneyCost: 0
-  ironCost: 15
+  moneyCost: 10
+  ironCost: 20
   developerMode: 0
 --- !u!114 &478136768
 MonoBehaviour:
@@ -4021,8 +4021,8 @@ MonoBehaviour:
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 5441440179506755017, guid: e27bcfa79fbd59c4fbdbf28b9afcb4e3, type: 3}
   description: Can move items from mining towers to towers that require that resource.
-  moneyCost: 5
-  ironCost: 0
+  moneyCost: 2
+  ironCost: 5
   developerMode: 0
 --- !u!114 &662208634
 MonoBehaviour:
@@ -4214,7 +4214,7 @@ MonoBehaviour:
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 7251338520865531201, guid: 360368716a640f04484b2cb5d757f1ad, type: 3}
   description: Can teleport the player between multiple teleporters within 50 tiles
-  moneyCost: 0
+  moneyCost: 30
   ironCost: 250
   developerMode: 0
 --- !u!114 &677950613
@@ -4805,7 +4805,7 @@ MonoBehaviour:
   prefab: {fileID: 5380266958609010338, guid: 54a4f9f3eea5610428a60d6dba2e8b51, type: 3}
   description: 'Attacks all enemies within it''s radius via AoE. DPS: 1, Range: 5.
     Can be sped up with electricy,  uses 50 from powerbank. Takes coal'
-  moneyCost: 0
+  moneyCost: 30
   ironCost: 150
   developerMode: 0
 --- !u!114 &761153671
@@ -6483,8 +6483,8 @@ MonoBehaviour:
   prefab: {fileID: 2084453290848720202, guid: 6f8e3beb911350e488635bfc4cfcce0c, type: 3}
   description: 'Generates electricity. Powerbank size: 100, Range: 20, Speed Multiplier:
     2x. Takes coal'
-  moneyCost: 0
-  ironCost: 50
+  moneyCost: 25
+  ironCost: 75
   developerMode: 0
 --- !u!114 &1106388048
 MonoBehaviour:
