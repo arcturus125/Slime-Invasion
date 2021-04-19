@@ -23,13 +23,27 @@ public class EmptyInventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Item i = TowerConfigManager.selectedTower.recievableItem;
-        int num = PlayerResources.GetInventoryItemCount(i);
-
-        if(num > 0)
+        if (TowerConfigManager.selectedTower)
         {
-            buttonPanel.SetActive(true);
-            buttonText.text = "Deposit " + i.name;
+            Item i = TowerConfigManager.selectedTower.recievableItem;
+            if (i != null)
+            {
+                int num = PlayerResources.GetInventoryItemCount(i);
+
+                if (num > 0)
+                {
+                    buttonPanel.SetActive(true);
+                    buttonText.text = "Deposit " + i.name;
+                }
+                else
+                {
+                    buttonPanel.SetActive(false);
+                }
+            }
+            else
+            {
+                buttonPanel.SetActive(false);
+            }
         }
         else
         {
