@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffb601765e1d784a99e6626937cc965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 20
   energySpeedBoostMultiplier: 2
   powerBank: 100
 --- !u!1 &2921348905419861162
