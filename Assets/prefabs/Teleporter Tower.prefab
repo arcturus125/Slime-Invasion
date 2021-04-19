@@ -773,7 +773,7 @@ GameObject:
   - component: {fileID: 6252058737327547283}
   m_Layer: 0
   m_Name: Teleporter Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -813,6 +813,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd97590d444e9e499b5bbf15c70a749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  recievableItem: {fileID: 0}
+  speedMultiplier: 1
+  powerNeedToSpeedUp: 0
   prefab: {fileID: 4573308733495917530, guid: 0eef05501b04d3e449423bc31e6eb39a, type: 3}
   teleportAcceptanceRadius: 1
   teleportRange: 50

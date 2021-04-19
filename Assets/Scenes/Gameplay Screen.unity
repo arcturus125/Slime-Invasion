@@ -1901,6 +1901,12 @@ MonoBehaviour:
   moneyCost: 15
   ironCost: 50
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &282262323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3094,6 +3100,12 @@ MonoBehaviour:
   moneyCost: 10
   ironCost: 20
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &478136768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3815,6 +3827,7 @@ MonoBehaviour:
   enemy: {fileID: 848315080429237820, guid: 4cbd2645d2e28fc49933c433fcc13985, type: 3}
   spawnableMap: {fileID: 21300000, guid: d26638c91138d3245b7d39279b892dbc, type: 3}
   player: {fileID: 1966678814}
+  noOfEnemiesAtStart: 5
 --- !u!4 &621419264
 Transform:
   m_ObjectHideFlags: 0
@@ -4024,6 +4037,12 @@ MonoBehaviour:
   moneyCost: 2
   ironCost: 5
   developerMode: 0
+  placementExemption: 1
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &662208634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4217,6 +4236,12 @@ MonoBehaviour:
   moneyCost: 30
   ironCost: 250
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &677950613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4808,6 +4833,12 @@ MonoBehaviour:
   moneyCost: 30
   ironCost: 150
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &761153671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6486,6 +6517,12 @@ MonoBehaviour:
   moneyCost: 25
   ironCost: 75
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &1106388048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6649,6 +6686,12 @@ MonoBehaviour:
   moneyCost: 5
   ironCost: 0
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!1 &1200527568
 GameObject:
   m_ObjectHideFlags: 0
@@ -7140,6 +7183,12 @@ MonoBehaviour:
   moneyCost: 25
   ironCost: 0
   developerMode: 0
+  placementExemption: 0
+  cardinalDirections:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!114 &1311024949
 MonoBehaviour:
   m_ObjectHideFlags: 0

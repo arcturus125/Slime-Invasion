@@ -1131,7 +1131,7 @@ GameObject:
   - component: {fileID: 2347876574528423335}
   m_Layer: 0
   m_Name: Solar Panel
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1164,6 +1164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffb601765e1d784a99e6626937cc965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  recievableItem: {fileID: 0}
+  speedMultiplier: 1
+  powerNeedToSpeedUp: 0
   range: 10
   energySpeedBoostMultiplier: 1.5
   powerBank: 50
