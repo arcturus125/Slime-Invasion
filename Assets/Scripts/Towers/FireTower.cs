@@ -12,7 +12,7 @@ namespace Towers
         public ParticleSystem fireParticles;
 
         float effectRadius = 5; // the radius that this tower will damage enemies
-        int DPS = 3; // the damage the fire tower will do each second
+        int DPS = 1; // the damage the fire tower will do each second
 
         const float DEFAULT_ATTACK_SPEED = 1.0f;
         float attackSpeedTimer = DEFAULT_ATTACK_SPEED;

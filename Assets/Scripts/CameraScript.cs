@@ -14,7 +14,7 @@ namespace HordeSurvivalGame
         public Text scoreText; 
 
         public static bool gameOver = false; //Used to prevent other classes from doing things when the game is over, i.e. spawning enemies.
-        private float timeSurvived = 0.0f;
+        private static float timeSurvived = 0.0f;
 
         void Awake()
         {
@@ -39,6 +39,11 @@ namespace HordeSurvivalGame
                 gameOver = true;
             }
             else timeSurvived += Time.deltaTime; //Game is not over, so update the timeSurvived timer.
+        }
+
+        public static float GetTimeSurvived()
+        {
+            return timeSurvived;
         }
 
     }

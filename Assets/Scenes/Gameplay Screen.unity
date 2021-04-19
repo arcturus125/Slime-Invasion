@@ -1895,8 +1895,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 4719124171194370459, guid: f47b6cd9df8f08c49acb9082c01d0843, type: 3}
-  description: 
-  moneyCost: 0
+  description: 'Slows all enemies to half speed within it''s radius via AoE. Range:
+    5. Can slow down enemies more with electricy,  uses 25 from powerbank. Takes
+    iron'
+  moneyCost: 15
   ironCost: 50
   developerMode: 0
 --- !u!114 &282262323
@@ -2467,7 +2469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 89.300026, y: -48.29999}
+  m_AnchoredPosition: {x: 89.300026, y: -107.29999}
   m_SizeDelta: {x: 61.66284, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &427821280
@@ -2993,7 +2995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 29.5, y: -174.4}
+  m_AnchoredPosition: {x: 29.5, y: -233.4}
   m_SizeDelta: {x: 61.564453, y: 61.564453}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &456247829
@@ -3086,9 +3088,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 289923724865494613, guid: edf2019c70479854a816ec5e7bdfbd8d, type: 3}
-  description: 
-  moneyCost: 0
-  ironCost: 15
+  description: 'Shoots at one enemy at a time. Attacks: 1/ per second, Range: 10,
+    Damage per shot: 1. Can be sped up with electricy,  uses 10 from powerbank. Takes
+    lead'
+  moneyCost: 10
+  ironCost: 20
   developerMode: 0
 --- !u!114 &478136768
 MonoBehaviour:
@@ -4016,9 +4020,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 5441440179506755017, guid: e27bcfa79fbd59c4fbdbf28b9afcb4e3, type: 3}
-  description: 
-  moneyCost: 5
-  ironCost: 0
+  description: Can move items from mining towers to towers that require that resource.
+  moneyCost: 2
+  ironCost: 5
   developerMode: 0
 --- !u!114 &662208634
 MonoBehaviour:
@@ -4209,8 +4213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 7251338520865531201, guid: 360368716a640f04484b2cb5d757f1ad, type: 3}
-  description: 
-  moneyCost: 0
+  description: Can teleport the player between multiple teleporters within 50 tiles
+  moneyCost: 30
   ironCost: 250
   developerMode: 0
 --- !u!114 &677950613
@@ -4799,9 +4803,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 5380266958609010338, guid: 54a4f9f3eea5610428a60d6dba2e8b51, type: 3}
-  description: 
-  moneyCost: 0
-  ironCost: 75
+  description: 'Attacks all enemies within it''s radius via AoE. DPS: 1, Range: 5.
+    Can be sped up with electricy,  uses 50 from powerbank. Takes coal'
+  moneyCost: 30
+  ironCost: 150
   developerMode: 0
 --- !u!114 &761153671
 MonoBehaviour:
@@ -6383,7 +6388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 141.4, y: -171.7}
+  m_AnchoredPosition: {x: 141.4, y: -230.7}
   m_SizeDelta: {x: 78.380615, y: 78.380615}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1087995482
@@ -6437,7 +6442,7 @@ GameObject:
   - component: {fileID: 1106388048}
   - component: {fileID: 1106388047}
   m_Layer: 5
-  m_Name: Engine
+  m_Name: Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6476,9 +6481,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 2084453290848720202, guid: 6f8e3beb911350e488635bfc4cfcce0c, type: 3}
-  description: 
-  moneyCost: 0
-  ironCost: 50
+  description: 'Generates electricity. Powerbank size: 100, Range: 20, Speed Multiplier:
+    2x. Takes coal'
+  moneyCost: 25
+  ironCost: 75
   developerMode: 0
 --- !u!114 &1106388048
 MonoBehaviour:
@@ -6638,7 +6644,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 4531346496615889119, guid: 84cfd0fec5393fb49867111d3d8e1503, type: 3}
-  description: Place on top of an ore and this tower willgive you items over time
+  description: Placed on an ore, mines resources. Can output to a conveyor, or be
+    picked up by the player.
   moneyCost: 5
   ironCost: 0
   developerMode: 0
@@ -7128,7 +7135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPanel: {fileID: 788096261}
   prefab: {fileID: 5601829110882828450, guid: af8610c8604ce764495995bde88ee9da, type: 3}
-  description: 
+  description: 'Generates electricity. Powerbank size: 50, Range: 10, Speed Multiplier:
+    1.5x. Does not require resources'
   moneyCost: 25
   ironCost: 0
   developerMode: 0
@@ -9751,7 +9759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.769974, y: -49.89999}
+  m_AnchoredPosition: {x: -37.769974, y: -108.899994}
   m_SizeDelta: {x: 61.66284, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891320258
@@ -11138,8 +11146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.41, y: 53.35}
-  m_SizeDelta: {x: 220.22711, y: 137.90317}
+  m_AnchoredPosition: {x: 0.41, y: 19.16}
+  m_SizeDelta: {x: 220.22711, y: 206.27411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2066101608
 MonoBehaviour:
