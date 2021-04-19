@@ -61,7 +61,6 @@ namespace HordeSurvivalGame
                 Tower.transform.position = clickInTilespace;
 
                 allowPlacement = false;
-                allowPlacement = isPlacableWithOrthogonal(clickInTilespace);
                 // if tower is walkable, change model colour to green
                 if (isPlacableWithOrthogonal(clickInTilespace))
                 {
