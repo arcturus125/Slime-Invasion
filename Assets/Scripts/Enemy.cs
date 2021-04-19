@@ -15,8 +15,8 @@ namespace HordeSurvivalGame
         private Slider healthBar;
         public int maxHealth = 5;
         public int remainingHealth;
-        const float STARTING_SPEED = 0.02f;
-        const float SPEED_CAP = 0.06f;
+        const float STARTING_SPEED = 0.03f;
+        const float SPEED_CAP = 0.02f;
         float finalSpeed = STARTING_SPEED; // the speed of the enemy AFTER all the effects have been applied
         static float defaultSpeed = STARTING_SPEED;
 
@@ -44,7 +44,6 @@ namespace HordeSurvivalGame
         {
             remainingHealth = maxHealth;
             healthBar.gameObject.SetActive(false);
-            //Moved this code to the start function rather than waiting for a Keypress so the enemies imediately start chasing the player.
             AStarPathfind();
             FindPathToPlayer = true;
 
