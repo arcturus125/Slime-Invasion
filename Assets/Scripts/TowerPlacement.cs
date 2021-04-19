@@ -121,12 +121,12 @@ namespace HordeSurvivalGame
                     t.SetTower(Tower);
                     if (Tower.TryGetComponent<Tower>(out Tower towerClassInstance))
                     {
-                        towerClassInstance.OnPlaced(t);
+                        towerClassInstance.OnPlaced(t, moneyCost, ironCost);
                         //t.isWalkable = false; // tile can no longer be walked on since there has been a tower placed on it
                     }
                     if (Tower.TryGetComponent<Conveyors.ConveyorManager>(out Conveyors.ConveyorManager conveyorClassInstance))
                     {
-                        conveyorClassInstance.OnPlaced();
+                        conveyorClassInstance.OnPlaced(moneyCost, ironCost);
                     }
 
 
