@@ -83,6 +83,9 @@ namespace Conveyors
         bool firstframe = false;
 
 
+        public int moneyCost;
+        public int ironCost;
+
 
 
 
@@ -110,10 +113,12 @@ namespace Conveyors
             if(active && placed)
                 ItemTransfer();
         }
-        public void OnPlaced()
+        public void OnPlaced(int pMoneyCost, int pIronCost)
         {
             placed = true;
             state = ConveyorState.Idle;
+            moneyCost = pMoneyCost;
+            ironCost = pIronCost;
         }
 
         private void ItemTransfer()
@@ -650,6 +655,14 @@ namespace Conveyors
         {
             Tile t = Tile.Vector3ToTile( transform.position);
             t.tileObject = null;
+
+
+            PlayerResources.AddMoney(moneyCost);
+            PlayerResources.AddIron(ironCost);
+            for (int i = 0; i < ConveyorInv.items.Count; i++)
+            {
+                PlayerResources.UpdateInventory(ConveyorInv.items[i], ConveyorInv.quantity[i]);
+            }
         }
     }
 }

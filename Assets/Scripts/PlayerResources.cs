@@ -79,7 +79,7 @@ namespace HordeSurvivalGame
             playerHealth = value;
         }
 
-        private static void UpdateInventory(Item i , int count)
+        public static void UpdateInventory(Item i , int count)
         {
             if (count < 0)
             {

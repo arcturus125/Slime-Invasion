@@ -26,9 +26,9 @@ namespace Towers
         {
             
         }
-        public override void OnPlaced(Tile t)
+        public override void OnPlaced(Tile t, int pMoneyCost, int pIronCost)
         {
-            base.OnPlaced(t);
+            base.OnPlaced(t, pMoneyCost, pIronCost);
             if (Tile.tileMap[x, y] is OreTile)
             {
                 Debug.Log("tower placed on ore at" + Tile.TileToVector3(Tile.tileMap[x, y]));
