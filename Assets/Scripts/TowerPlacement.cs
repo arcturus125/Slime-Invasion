@@ -6,13 +6,16 @@ using UnityEngine.EventSystems;
 
 using Pathfinder.tiles;
 using Towers;
+using UnityEngine.UI;
 
 namespace HordeSurvivalGame
 {
-    public class TowerPlacement : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
+    public class TowerPlacement : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         GameObject Tower;
+        public GameObject hoverPanel;
         public GameObject prefab;
+        public string description;
         public int moneyCost = 0;
         public int ironCost = 0;
         bool readyToPlace = false;
@@ -140,6 +143,10 @@ namespace HordeSurvivalGame
             if (Tower && !allowPlacement) Destroy(Tower);
         }
 
+        private void Start()
+        {
+            hoverPanel.SetActive(false);
+        }
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.P)) //Enter dev mode.
@@ -147,6 +154,25 @@ namespace HordeSurvivalGame
                 developerMode = !developerMode;
                 Debug.LogWarning("Dev mode is "+ developerMode);
             }
+
+
+        }
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            hoverPanel.SetActive(true);
+
+            hoverPanel.transform.position = this.transform.position + new Vector3(0,190,0);
+
+            Text[] texts = hoverPanel.GetComponentsInChildren<Text>();
+
+            texts[0].text = this.gameObject.name +":\n"+description;
+            texts[1].text = moneyCost + "";
+            texts[2].text = ironCost + "";
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            hoverPanel.SetActive(false);
         }
     }
 }
