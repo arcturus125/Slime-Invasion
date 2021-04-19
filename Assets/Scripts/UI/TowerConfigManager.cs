@@ -15,6 +15,8 @@ public class TowerConfigManager : MonoBehaviour
     private RectTransform contentWindow;
     [SerializeField]
     private GameObject scrollView;
+    [SerializeField]
+    private GameObject EmptyPanel;
 
     public float YOffsetMultiplier = 0;
     public float Yoffset = -18.2f;
@@ -39,29 +41,39 @@ public class TowerConfigManager : MonoBehaviour
 
         if (selectedTower != null)
         {
-            if (itemListings.Count != selectedTower.inv.items.Count)
+            if (selectedTower.inv.items.Count > 0)
             {
-                foreach (TowerInventoryItem listing in itemListings)
-                    Destroy(listing.gameObject);
-                itemListings.Clear();
-
-
-                Inventory towerInv = selectedTower.inv;
-                for (int i = 0; i < towerInv.items.Count; i++)
+                scrollView.SetActive(true);
+                EmptyPanel.SetActive(false);
+                if (itemListings.Count != selectedTower.inv.items.Count)
                 {
-                    TowerInventoryItem temp = Instantiate(prefab, Vector3.zero, Quaternion.identity, contentWindow);
-                    temp.transform.localPosition = new Vector2(Xoffset, Yoffset + YOffsetMultiplier * i);
-                    temp.INIT(towerInv.items[i], towerInv.quantity[i]);
-                    itemListings.Add(temp);
+                    foreach (TowerInventoryItem listing in itemListings)
+                        Destroy(listing.gameObject);
+                    itemListings.Clear();
+
+
+                    Inventory towerInv = selectedTower.inv;
+                    for (int i = 0; i < towerInv.items.Count; i++)
+                    {
+                        TowerInventoryItem temp = Instantiate(prefab, Vector3.zero, Quaternion.identity, contentWindow);
+                        temp.transform.localPosition = new Vector2(Xoffset, Yoffset + YOffsetMultiplier * i);
+                        temp.INIT(towerInv.items[i], towerInv.quantity[i]);
+                        itemListings.Add(temp);
+                    }
+                }
+                else
+                {
+                    Inventory towerInv = selectedTower.inv;
+                    for (int i = 0; i < towerInv.items.Count; i++)
+                    {
+                        itemListings[i].INIT(towerInv.items[i], towerInv.quantity[i]);
+                    }
                 }
             }
             else
             {
-                Inventory towerInv = selectedTower.inv;
-                for (int i = 0; i < towerInv.items.Count; i++)
-                {
-                    itemListings[i].INIT(towerInv.items[i], towerInv.quantity[i]);
-                }
+                scrollView.SetActive(false);
+                EmptyPanel.SetActive(true);
             }
         }
     }
