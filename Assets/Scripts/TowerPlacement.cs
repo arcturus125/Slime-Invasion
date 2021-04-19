@@ -22,6 +22,9 @@ namespace HordeSurvivalGame
         bool allowPlacement = false;
         public bool developerMode = false; //Costs for towers are ignored, to be able to test features, without removing the cost entirely.
 
+        public bool placementExemption = false;
+        public Vector3[] cardinalDirections; // assigned in inspector
+
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -58,8 +61,9 @@ namespace HordeSurvivalGame
                 Tower.transform.position = clickInTilespace;
 
                 allowPlacement = false;
+                allowPlacement = isPlacableWithOrthogonal(clickInTilespace);
                 // if tower is walkable, change model colour to green
-                if ((Tile.Vector3ToTile(clickInTilespace).isPlaceable))
+                if (isPlacableWithOrthogonal(clickInTilespace))
                 {
                     
                     if (developerMode ||                                                                    // if dev mode turned on, place tower OR
@@ -173,6 +177,28 @@ namespace HordeSurvivalGame
         public void OnPointerExit(PointerEventData eventData)
         {
             hoverPanel.SetActive(false);
+        }
+
+        private bool isPlacableWithOrthogonal(Vector3 clickInTilespace)
+        {
+            if (Tile.Vector3ToTile(clickInTilespace).isPlaceable)
+            {
+                if  (placementExemption) return true;
+                foreach (Vector3 direction in cardinalDirections)
+                {
+                    Tile t = Tile.Vector3ToTile(clickInTilespace + direction);
+                    if(t.towerObject != null)
+                    {
+                        if(t.towerObject.tag == "Tower")
+                        {
+                            Debug.Log("Checking placement");
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            else return false;
         }
     }
 }

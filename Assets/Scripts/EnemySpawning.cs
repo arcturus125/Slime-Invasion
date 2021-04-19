@@ -11,11 +11,16 @@ public class EnemySpawning : MonoBehaviour
     [SerializeField]
     private Sprite spawnableMap; //The image of the playable area. Used to ensure enemies don't spawn on inaccessible or invalid tiles.
     public Player player; //Used to make sure enemies don't spawn too close to the player.
+    public int noOfEnemiesAtStart = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         spawnTimer = TIMER_START_VALUE; //Sets timer to start value.
+        //for (int i = 0; i < noOfEnemiesAtStart; i++)
+        //{
+        //    SpawnEnemy();
+        //}
     }
 
     // Update is called once per frame
