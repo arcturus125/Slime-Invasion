@@ -15,7 +15,7 @@ namespace Pathfinder
 
         private List<Vector3> path = new List<Vector3>();
 
-        private int count = 0;
+        public static int LoopCount = 1000;
 
         /// <summary>
         /// this function will use A* pathfinding to find an optimal path
@@ -25,6 +25,7 @@ namespace Pathfinder
         /// <param name="targetObject"> the transform you want to pathfind to</param>
         public List<Vector3> FindPath(Transform thisObject, Transform targetObject)
         {
+            path.Clear();
             Tile startTile =  Tile.Vector3ToTile(thisObject.position);
             Tile destinationTile = Tile.Vector3ToTile(targetObject.position);
 
@@ -48,7 +49,7 @@ namespace Pathfinder
 
         private bool SearchAdjacentTiles(Tile startTile, Tile destinationTile, Tile CurrentTile)
         {
-            for(int i = 0; i < 1000;i++)
+            for(int i = 0; i < LoopCount; i++)
             {
                 // if a path is found
                 if (CurrentTile == destinationTile)

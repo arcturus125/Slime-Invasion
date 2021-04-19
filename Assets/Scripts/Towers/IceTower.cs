@@ -62,9 +62,12 @@ namespace Towers
                 if (currentFrame_Enemies.Contains(e)) continue;
                 else
                 {
-                    // enemy just left the range of the tower
-                    EnemyLeave(e);
-                    e.effectLayer.GetComponent<Renderer>().material = enemyEffectNone;
+                    if (e)
+                    {
+                        // enemy just left the range of the tower
+                        EnemyLeave(e);
+                        e.effectLayer.GetComponent<Renderer>().material = enemyEffectNone;
+                    }
                 }
             }
             lastFrame_Enemies.Clear();

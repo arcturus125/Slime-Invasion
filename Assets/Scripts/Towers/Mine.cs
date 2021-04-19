@@ -11,7 +11,7 @@ namespace Towers
 {
     public class Mine : Tower
     {
-        float miningSpeed = 1;
+        float miningSpeed = 3;
         int dropSize = 1;
         Item resource = null;
 
@@ -44,10 +44,10 @@ namespace Towers
         {
             if (resource) // only drop if the mine is places ontop of a resource
             {
-                timeSinceLastDrop += Time.deltaTime;
+                timeSinceLastDrop += Time.deltaTime * speedMultiplier;
                 if (timeSinceLastDrop >= miningSpeed)
                 {
-                    timeSinceLastDrop -= miningSpeed * speedMultiplier;
+                    timeSinceLastDrop -= miningSpeed;
                     Drop();
                 }
             }

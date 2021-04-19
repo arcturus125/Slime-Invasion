@@ -32,6 +32,7 @@ namespace HordeSurvivalGame
         public int repathfindAfterTicks = 5;
         public float pathfindingErrorTimer = 3; // if pathfinding fails, wait until this many seconds pass before re-atteempting
         public float errorTimer = 0;
+        public static float effectRadius = 5;
 
         public GameObject effectLayer;
 
