@@ -31,6 +31,8 @@ namespace HordeSurvivalGame
         public float pathfindingErrorTimer = 3; // if pathfinding fails, wait until this many seconds pass before re-atteempting
         public float errorTimer = 0;
 
+        public GameObject effectLayer;
+
         
         public Player playerReference;
 

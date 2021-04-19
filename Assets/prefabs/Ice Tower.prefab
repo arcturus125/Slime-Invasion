@@ -1992,6 +1992,8 @@ MonoBehaviour:
   recievableItem: {fileID: 11400000, guid: 91829cbf5bd9012478d25238983f7682, type: 2}
   speedMultiplier: 1
   powerNeedToSpeedUp: 15
+  enemyEffectNone: {fileID: 2100000, guid: 922b03e8a49b1a94ca76a37dcd4155e9, type: 2}
+  enemyEffectIce: {fileID: 2100000, guid: d46b2fd40332e5543ac7ab164bc0800b, type: 2}
 --- !u!65 &4867087266196995578
 BoxCollider:
   m_ObjectHideFlags: 0

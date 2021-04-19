@@ -18,6 +18,10 @@ namespace Towers
         float attackSpeedTimer = DEFAULT_ATTACK_SPEED;
 
         List<Enemy> targetEnemies = new List<Enemy>(); // the enemies that this tower will damage
+        List<Enemy> lastFrameEnemies = new List<Enemy>(); // the enemies that this tower will damage
+
+        public Material enemyEffectNone;
+        public Material enemyEffectFire;
 
         // Start is called before the first frame update
         void Start()
@@ -28,42 +32,65 @@ namespace Towers
         // Update is called once per frame
         void Update()
         {
+
+            // set currentFrame enemies
+            Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
+            targetEnemies.Clear();
+            foreach (Collider c in colls)
+            {
+                if (c.gameObject.TryGetComponent(out Enemy e))
+                {
+                    targetEnemies.Add(e);
+                }
+            }
+            // determine any enemies that have left the range
+            foreach (Enemy e in lastFrameEnemies)
+            {
+                if (targetEnemies.Contains(e)) continue;
+                else
+                {
+                    // enemy just left the range of the tower
+                    e.effectLayer.GetComponent<Renderer>().material = enemyEffectNone;
+                }
+            }
+
+
             // if the gun has ammo
             if (inv.IsItemInInv(recievableItem))
             {
                 Attack();
             }
+
+
+
+            lastFrameEnemies.Clear();
+            foreach (Enemy e in targetEnemies)
+                lastFrameEnemies.Add(e);
+            targetEnemies.Clear();
+
         }
 
         private void Attack()
         {
             /* if timer <=0
-                         *      get a list of all enemies within effectRadius
-                         *      damage those enemies by DPS
-                         *      timer = 1;
-                         *  else
-                         *      timer -= time.deltatime
-                         */
+             * loop through all enemies in radius           
+             *      timer = 1;
+             *  else
+             *      timer -= time.deltatime
+             */
             if (attackSpeedTimer <= 0)
             {
-                Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
-                targetEnemies.Clear();
-                foreach (Collider c in colls)
-                {
-                    if (c.gameObject.TryGetComponent(out Enemy e))
-                    {
-                        targetEnemies.Add(e);
-                    }
-                }
                 foreach (Enemy e in targetEnemies)
                 {
                     e.Damage(DPS);
-                    //Instantiate(fireParticles, e.transform.position, Quaternion.identity);
+                    e.effectLayer.GetComponent<Renderer>().material = enemyEffectFire;
                     inv.removeItem(recievableItem);
                 }
                 attackSpeedTimer = 1 / (DEFAULT_ATTACK_SPEED * speedMultiplier);
             }
             else attackSpeedTimer -= Time.deltaTime;
+
+            
         }
     }
 }
