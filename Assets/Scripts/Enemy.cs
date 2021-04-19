@@ -15,8 +15,10 @@ namespace HordeSurvivalGame
         private Slider healthBar;
         public int maxHealth = 5;
         public int remainingHealth;
-        public float finalSpeed = 0.02f; // the speed of the enemy AFTER all the effects have been applied
-        public float defaultSpeed = 0.02f;
+        const float STARTING_SPEED = 0.02f;
+        const float SPEED_CAP = 0.06f;
+        float finalSpeed = STARTING_SPEED; // the speed of the enemy AFTER all the effects have been applied
+        static float defaultSpeed = STARTING_SPEED;
 
         public static float defaultHealthBarTimer = 3.0f; // health bar wil show for 3 seconds before dissapearing
         float healthBarTimeLeft = 0;
@@ -71,6 +73,16 @@ namespace HordeSurvivalGame
                 {
                     healthBar.gameObject.SetActive(false);
                 }
+            }
+
+            if (CameraScript.GetTimeSurvived() > (2.0f * 60.0f) && defaultSpeed < SPEED_CAP) //Enemy doesn't start to speed up for the first 5 minutes.
+            {
+                defaultSpeed += Time.deltaTime / 50000.0f;
+                Debug.Log("Speed is " + defaultSpeed);
+            }
+            if (defaultSpeed > SPEED_CAP)
+            {
+                defaultSpeed = SPEED_CAP;
             }
         }
 
@@ -175,6 +187,16 @@ namespace HordeSurvivalGame
         {
             PlayerResources.AddLives(-1);
             playerReference.LostHealth();
+        }
+
+        public float GetFinalSpeed()
+        {
+            return finalSpeed;
+        }
+
+        public void SetFinalSpeed(float value)
+        {
+            finalSpeed = value;
         }
     } 
 }

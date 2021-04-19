@@ -9,7 +9,7 @@ namespace Towers
 {
     public class IceTower : Tower
     {
-        float effectRadius = 7; // the radius the ice tower can slow enemies
+        float effectRadius = 5; // the radius the ice tower can slow enemies
         float slowingPower = 0.5f; // a percentage to slow the enemies speed by. default 0.5. 0.5 means enemies will move at 50% speed when in radius
 
         List<Enemy> lastFrame_Enemies = new List<Enemy>();
@@ -77,13 +77,13 @@ namespace Towers
 
         private void EnemyLeave(Enemy e)
         {
-            e.finalSpeed = e.finalSpeed / (slowingPower * speedMultiplier);
+            e.SetFinalSpeed(e.GetFinalSpeed() / (slowingPower / speedMultiplier));
             Debug.Log("speeding back up");
         }
 
         private void EnemyEnter(Enemy e)
         {
-            e.finalSpeed = e.finalSpeed * (slowingPower * speedMultiplier);
+            e.SetFinalSpeed(e.GetFinalSpeed() * (slowingPower / speedMultiplier));
             e.effectLayer.GetComponent<Renderer>().material = enemyEffectIce;
             Debug.Log("slowing down");
         }

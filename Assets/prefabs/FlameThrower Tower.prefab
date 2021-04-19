@@ -2874,7 +2874,7 @@ MonoBehaviour:
   y: 0
   recievableItem: {fileID: 11400000, guid: 91829cbf5bd9012478d25238983f7682, type: 2}
   speedMultiplier: 1
-  powerNeedToSpeedUp: 20
+  powerNeedToSpeedUp: 50
   fireParticles: {fileID: 8510011928160643820, guid: d64a912ba5179c047836dd19802289a0, type: 3}
   enemyEffectNone: {fileID: 2100000, guid: 922b03e8a49b1a94ca76a37dcd4155e9, type: 2}
   enemyEffectFire: {fileID: 2100000, guid: acf5abbd129d78741a3cbf57c593fd1c, type: 2}
