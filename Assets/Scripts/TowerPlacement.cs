@@ -92,7 +92,7 @@ namespace HordeSurvivalGame
                     foreach (Renderer r in rend) r.material.SetColor("_BaseColor", Color.red);
                     allowPlacement = false;
 
-                    Debug.LogWarning("Player attempted to place a tower ontop of another tower. cancelling placement");
+                    //Debug.LogWarning("Player attempted to place a tower ontop of another tower. cancelling placement");
                 }
 
 

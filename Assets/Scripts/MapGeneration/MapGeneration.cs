@@ -145,7 +145,7 @@ namespace MapGeneration
 
             // hooks the gameobject tile up to the tile system utilised by the pathfinding algorithm
             Tile.tileMap[x, y] = new Tile(x,y, tileObject);
-            tileObject.AddComponent<TileObserver>().INIT(x,y);
+            //tileObject.AddComponent<TileObserver>().INIT(x,y);
 
 
 
