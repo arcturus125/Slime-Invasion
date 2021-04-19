@@ -77,13 +77,13 @@ namespace Towers
 
         private void EnemyLeave(Enemy e)
         {
-            e.finalSpeed = e.finalSpeed / (slowingPower / speedMultiplier);
+            e.SetFinalSpeed(e.GetFinalSpeed() / (slowingPower / speedMultiplier));
             Debug.Log("speeding back up");
         }
 
         private void EnemyEnter(Enemy e)
         {
-            e.finalSpeed = e.finalSpeed * (slowingPower / speedMultiplier);
+            e.SetFinalSpeed(e.GetFinalSpeed() * (slowingPower / speedMultiplier));
             e.effectLayer.GetComponent<Renderer>().material = enemyEffectIce;
             Debug.Log("slowing down");
         }
