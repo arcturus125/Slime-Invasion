@@ -7,7 +7,7 @@ using ItemSystem;
 
 namespace HordeSurvivalGame
 {
-    class PlayerResources : MonoBehaviour
+    class PlayerResources
     {
         // used to reference specific item types in inventory - better than trying to load files or determine what an item is via name
         public static Item iron;
