@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ItemSystem;
+using System.Collections;
 using System.Collections.Generic;
 using Towers;
 using UnityEngine;
@@ -14,6 +15,12 @@ namespace HordeSurvivalGame
 
         private List<GameObject> arrows = new List<GameObject>();
 
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            inv = new Inventory(); // give tower a temporary inventory until the tower is placed - this elliviates errors and is overwritten later
+        }
         // Update is called once per frame
         void Update()
         {
