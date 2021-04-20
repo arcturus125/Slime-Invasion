@@ -61,7 +61,7 @@ namespace HordeSurvivalGame
                 Tower.transform.position = clickInTilespace;
 
                 allowPlacement = false;
-                allowPlacement = isPlacableWithOrthogonal(clickInTilespace);
+                //allowPlacement = isPlacableWithOrthogonal(clickInTilespace);
                 // if tower is walkable, change model colour to green
                 if (isPlacableWithOrthogonal(clickInTilespace))
                 {
@@ -153,11 +153,11 @@ namespace HordeSurvivalGame
         }
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P)) //Enter dev mode.
-            {
-                developerMode = !developerMode;
-                Debug.LogWarning("Dev mode is "+ developerMode);
-            }
+            //if (Input.GetKeyDown(KeyCode.P)) //Enter dev mode.
+            //{
+            //    developerMode = !developerMode;
+            //    Debug.LogWarning("Dev mode is "+ developerMode);
+            //}
 
 
         }
