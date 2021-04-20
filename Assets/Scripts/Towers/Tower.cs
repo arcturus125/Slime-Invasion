@@ -47,6 +47,13 @@ namespace Towers
         }
 
 
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            inv = new Inventory(); // give tower a temporary inventory until the tower is placed - this elliviates errors and is overwritten later
+        }
+
         private void OnDestroy()
         {
             Tile t = Tile.Vector3ToTile(transform.position);

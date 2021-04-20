@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    public GameObject controlsPanel;
+
+    private void Start()
+    {
+        if(controlsPanel)
+        controlsPanel.SetActive(false);
+    }
+
     public void ChangeSceneButtonPress(string scene) //Currently used for the start button, but options could use this as well if it ends up changing to another scene.
     {
         try
@@ -20,5 +28,10 @@ public class ButtonManager : MonoBehaviour
     public void QuitApplicationButtonPress() //Quits the game.
     {
         Application.Quit();
+    }
+
+    public void ToggleControls()
+    {
+        controlsPanel.SetActive(!controlsPanel.activeInHierarchy);
     }
 }

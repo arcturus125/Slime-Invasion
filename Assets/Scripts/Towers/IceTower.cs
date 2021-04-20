@@ -4,6 +4,7 @@ using UnityEngine;
 
 using HordeSurvivalGame;
 using System;
+using ItemSystem;
 
 namespace Towers
 {
@@ -21,7 +22,7 @@ namespace Towers
         // Start is called before the first frame update
         void Start()
         {
-
+            inv = new Inventory(); // give tower a temporary inventory until the tower is placed - this elliviates errors and is overwritten later
         }
 
         // Update is called once per frame
@@ -39,43 +40,46 @@ namespace Towers
              *  clear current frame
              */
 
-            Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
-            foreach (Collider c in colls)
+            // if the gun has ammo
+            if (inv.IsItemInInv(recievableItem))
             {
-                if (c.gameObject.TryGetComponent(out Enemy e))
+                Collider[] colls = Physics.OverlapSphere(transform.position, effectRadius);
+                foreach (Collider c in colls)
                 {
-                    currentFrame_Enemies.Add(e);
-                }
-            }
-
-            foreach (Enemy e in currentFrame_Enemies)
-            {
-                if (lastFrame_Enemies.Contains(e)) continue;
-                else
-                {
-                    // enemy just entered the range of the tower
-                    EnemyEnter(e);
-                }
-            }
-            foreach (Enemy e in lastFrame_Enemies)
-            {
-                if (currentFrame_Enemies.Contains(e)) continue;
-                else
-                {
-                    if (e)
+                    if (c.gameObject.TryGetComponent(out Enemy e))
                     {
-                        // enemy just left the range of the tower
-                        EnemyLeave(e);
-                        e.effectLayer.GetComponent<Renderer>().material = enemyEffectNone;
+                        currentFrame_Enemies.Add(e);
                     }
                 }
+
+                foreach (Enemy e in currentFrame_Enemies)
+                {
+                    if (lastFrame_Enemies.Contains(e)) continue;
+                    else
+                    {
+                        // enemy just entered the range of the tower
+                        EnemyEnter(e);
+                    }
+                }
+                foreach (Enemy e in lastFrame_Enemies)
+                {
+                    if (currentFrame_Enemies.Contains(e)) continue;
+                    else
+                    {
+                        if (e)
+                        {
+                            // enemy just left the range of the tower
+                            EnemyLeave(e);
+                            e.effectLayer.GetComponent<Renderer>().material = enemyEffectNone;
+                        }
+                    }
+                }
+                lastFrame_Enemies.Clear();
+                foreach (Enemy e in currentFrame_Enemies)
+                    lastFrame_Enemies.Add(e);
+                currentFrame_Enemies.Clear();
+
             }
-            lastFrame_Enemies.Clear();
-            foreach (Enemy e in currentFrame_Enemies)
-                lastFrame_Enemies.Add(e);
-            currentFrame_Enemies.Clear();
-
-
         }
 
         private void EnemyLeave(Enemy e)
